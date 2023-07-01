@@ -4,6 +4,9 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, UserRegistrationForm
 
 def register(request):
+    if request.user.is_authenticated:
+        return redirect('index')
+
     if request.method == "POST":
         user_form = UserRegistrationForm(request.POST)
         if user_form.is_valid():           
@@ -22,6 +25,9 @@ def register(request):
 
 
 def user_login(request):
+    if request.user.is_authenticated:
+        return redirect('index')
+    
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
