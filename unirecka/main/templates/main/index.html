@@ -70,7 +70,7 @@
                             daje możliwość poznania uczelni "od kuchni".
                         </p>
                         <p>
-                            <a class="btn btn-lg btn-primary" href="#">O nas</a>
+                            <a class="btn btn-lg btn-primary" href="{% url 'about' %}">O nas</a>
                         </p>
                     </div>
                 </div>
@@ -140,7 +140,6 @@
                     <a class="btn btn-primary" href="#">Zobacz opinie</a>
                 </p>
             </div>
-            <!-- /.col-lg-4 -->
             <div class="col-lg-4 d-flex flex-column align-items-center">
                 <img src="{% static 'main/uw.jpg' %}"
                      alt=""
@@ -161,7 +160,6 @@
                     <a class="btn btn-primary" href="#">Zobacz opinie</a>
                 </p>
             </div>
-            <!-- /.col-lg-4 -->
             <div class="col-lg-4 d-flex flex-column align-items-center">
                 <img src="{% static 'main/agh.jpg' %}"
                      alt=""
@@ -182,7 +180,6 @@
                     <a class="btn btn-primary" href="#">Zobacz opinie</a>
                 </p>
             </div>
-            <!-- /.col-lg-4 -->
         </div>
     </div>
 {% endblock content %}
