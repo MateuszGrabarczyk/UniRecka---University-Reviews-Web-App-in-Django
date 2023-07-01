@@ -48,14 +48,22 @@
             <li class="nav-item opacity">
               <a class="nav-link mx-2 active" href="{% url 'about' %}">O nas</a>
             </li>
-            <li class="nav-item">
-              <a class="btn btn-primary mx-2 my-2 my-sm-2 my-md-0 my-lg-0 my-xl-0 my-xxl-0"
-                 href="#">Zaloguj się</a>
-            </li>
-            <li class="nav-item">
-              <a class="btn btn-primary my-2 mx-2 my-sm-2 my-md-0 my-lg-0 my-xl-0 my-xxl-0"
-                 href="#">Zarejestruj się</a>
-            </li>
+            {% if not user.is_authenticated %}
+              <li class="nav-item">
+                <a class="btn btn-primary mx-2 my-2 my-sm-2 my-md-0 my-lg-0 my-xl-0 my-xxl-0"
+                   href="{% url 'login' %}">Zaloguj się</a>
+              </li>
+              <li class="nav-item">
+                <a class="btn btn-primary my-2 mx-2 my-sm-2 my-md-0 my-lg-0 my-xl-0 my-xxl-0"
+                   href="#">Zarejestruj się</a>
+              </li>
+            {% endif %}
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="btn btn-primary mx-2 my-2 my-sm-2 my-md-0 my-lg-0 my-xl-0 my-xxl-0"
+                   href="{% url 'logout' %}">Wyloguj się</a>
+              </li>
+            {% endif %}
             <!-- <li class="nav-item dropdown">
                 <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Company
