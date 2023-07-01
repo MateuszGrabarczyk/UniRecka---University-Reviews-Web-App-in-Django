@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href={% static "account/register.css" %}>
+{% endblock css %}
+{% block title %}
+    Zerejestruj się
+{% endblock title %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <h1 class="p-0">Zarejestruj się</h1>
+        </div>
+        <form action="." method="post" name="UserRegistrationForm">
+            {% csrf_token %}
+            <div class="row mt-2">
+                <label class="p-0 mb-1" for="id_username">Nazwa użytkownika</label>
+                <input type="text"
+                       id="id_username"
+                       name="username"
+                       class="form-control text-bg-dark"
+                       placeholder="Nazwa użytkownika"
+                       required />
+            </div>
+            <div class="row mt-2">
+                <label class="p-0 mb-1" for="id_email">Adres email</label>
+                <input type="text"
+                       id="id_email"
+                       name="email"
+                       class="form-control text-bg-dark"
+                       placeholder="Adres email"
+                       required />
+            </div>
+            <div class="row mt-2">
+                <label class="p-0 mb-1" for="id_password">Hasło</label>
+                <input type="password"
+                       class="form-control text-bg-dark"
+                       placeholder="Hasło"
+                       name="password"
+                       id="id_password"
+                       required />
+            </div>
+            <div class="row mt-2">
+                <label class="p-0 mb-1" for="id_password2">Powtórz hasło</label>
+                <input type="password"
+                       class="form-control text-bg-dark"
+                       placeholder="Powtórz hasło"
+                       name="password2"
+                       id="id_password2"
+                       required />
+            </div>
+            <div class="row mt-4 d-flex justify-content-center align-items-center">
+                <input class="btn btn-primary" type="submit" value="Zarejestruj się">
+            </div>
+        </form>
+    </div>
+{% endblock content %}
