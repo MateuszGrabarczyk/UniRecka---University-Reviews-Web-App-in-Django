@@ -1,0 +1,39 @@
+nav {
+    color: white;
+}
+
+body {
+    color: white;
+}
+
+h1 {
+    color: white;
+}
+
+.opacity:hover {
+    opacity: 0.5;
+}
+
+a:hover {
+    opacity: 0.75;
+}
+
+a {
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.75;
+}
+
+h3 {
+    color: white;
+}
+
+.bigger-font {
+    font-size: 25px;
+}
+
+.lower-opacity {
+    opacity: 0.5;
+}
