@@ -24,7 +24,8 @@
   <body class="bg-dark">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark p-2">
       <div class="container-fluid">
-        <a class="navbar-brand p-0 fw-ligth bigger-font" href="#"><strong>Uni</strong>Recki</a>
+        <a class="navbar-brand p-0 fw-ligth bigger-font"
+           href="{% url 'index' %}"><strong>Uni</strong>Recki</a>
         <button class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
@@ -37,13 +38,15 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item opacity">
-              <a class="nav-link mx-2 active" aria-current="page" href="#">Strona główna</a>
+              <a class="nav-link mx-2 active"
+                 aria-current="page"
+                 href="{% url 'index' %}">Strona główna</a>
             </li>
             <li class="nav-item opacity">
               <a class="nav-link mx-2 active" href="#">Recenzje</a>
             </li>
             <li class="nav-item opacity">
-              <a class="nav-link mx-2 active" href="#">O nas</a>
+              <a class="nav-link mx-2 active" href="{% url 'about' %}">O nas</a>
             </li>
             <li class="nav-item">
               <a class="btn btn-primary mx-2 my-2 my-sm-2 my-md-0 my-lg-0 my-xl-0 my-xxl-0"
