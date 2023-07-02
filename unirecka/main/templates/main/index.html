@@ -93,9 +93,11 @@
                             Załóż konto już dziś i dodaj opinię o uczelni, na której
                             studiowałeś.
                         </p>
-                        <p>
-                            <a class="btn btn-lg btn-primary" href="{% url 'register' %}">Załóż konto</a>
-                        </p>
+                        {% if not user.is_authenticated %}
+                            <p>
+                                <a class="btn btn-lg btn-primary" href="{% url 'register' %}">Załóż konto</a>
+                            </p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
