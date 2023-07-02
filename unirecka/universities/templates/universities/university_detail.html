@@ -7,7 +7,18 @@
     Uczelnia
 {% endblock title %}
 {% block content %}
-    <h1>{{ university.name }}</h1>
-    <p>Lokalizacja: {{ university.city }}, {{ university.voivodeship }}</p>
-    <a href="{{ university.link }}" class="btn btn-primary">Przejdź do strony uczelni</a>
+    <div class="container">
+        <h1>{{ university.name }}</h1>
+        <h3>Lokalizacja: {{ university.city }}, {{ university.voivodeship | capfirst }}</h3>
+        <a href="{{ university.link }}" class="btn btn-primary">Przejdź do strony uczelni</a>
+        <h3>Jesteś ciekawy, jaką opinię mają studenci i absolwenci na temat tej uczelni? Zerknij niżej!</h3>
+        {% for review in university.review_set.all %}
+            <h4>{{ review.title }}</h4>
+            <p>{{ review.description }}</p>
+            <p>Ocena: {{ review.rating }}/5</p>
+            <p>Autor: {{ review.user.username }}</p>
+        {% empty %}
+            <p>Brak opinii dla tej uczelni.</p>
+        {% endfor %}
+    </div>
 {% endblock content %}
