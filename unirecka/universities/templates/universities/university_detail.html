@@ -1,22 +1,26 @@
 {% extends "base.html" %}
 {% load static %}
 {% block css %}
-    <link rel="stylesheet" href={% static "universities/university_list.css" %}>
+    <link rel="stylesheet" href="{% static "universities/university_detail.css" %}">
 {% endblock css %}
 {% block title %}
     Uczelnia
 {% endblock title %}
 {% block content %}
-    <div class="container">
-        <h1>{{ university.name }}</h1>
-        <h3>Lokalizacja: {{ university.city }}, {{ university.voivodeship | capfirst }}</h3>
+    <div class="container mt-5">
+        <h1 class="mb-3">{{ university.name }}</h1>
+        <h3 class="mb-3">Lokalizacja: {{ university.city }}, {{ university.voivodeship | capfirst }}</h3>
         <a href="{{ university.link }}" class="btn btn-primary">Przejdź do strony uczelni</a>
-        <h3>Jesteś ciekawy, jaką opinię mają studenci i absolwenci na temat tej uczelni? Zerknij niżej!</h3>
+        <h3 class="mb-3">Jesteś ciekawy, jaką opinię mają studenci i absolwenci na temat tej uczelni? Zerknij niżej!</h3>
         {% for review in university.review_set.all %}
-            <h4>{{ review.title }}</h4>
-            <p>{{ review.description }}</p>
-            <p>Ocena: {{ review.rating }}/5</p>
-            <p>Autor: {{ review.user.username }}</p>
+            <div class="card bg-dark">
+                <h5 class="card-header border-bottom">{{ review.title }}</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Ocena: {{ review.rating }}/5</h5>
+                    <p class="card-text">{{ review.description }}</p>
+                    <p class="card-text">Autor: {{ review.user.username }}</p>
+                </div>
+            </div>
         {% empty %}
             <p>Brak opinii dla tej uczelni.</p>
         {% endfor %}
