@@ -1,6 +1,7 @@
-from django.shortcuts import render
-from django.views.generic import DetailView
-from .models import University
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, CreateView
+from .models import Review, University
 
 def university_list(request):
     name = request.GET.get('name', '')
@@ -29,3 +30,15 @@ class UniversityDetailView(DetailView):
     model = University
     template_name = 'universities/university_detail.html'  # Replace with your desired template name
     context_object_name = 'university'
+
+class ReviewCreateView(CreateView):
+    model = Review
+    template_name = 'universities/review_create.html'
+    fields = ['title', 'description', 'rating']
+    success_url = reverse_lazy('university_list')
+
+    def form_valid(self, form):
+        university = get_object_or_404(University, id=self.kwargs['university_id'])
+        form.instance.university = university
+        form.instance.user = self.request.user
+        return super().form_valid(form)

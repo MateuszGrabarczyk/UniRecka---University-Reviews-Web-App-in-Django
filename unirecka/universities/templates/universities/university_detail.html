@@ -11,6 +11,8 @@
         <h1 class="mb-3">{{ university.name }}</h1>
         <h3 class="mb-3">Lokalizacja: {{ university.city }}, {{ university.voivodeship | capfirst }}</h3>
         <a href="{{ university.link }}" class="btn btn-primary">Przejdź do strony uczelni</a>
+        <a href="{% url 'review_create' university.pk %}"
+           class="btn btn-primary">Dodaj opinię</a>
         <h3 class="mb-3">Jesteś ciekawy, jaką opinię mają studenci i absolwenci na temat tej uczelni? Zerknij niżej!</h3>
         {% for review in university.review_set.all %}
             <div class="card bg-dark">
