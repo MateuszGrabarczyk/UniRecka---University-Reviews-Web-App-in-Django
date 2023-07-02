@@ -135,3 +135,7 @@ MEDIA_URL = '/media/'
 STATICFILES_DIRS = [
     "C:/Users/aleks/Desktop/Mateusz/Studia/ProjektInzynierski/UniRecka/unirecka/static"
 ]
+
+LOGIN_REDIRECT_URL = 'index'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'

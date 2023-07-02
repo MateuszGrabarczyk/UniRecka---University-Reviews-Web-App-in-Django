@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, UserRegistrationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.decorators import login_required
+
 
 def register(request):
     if request.user.is_authenticated:
@@ -15,9 +18,6 @@ def register(request):
             new_user.set_password(user_form.cleaned_data['password'])
             new_user.save()
             return redirect('index')
-            # return render(request, 'account/register_done.html', {
-            #     'new_user': new_user
-            # })
     else:
         user_form = UserRegistrationForm()
     return render(request, 'account/register.html', {
@@ -50,6 +50,7 @@ def user_logout(request):
     logout(request)
     return redirect('index')
 
+@login_required
 def profile(request, user_id):
     if request.user.id != user_id:
         return redirect('index')
@@ -62,7 +63,17 @@ def profile(request, user_id):
         user.username = username
         user.email = email
         user.save()
-
         return redirect('profile', user_id=user_id)
 
     return render(request, 'account/profile.html', {'user': user})
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            return redirect('profile', user_id=request.user.id)
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'account/change_password.html', {'form': form})
