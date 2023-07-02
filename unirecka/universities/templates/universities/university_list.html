@@ -7,6 +7,41 @@
     Uczelnie
 {% endblock title %}
 {% block content %}
+    <div class="container mt-5">
+        <h1>Wyszukaj uczelnię</h1>
+        <form action="." method="get" name="SearchForm">
+            <div class="row mt-2">
+                <label class="p-0 mb-1" for="id_username">Nazwa uczelni</label>
+                <input type="text"
+                       id="id_name"
+                       name="name"
+                       value="{{ name_value }}"
+                       class="form-control text-bg-dark"
+                       placeholder="Nazwa użytkownika" />
+            </div>
+            <div class="row mt-2">
+                <label class="p-0 mb-1" for="id_password">Miasto</label>
+                <input type="text"
+                       class="form-control text-bg-dark"
+                       placeholder="Miasto"
+                       name="city"
+                       value="{{ city_value }}"
+                       id="id_city" />
+            </div>
+            <div class="row mt-2">
+                <label class="p-0 mb-1" for="id_password">Województwo</label>
+                <input type="text"
+                       class="form-control text-bg-dark"
+                       placeholder="Województwo"
+                       value="{{ voivodeship_value }}"
+                       name="voivodeship"
+                       id="id_voivodeship" />
+            </div>
+            <div class="row mt-4 d-flex justify-content-center align-items-center">
+                <input class="btn btn-primary" type="submit" value="Szukaj uczelni">
+            </div>
+        </form>
+    </div>
     <div class="container mt-5 d-flex flex-wrap justify-content-center">
         {% for university in universities %}
             <div class="card bg-dark">
