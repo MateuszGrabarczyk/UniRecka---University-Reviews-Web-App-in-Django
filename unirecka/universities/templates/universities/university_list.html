@@ -15,7 +15,8 @@
                     <p class="card-text">Lokalizacja:</p>
                     <p>{{ university.city }}, {{ university.voivodeship | capfirst }}</p>
                     <a href="{{ university.link }}" class="btn btn-primary button mt-auto">Przejdź do strony uczelni</a>
-                    <a href="#" class="btn btn-primary mt-2">Zobacz opinie</a>
+                    <a href="{% url 'university_detail' university.pk %}"
+                       class="btn btn-primary mt-2">Zobacz opinie</a>
                 </div>
             </div>
         {% endfor %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href={% static "universities/university_list.css" %}>
+{% endblock css %}
+{% block title %}
+    Uczelnia
+{% endblock title %}
+{% block content %}
+    <h1>{{ university.name }}</h1>
+    <p>Lokalizacja: {{ university.city }}, {{ university.voivodeship }}</p>
+    <a href="{{ university.link }}" class="btn btn-primary">Przejdź do strony uczelni</a>
+{% endblock content %}
