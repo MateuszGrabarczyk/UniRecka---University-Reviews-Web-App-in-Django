@@ -10,12 +10,11 @@
     <div class="container mt-5 d-flex flex-wrap justify-content-center">
         {% for university in universities %}
             <div class="card bg-dark">
-                <div class="card-body">
+                <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ university.name }}</h5>
-                    {% comment %} <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6> {% endcomment %}
                     <p class="card-text">Lokalizacja:</p>
                     <p>{{ university.city }}, {{ university.voivodeship | capfirst }}</p>
-                    <a href="#" class="btn btn-primary">Przejdź do strony uczelni</a>
+                    <a href="{{ university.link }}" class="btn btn-primary button mt-auto">Przejdź do strony uczelni</a>
                     <a href="#" class="btn btn-primary mt-2">Zobacz opinie</a>
                 </div>
             </div>
