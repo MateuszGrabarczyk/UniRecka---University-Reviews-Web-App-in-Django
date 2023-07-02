@@ -133,5 +133,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [
-    "C:/Users/aleks/Desktop/Mateusz/Studia/Projekt inżynierski/UniRecka/unirecka/static"
+    "C:/Users/aleks/Desktop/Mateusz/Studia/ProjektInzynierski/UniRecka/unirecka/static"
 ]
