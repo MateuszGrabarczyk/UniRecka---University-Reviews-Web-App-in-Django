@@ -11,7 +11,7 @@
         <h1>Wyszukaj uczelnię</h1>
         <form action="." method="get" name="SearchForm">
             <div class="row mt-2">
-                <label class="p-0 mb-1" for="id_username">Nazwa uczelni</label>
+                <label class="p-0 mb-1">Nazwa uczelni</label>
                 <input type="text"
                        id="id_name"
                        name="name"
@@ -20,7 +20,7 @@
                        placeholder="Nazwa użytkownika" />
             </div>
             <div class="row mt-2">
-                <label class="p-0 mb-1" for="id_password">Miasto</label>
+                <label class="p-0 mb-1">Miasto</label>
                 <select class="form-select text-bg-dark"
                         aria-label="Wybierz miasto"
                         name="city">
@@ -31,13 +31,16 @@
                 </select>
             </div>
             <div class="row mt-2">
-                <label class="p-0 mb-1" for="id_password">Województwo</label>
-                <input type="text"
-                       class="form-control text-bg-dark"
-                       placeholder="Województwo"
-                       value="{{ voivodeship_value }}"
-                       name="voivodeship"
-                       id="id_voivodeship" />
+                <label class="p-0 mb-1">Województwo</label>
+                <select class="form-select text-bg-dark"
+                        aria-label="Wybierz województwo"
+                        name="voivodeship">
+                    <option value="">Wszystkie województwa</option>
+                    {% for voivodeship in voivodeships %}
+                        <option {% if voivodeship_value == voivodeship %}selected{% endif %}
+                                value="{{ voivodeship }}">{{ voivodeship|capfirst }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="row mt-4 d-flex justify-content-center align-items-center">
                 <input class="btn btn-primary" type="submit" value="Szukaj uczelni">
@@ -45,17 +48,21 @@
         </form>
     </div>
     <div class="container mt-5 d-flex flex-wrap justify-content-center">
-        {% for university in universities %}
-            <div class="card bg-dark">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">{{ university.name }}</h5>
-                    <p class="card-text">Lokalizacja:</p>
-                    <p>{{ university.city }}, {{ university.voivodeship | capfirst }}</p>
-                    <a href="{{ university.link }}" class="btn btn-primary button mt-auto">Przejdź do strony uczelni</a>
-                    <a href="{% url 'university_detail' university.pk %}"
-                       class="btn btn-primary mt-2">Zobacz opinie</a>
+        {% if universities %}
+            {% for university in universities %}
+                <div class="card bg-dark">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ university.name }}</h5>
+                        <p class="card-text">Lokalizacja:</p>
+                        <p>{{ university.city }}, {{ university.voivodeship | capfirst }}</p>
+                        <a href="{{ university.link }}" class="btn btn-primary button mt-auto">Przejdź do strony uczelni</a>
+                        <a href="{% url 'university_detail' university.pk %}"
+                           class="btn btn-primary mt-2">Zobacz opinie</a>
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+            <h1>Nie znaleziono uczelni o takich kryteriach</h1>
+        {% endif %}
     </div>
 {% endblock content %}
