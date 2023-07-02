@@ -8,19 +8,21 @@ def university_list(request):
     voivodeship = request.GET.get('voivodeship', '')
     universities = University.objects.all()
     cities = universities.values_list('city', flat=True).distinct()
+    voivodeships = universities.values_list('voivodeship', flat=True).distinct()
     if name != '':
         universities = universities.filter(name__icontains=name)
     if city != '':
-        universities = universities.filter(city__icontains=city)
+        universities = universities.filter(city=city)
     if voivodeship != '':
-        universities = universities.filter(voivodeship__icontains=voivodeship)
+        universities = universities.filter(voivodeship=voivodeship)
     
     return render(request, 'universities/university_list.html', {
         'universities': universities,
         'name_value': name,
         'city_value': city,
         'voivodeship_value': voivodeship,
-        'cities': cities
+        'cities': cities,
+        'voivodeships': voivodeships
     })
 
 class UniversityDetailView(DetailView):
