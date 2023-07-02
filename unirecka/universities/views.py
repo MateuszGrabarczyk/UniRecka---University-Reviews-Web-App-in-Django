@@ -7,6 +7,7 @@ def university_list(request):
     city = request.GET.get('city', '')
     voivodeship = request.GET.get('voivodeship', '')
     universities = University.objects.all()
+    cities = universities.values_list('city', flat=True).distinct()
     if name != '':
         universities = universities.filter(name__icontains=name)
     if city != '':
@@ -18,7 +19,8 @@ def university_list(request):
         'universities': universities,
         'name_value': name,
         'city_value': city,
-        'voivodeship_value': voivodeship
+        'voivodeship_value': voivodeship,
+        'cities': cities
     })
 
 class UniversityDetailView(DetailView):

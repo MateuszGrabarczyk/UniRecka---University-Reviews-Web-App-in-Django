@@ -21,12 +21,14 @@
             </div>
             <div class="row mt-2">
                 <label class="p-0 mb-1" for="id_password">Miasto</label>
-                <input type="text"
-                       class="form-control text-bg-dark"
-                       placeholder="Miasto"
-                       name="city"
-                       value="{{ city_value }}"
-                       id="id_city" />
+                <select class="form-select text-bg-dark"
+                        aria-label="Wybierz miasto"
+                        name="city">
+                    <option value="">Wszystkie miasta</option>
+                    {% for city in cities %}
+                        <option {% if city_value == city %}selected{% endif %} value="{{ city }}">{{ city }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="row mt-2">
                 <label class="p-0 mb-1" for="id_password">Województwo</label>
