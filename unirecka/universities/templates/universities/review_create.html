@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}
+    Dodaj opinię
+{% endblock title %}
+{% block content %}
+    <div class="container mt-5">
+        <h1>Dodaj opinię</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="row mt-2">
+                <label for="id_title" class="form-label">Tytuł</label>
+                <input type="text"
+                       id="id_title"
+                       name="title"
+                       class="form-control text-bg-dark"
+                       placeholder="Tytuł"
+                       required />
+            </div>
+            <div class="row mt-2">
+                <label for="id_description" class="form-label">Opis</label>
+                <input type="text"
+                       id="id_description"
+                       name="description"
+                       class="form-control text-bg-dark"
+                       placeholder="Tytuł"
+                       required />
+            </div>
+            <div class="row mt-2">
+                <label for="id_rating" class="form-label">Ocena</label>
+                <select class="form-select text-bg-dark"
+                        aria-label="Wybierz ocenę"
+                        name="rating"
+                        required>
+                    <option selected value="">Wybierz ocenę</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+            <div class="row mt-4 d-flex justify-content-center align-items-center">
+                <input class="btn btn-primary" type="submit" value="Dodaj opinię">
+            </div>
+        </form>
+    </div>
+{% endblock content %}
