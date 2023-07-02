@@ -9,7 +9,9 @@
 {% block content %}
     <div class="container mt-5">
         <h1>Witaj, {{ user.username }}</h1>
-        <h4>Możesz edytować dane twojego konta poniżej:</h4>
+        <h4>
+            Możesz edytować dane twojego konta lub <a href={% url 'change_password' %}>zmienić hasło</a>
+        </h4>
         <form method="post">
             {% csrf_token %}
             <div class="row mt-2">
