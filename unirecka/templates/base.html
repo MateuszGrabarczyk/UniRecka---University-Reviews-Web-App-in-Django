@@ -60,20 +60,14 @@
             {% endif %}
             {% if user.is_authenticated %}
               <li class="nav-item">
+                <a class="btn btn-light mx-2 my-2 my-sm-2 my-md-0 my-lg-0 my-xl-0 my-xxl-0"
+                   href="{% url 'logout' %}">Mój profil</a>
+              </li>
+              <li class="nav-item">
                 <a class="btn btn-primary mx-2 my-2 my-sm-2 my-md-0 my-lg-0 my-xl-0 my-xxl-0"
                    href="{% url 'logout' %}">Wyloguj się</a>
               </li>
             {% endif %}
-            <!-- <li class="nav-item dropdown">
-                <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Company
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <li><a class="dropdown-item" href="#">Blog</a></li>
-                  <li><a class="dropdown-item" href="#">About Us</a></li>
-                  <li><a class="dropdown-item" href="#">Contact us</a></li>
-                </ul>
-              </li> -->
           </ul>
         </div>
       </div>
