@@ -7,53 +7,55 @@
     UniRecka - O nas
 {% endblock title %}
 {% block content %}
-    <h1>O nas</h1>
-    <div class="container_flex">
-        <div class="div_text">
-            <h4>
-                <strong>Uni</strong>Recka to innowacyjny serwis internetowy, który
-                umożliwia użytkownikom dodawanie opinii na temat różnych uczelni.
-                Platforma ta jest idealnym narzędziem dla osób poszukujących
-                rzetelnych informacji o potencjalnych instytucjach edukacyjnych.
-            </h4>
+    <div class="container">
+        <h1>O nas</h1>
+        <div class="container_flex">
+            <div class="div_text">
+                <h4>
+                    <strong>Uni</strong>Recka to innowacyjny serwis internetowy, który
+                    umożliwia użytkownikom dodawanie opinii na temat różnych uczelni.
+                    Platforma ta jest idealnym narzędziem dla osób poszukujących
+                    rzetelnych informacji o potencjalnych instytucjach edukacyjnych.
+                </h4>
+            </div>
+            <div class="div_image">
+                <img src="{% static 'main/about1.svg' %}"
+                     alt=""
+                     height="auto"
+                     width="auto" />
+            </div>
         </div>
-        <div class="div_image">
-            <img src="{% static 'main/about1.svg' %}"
-                 alt=""
-                 height="auto"
-                 width="auto" />
+        <div class="container_flex">
+            <div class="div_image">
+                <img src="{% static 'main/about2.svg' %}"
+                     alt=""
+                     height="auto"
+                     width="auto" />
+            </div>
+            <div class="div_text">
+                <h4>
+                    Dzięki UniRecka można znaleźć opinie od studentów, absolwentów i
+                    innych osób związanych z daną uczelnią, co pozwala na uzyskanie
+                    szerokiej perspektywy na temat jakości kształcenia i warunków
+                    studiowania.
+                </h4>
+            </div>
         </div>
-    </div>
-    <div class="container_flex">
-        <div class="div_image">
-            <img src="{% static 'main/about2.svg' %}"
-                 alt=""
-                 height="auto"
-                 width="auto" />
-        </div>
-        <div class="div_text">
-            <h4>
-                Dzięki UniRecka można znaleźć opinie od studentów, absolwentów i
-                innych osób związanych z daną uczelnią, co pozwala na uzyskanie
-                szerokiej perspektywy na temat jakości kształcenia i warunków
-                studiowania.
-            </h4>
-        </div>
-    </div>
-    <div class="container_flex">
-        <div class="div_text">
-            <h4>
-                Serwis <strong>Uni</strong>Recka stawia na transparentność i
-                uczciwość w publikowaniu opinii. Każdy użytkownik ma możliwość
-                wystawienia oceny uczelni oraz napisania szczegółowej recenzji,
-                dzieląc się swoimi doświadczeniami i spostrzeżeniami.
-            </h4>
-        </div>
-        <div class="div_image">
-            <img src="{% static 'main/about3.svg' %}"
-                 alt=""
-                 height="auto"
-                 width="auto" />
+        <div class="container_flex">
+            <div class="div_text">
+                <h4>
+                    Serwis <strong>Uni</strong>Recka stawia na transparentność i
+                    uczciwość w publikowaniu opinii. Każdy użytkownik ma możliwość
+                    wystawienia oceny uczelni oraz napisania szczegółowej recenzji,
+                    dzieląc się swoimi doświadczeniami i spostrzeżeniami.
+                </h4>
+            </div>
+            <div class="div_image">
+                <img src="{% static 'main/about3.svg' %}"
+                     alt=""
+                     height="auto"
+                     width="auto" />
+            </div>
         </div>
     </div>
 {% endblock content %}
