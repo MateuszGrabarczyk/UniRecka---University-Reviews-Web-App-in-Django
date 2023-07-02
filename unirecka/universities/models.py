@@ -10,6 +10,9 @@ class University(models.Model):
         verbose_name = 'University'
         verbose_name_plural = 'Universities'
 
+    def __str__(self):
+        return f"{self.name}"
+
 class Review(models.Model):
     title = models.CharField( max_length=150)
     description = models.CharField( max_length=150)
