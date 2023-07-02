@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, UserRegistrationForm
+from django.contrib.auth.models import User
 
 def register(request):
     if request.user.is_authenticated:
@@ -48,3 +49,20 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('index')
+
+def profile(request, user_id):
+    if request.user.id != user_id:
+        return redirect('index')
+    user = User.objects.get(id=user_id)
+
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email']
+
+        user.username = username
+        user.email = email
+        user.save()
+
+        return redirect('profile', user_id=user_id)
+
+    return render(request, 'account/profile.html', {'user': user})

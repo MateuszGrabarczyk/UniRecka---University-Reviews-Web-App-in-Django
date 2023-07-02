@@ -61,7 +61,7 @@
             {% if user.is_authenticated %}
               <li class="nav-item">
                 <a class="btn btn-light mx-2 my-2 my-sm-2 my-md-0 my-lg-0 my-xl-0 my-xxl-0"
-                   href="{% url 'logout' %}">Mój profil</a>
+                   href="{% url 'profile' user.pk %}">Mój profil</a>
               </li>
               <li class="nav-item">
                 <a class="btn btn-primary mx-2 my-2 my-sm-2 my-md-0 my-lg-0 my-xl-0 my-xxl-0"
