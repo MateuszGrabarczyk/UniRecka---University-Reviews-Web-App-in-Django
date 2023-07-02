@@ -1,0 +1,10 @@
+.card {
+    width: 18rem;
+    color: white;
+    border: 1px solid white;
+    margin: 10px;
+}
+
+.opacity_lower {
+    opacity: 0.9;
+}

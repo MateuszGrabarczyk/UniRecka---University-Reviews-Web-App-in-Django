@@ -7,4 +7,18 @@
     Uczelnie
 {% endblock title %}
 {% block content %}
+    <div class="container mt-5 d-flex flex-wrap">
+        {% for university in universities %}
+            <div class="card bg-dark">
+                <div class="card-body">
+                    <h5 class="card-title">{{ university.name }}</h5>
+                    {% comment %} <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6> {% endcomment %}
+                    <p class="card-text">Lokalizacja:</p>
+                    <p>{{ university.city }}, {{ university.voivodeship | capfirst }}</p>
+                    <a href="#" class="btn btn-primary opacity_lower">Przejdź do strony uczelni</a>
+                    <a href="#" class="btn btn-primary mt-2">Zobacz opinie</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock content %}
