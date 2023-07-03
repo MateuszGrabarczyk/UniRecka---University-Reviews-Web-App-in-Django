@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import University, Review
+from .models import ReviewReport, University, Review
 
 class UniversityAdmin(admin.ModelAdmin):
     list_display = ('name', 'city', 'voivodeship')
@@ -13,5 +13,10 @@ class ReviewAdmin(admin.ModelAdmin):
     list_display = ('title', 'description', 'rating', 'university', 'user')
     list_filter = ('rating', 'university', 'user')  
 
+class ReviewReportAdmin(admin.ModelAdmin):
+    list_display = ('description',)
+    list_filter = ('review',) 
+
 admin.site.register(University, UniversityAdmin)
 admin.site.register(Review, ReviewAdmin)
+admin.site.register(ReviewReport, ReviewReportAdmin)
