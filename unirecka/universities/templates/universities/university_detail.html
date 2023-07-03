@@ -14,7 +14,7 @@
         <a href="{% url 'review_create' university.pk %}"
            class="btn btn-primary">Dodaj opinię</a>
         <h3 class="mb-3">Jesteś ciekawy, jaką opinię mają studenci i absolwenci na temat tej uczelni? Zerknij niżej!</h3>
-        {% for review in university.review_set.all %}
+        {% for review in reviews %}
             <div class="card bg-dark">
                 <h5 class="card-header border-bottom">{{ review.title }}</h5>
                 <div class="card-body">
