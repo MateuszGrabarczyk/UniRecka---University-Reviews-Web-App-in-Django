@@ -35,5 +35,10 @@
                 <input class="btn btn-primary" type="submit" value="Zaloguj się">
             </div>
         </form>
+        <div class="row mt-4 d-flex justify-content-center align-items-center text-center">
+            <p>
+                Zapomniałeś hasła? Zresetuj je <a href={% url 'password_reset' %}>tutaj.</a>
+            </p>
+        </div>
     </div>
 {% endblock content %}
