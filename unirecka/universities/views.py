@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView
+from django.db.models import Avg
 from .models import Review, ReviewReport, University
 
 def university_list(request):
@@ -17,6 +18,8 @@ def university_list(request):
     if voivodeship != '':
         universities = universities.filter(voivodeship=voivodeship)
     
+    universities = universities.annotate(avg_rating=Avg('review__rating'))
+
     return render(request, 'universities/university_list.html', {
         'universities': universities,
         'name_value': name,
