@@ -1,14 +1,20 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}
     Dodaj opinię
 {% endblock title %}
+{% block css %}
+    <link rel="stylesheet" href="{% static "universities/review_create.css" %}">
+{% endblock css %}
 {% block content %}
     <div class="container mt-5">
-        <h1>Dodaj opinię</h1>
+        <div class="row">
+            <h1 class="p-0">Dodaj opinię</h1>
+        </div>
         <form method="post">
             {% csrf_token %}
             <div class="row mt-2">
-                <label for="id_title" class="form-label">Tytuł</label>
+                <label for="id_title" class="form-label p-0">Tytuł</label>
                 <input type="text"
                        id="id_title"
                        name="title"
@@ -17,16 +23,16 @@
                        required />
             </div>
             <div class="row mt-2">
-                <label for="id_description" class="form-label">Opis</label>
-                <input type="text"
-                       id="id_description"
-                       name="description"
-                       class="form-control text-bg-dark"
-                       placeholder="Tytuł"
-                       required />
+                <label for="id_description" class="form-label p-0">Opis</label>
+                <textarea type="text"
+                          id="id_description"
+                          name="description"
+                          class="form-control text-bg-dark text-area"
+                          placeholder="Tytuł"
+                          required> </textarea>
             </div>
             <div class="row mt-2">
-                <label for="id_rating" class="form-label">Ocena</label>
+                <label for="id_rating" class="form-label p-0">Ocena</label>
                 <select class="form-select text-bg-dark"
                         aria-label="Wybierz ocenę"
                         name="rating"
