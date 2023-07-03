@@ -30,3 +30,10 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+
+class ReviewReport(models.Model):
+    description = models.CharField( max_length=150)  
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
+    class Meta:
+        verbose_name = 'ReviewReport'
+        verbose_name_plural = 'ReviewReports'
