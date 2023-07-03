@@ -31,6 +31,13 @@ class UniversityDetailView(DetailView):
     template_name = 'universities/university_detail.html'  # Replace with your desired template name
     context_object_name = 'university'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        university = self.get_object()
+        reviews = university.review_set.all().order_by('-add_date')
+        context['reviews'] = reviews
+        return context
+
 class ReviewCreateView(CreateView):
     model = Review
     template_name = 'universities/review_create.html'
