@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 
-
 def register(request):
     if request.user.is_authenticated:
         return redirect('index')
