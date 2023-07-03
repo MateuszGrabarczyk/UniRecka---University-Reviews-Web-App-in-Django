@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView
-from .models import Review, University
+from .models import Review, ReviewReport, University
 
 def university_list(request):
     name = request.GET.get('name', '')
@@ -48,4 +48,15 @@ class ReviewCreateView(CreateView):
         university = get_object_or_404(University, id=self.kwargs['university_id'])
         form.instance.university = university
         form.instance.user = self.request.user
+        return super().form_valid(form)
+    
+class ReviewReportCreateView(CreateView):
+    model = ReviewReport
+    template_name = 'universities/reviewreport_create.html'
+    fields = ['description']
+    success_url = reverse_lazy('university_list')
+
+    def form_valid(self, form):
+        review = get_object_or_404(Review, id=self.kwargs['review_id'])
+        form.instance.review = review
         return super().form_valid(form)

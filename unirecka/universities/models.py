@@ -37,3 +37,6 @@ class ReviewReport(models.Model):
     class Meta:
         verbose_name = 'ReviewReport'
         verbose_name_plural = 'ReviewReports'
+
+    def __str__(self):
+        return self.description    

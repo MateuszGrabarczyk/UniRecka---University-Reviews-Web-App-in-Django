@@ -15,7 +15,10 @@ class ReviewAdmin(admin.ModelAdmin):
 
 class ReviewReportAdmin(admin.ModelAdmin):
     list_display = ('description',)
-    list_filter = ('review',) 
+    list_filter = ('review',)
+
+    def __str__(self):
+        return self.description
 
 admin.site.register(University, UniversityAdmin)
 admin.site.register(Review, ReviewAdmin)
