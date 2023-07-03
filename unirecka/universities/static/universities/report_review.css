@@ -1,0 +1,13 @@
+.container {
+    width: 90%;
+}
+
+@media only screen and (min-width: 720px) {
+    .container {
+        width: 50%;
+    }
+}
+
+.text-area {
+    height: 150px;
+}
