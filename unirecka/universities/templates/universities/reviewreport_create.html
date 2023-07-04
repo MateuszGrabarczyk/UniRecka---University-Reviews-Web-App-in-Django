@@ -8,6 +8,11 @@
 {% endblock title %}
 {% block content %}
     <div class="container mt-5">
+        {% for message in messages %}
+            <div class="row p-0">
+                <div class="alert {{ message.tags }} alert-dismissible" role="alert">{{ message }}</div>
+            </div>
+        {% endfor %}
         <div class="row">
             <h1 class="p-0 mb-2">Opisz zgłoszenie</h1>
         </div>

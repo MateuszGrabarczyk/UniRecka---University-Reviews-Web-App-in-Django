@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView
 from django.db.models import Avg
 from .models import Review, ReviewReport, University
-
+from django.contrib import messages
 
 def university_list(request):
     name = request.GET.get('name', '')
@@ -53,7 +53,12 @@ class ReviewCreateView(CreateView):
         university = get_object_or_404(University, id=self.kwargs['university_id'])
         form.instance.university = university
         form.instance.user = self.request.user
+        messages.success(self.request, 'Pomyślnie dodano opinię.')
         return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        messages.error(self.request, 'Wystąpił błąd podczas dodawania opinii. Sprawdź podane dane. Tytuł nie może być zbyt długi.')
+        return super().form_invalid(form)
     
 
 class ReviewReportCreateView(CreateView):
@@ -65,4 +70,9 @@ class ReviewReportCreateView(CreateView):
     def form_valid(self, form):
         review = get_object_or_404(Review, id=self.kwargs['review_id'])
         form.instance.review = review
+        messages.success(self.request, 'Pomyślnie zgłoszono opinię. Zgłoszenie zostanie sprawdzone jak najszybciej')
         return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        messages.error(self.request, 'Wystąpił błąd podczas zgłaszania opinii. Sprawdź podane dane. Opis nie może być zbyt długi.')
+        return super().form_invalid(form)
