@@ -72,7 +72,6 @@
                         <h5 class="card-title">{{ university.name }}</h5>
                         <p class="card-text">Lokalizacja:</p>
                         <p>{{ university.city }}, {{ university.voivodeship | capfirst }}</p>
-                        {% comment %} {% if university.avg_rating %}<p>Średnia ocena: {{ university.avg_rating|floatformat:"0" }}/5</p>{% endif %} {% endcomment %}
                         {% if university.avg_rating %}
                             {% with avg_rating=university.avg_rating %}
                                 {% if avg_rating >= 4.5 %}
