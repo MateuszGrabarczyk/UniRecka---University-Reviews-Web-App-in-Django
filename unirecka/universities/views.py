@@ -22,7 +22,7 @@ def university_list(request):
     if voivodeship != '':
         universities = universities.filter(voivodeship=voivodeship)
     
-    universities = universities.annotate(avg_rating=Avg('review__rating'))
+    universities = universities.annotate(avg_rating=Avg('review__rating')).order_by('-avg_rating')
 
     return render(request, 'universities/university_list.html', {
         'universities': universities,
