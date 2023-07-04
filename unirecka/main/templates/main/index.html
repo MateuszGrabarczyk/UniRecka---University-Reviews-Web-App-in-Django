@@ -8,7 +8,7 @@
 {% endblock title %}
 {% block content %}
     {% for message in messages %}
-        <div class="container">
+        <div class="container mt-5">
             <div class="row p-0">
                 <div class="alert {{ message.tags }} alert-dismissible" role="alert">{{ message }}</div>
             </div>
