@@ -28,6 +28,10 @@
                 <input class="btn btn-primary" type="submit" value="Edytuj dane profilu">
             </div>
         </form>
+        <div class="row">
+            <hr class="mt-3">
+            <h1 class="m-0 p-0">Twoje opinie</h1>
+        </div>
         {% for review in reviews %}
             <div class="card bg-dark text-light mt-4">
                 <h5 class="card-header border-bottom">{{ review.title }}</h5>
@@ -35,6 +39,8 @@
                     <h5 class="card-title">Ocena: {{ review.rating }}/5</h5>
                     <h5 class="card-title">{{ review.university.name }}</h5>
                     <p class="card-text">{{ review.description }}</p>
+                    <a href="{% url 'university_detail' review.university.id %}"
+                       class="btn btn-primary">Przejdź do uczelni</a>
                 </div>
             </div>
         {% empty %}
