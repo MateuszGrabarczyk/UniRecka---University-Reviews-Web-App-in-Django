@@ -7,6 +7,7 @@ from .forms import LoginForm, UserRegistrationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 def register(request):
     if request.user.is_authenticated:
@@ -19,6 +20,8 @@ def register(request):
             new_user.set_password(user_form.cleaned_data['password'])
             new_user.save()
             return redirect('index')
+        else:
+            messages.error(request, "Podane dane są nieprawidłowe, spróbuj ponownie.")
     else:
         user_form = UserRegistrationForm()
     return render(request, 'account/register.html', {
@@ -39,10 +42,8 @@ def user_login(request):
                 if user.is_active:
                     login(request, user)
                     return redirect('index')
-                else:
-                    return HttpResponse('Account is blocked')
             else:
-                return HttpResponse('Incorrect data.')
+                messages.error(request, "Podane dane są nieprawidłowe, spróbuj ponownie.")
     else:
         form = LoginForm()
     return render(request, 'account/login.html', {'form': form})

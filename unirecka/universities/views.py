@@ -4,6 +4,7 @@ from django.views.generic import DetailView, CreateView
 from django.db.models import Avg
 from .models import Review, ReviewReport, University
 
+
 def university_list(request):
     name = request.GET.get('name', '')
     city = request.GET.get('city', '')
@@ -41,6 +42,7 @@ class UniversityDetailView(DetailView):
         context['reviews'] = reviews
         return context
 
+
 class ReviewCreateView(CreateView):
     model = Review
     template_name = 'universities/review_create.html'
@@ -53,6 +55,7 @@ class ReviewCreateView(CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
     
+
 class ReviewReportCreateView(CreateView):
     model = ReviewReport
     template_name = 'universities/reviewreport_create.html'
