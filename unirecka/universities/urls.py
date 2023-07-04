@@ -7,4 +7,5 @@ urlpatterns = [
     path('<int:pk>/', views.UniversityDetailView.as_view(), name='university_detail'),
     path('review/create/<int:university_id>/', login_required(views.ReviewCreateView.as_view()), name='review_create'),
     path('review/report/<int:review_id>/', login_required(views.ReviewReportCreateView.as_view()), name='review_report_create'),
+    path('review/like', views.review_like, name='like')
 ]
