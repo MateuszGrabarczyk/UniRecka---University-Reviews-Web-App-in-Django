@@ -4,14 +4,14 @@
     Mój profil
 {% endblock title %}
 {% block css %}
-    <link rel="stylesheet" href={% static "account/profile.css" %}>
+    <link rel="stylesheet" href={% static "account/register.css" %}>
 {% endblock css %}
 {% block content %}
     <div class="container mt-5">
         <div class="row">
             <h1 class="p-0">Witaj, {{ user.username }}</h1>
             <h4 class="p-0">
-                Możesz edytować dane twojego konta lub <a href={% url 'change_password' %}>zmienić hasło</a>
+                Możesz edytować dane twojego konta lub <a href={% url 'change_password' %}>zmienić hasło.</a>
             </h4>
         </div>
         <form method="post">
@@ -28,5 +28,21 @@
                 <input class="btn btn-primary" type="submit" value="Edytuj dane profilu">
             </div>
         </form>
+        {% for review in reviews %}
+            <div class="card bg-dark text-light mt-4">
+                <h5 class="card-header border-bottom">{{ review.title }}</h5>
+                <div class="card-body">
+                    <h5 class="card-title">Ocena: {{ review.rating }}/5</h5>
+                    <h5 class="card-title">{{ review.university.name }}</h5>
+                    <p class="card-text">{{ review.description }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <div class="row">
+                <p class="p-0 mt-4">
+                    Nie dodano jeszcze żadnej opinii. Aby to zrobić, przejdź do zakładki <a href="{% url 'university_list' %}">uczelnie.</a>
+                </p>
+            </div>
+        {% endfor %}
     </div>
 {% endblock content %}
