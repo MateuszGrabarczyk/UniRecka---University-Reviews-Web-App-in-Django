@@ -97,8 +97,13 @@
                         <h1>Dołącz do naszej społeczności</h1>
                         <p>
                             Jesteś studentem lub absolwentem uczelni wyższej w Polsce?
-                            Załóż konto już dziś i dodaj opinię o uczelni, na której
-                            studiowałeś.
+                            {% if user.is_authenticated %}
+                                Dodaj opinię o uczelni, na której
+                                studiowałeś.
+                            {% else %}
+                                Załóż konto już dziś i dodaj opinię o uczelni, na której
+                                studiowałeś.
+                            {% endif %}
                         </p>
                         {% if not user.is_authenticated %}
                             <p>
