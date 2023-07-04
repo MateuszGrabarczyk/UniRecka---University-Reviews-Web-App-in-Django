@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Usuń opinię
+{% endblock title %}
+{% block css %}
+    {% comment %} <link rel="stylesheet" href={% static "account/register.css" %}> {% endcomment %}
+{% endblock css %}
+{% block content %}
+    <div class="container mt-5">
+        <form method="post">
+            {% csrf_token %}
+            <div class="d-flex justify-content-center">
+                <p class="text-center">Czy na pewno chcesz usunąć tę opinię?</p>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <input type="submit"
+                       class="btn btn-danger"
+                       value="Potwierdź usunięcie opinii">
+            </div>
+        </form>
+    </div>
+{% endblock content %}

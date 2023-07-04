@@ -8,6 +8,11 @@
 {% endblock css %}
 {% block content %}
     <div class="container mt-5">
+        {% for message in messages %}
+            <div class="row p-0">
+                <div class="alert {{ message.tags }} alert-dismissible" role="alert">{{ message }}</div>
+            </div>
+        {% endfor %}
         <div class="row">
             <h1 class="p-0">Witaj, {{ user.username }}</h1>
             <h4 class="p-0">
@@ -41,6 +46,7 @@
                     <p class="card-text">{{ review.description }}</p>
                     <a href="{% url 'university_detail' review.university.id %}"
                        class="btn btn-primary">Przejdź do uczelni</a>
+                    <a href="{% url 'review_delete' review.id %}" class="btn btn-danger">Usuń opinię</a>
                 </div>
             </div>
         {% empty %}
