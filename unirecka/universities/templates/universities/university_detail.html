@@ -8,11 +8,18 @@
 {% endblock title %}
 {% block content %}
     <div class="container mt-5">
-        <h1 class="mb-3">{{ university.name }}</h1>
-        <h3 class="mb-3">Lokalizacja: {{ university.city }}, {{ university.voivodeship | capfirst }}</h3>
-        <a href="{{ university.link }}" class="btn btn-primary">Przejdź do strony uczelni</a>
+        <div class="row">
+            <h1 class="mb-3">{{ university.name }}</h1>
+            <h3 class="mb-3">Lokalizacja: {{ university.city }}, {{ university.voivodeship | capfirst }}</h3>
+        </div>
+        <div class="row">
+            <h4 class="mb-3">
+                Chcesz dowiedzieć się więcej na temat tej uczelni? <a href="{{ university.link }}">Przejdź do strony uczelni.</a>
+            </h4>
+        </div>
+        <hr class="mt-3">
         <a href="{% url 'review_create' university.pk %}"
-           class="btn btn-primary">Dodaj opinię</a>
+           class="btn btn-primary my-3">Dodaj opinię o uczelni</a>
         <h3 class="mb-3">Jesteś ciekawy, jaką opinię mają studenci i absolwenci na temat tej uczelni? Zerknij niżej!</h3>
         {% for review in reviews %}
             <div class="card bg-dark">

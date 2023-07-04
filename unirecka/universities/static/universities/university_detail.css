@@ -11,3 +11,7 @@
 .border-bottom {
     border-bottom: 1px solid white;
 }
+
+hr {
+    color: white;
+}
