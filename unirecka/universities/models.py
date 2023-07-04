@@ -16,7 +16,7 @@ class University(models.Model):
 
 class Review(models.Model):
     title = models.CharField( max_length=150)
-    description = models.CharField( max_length=500)
+    description = models.CharField( max_length=3000)
     rating = models.IntegerField(validators=[
             MaxValueValidator(5),
             MinValueValidator(1)
@@ -32,7 +32,7 @@ class Review(models.Model):
         return f"{self.title}"
 
 class ReviewReport(models.Model):
-    description = models.CharField( max_length=500)  
+    description = models.CharField( max_length=3000)  
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     class Meta:
         verbose_name = 'ReviewReport'
