@@ -4,6 +4,9 @@ from django.views.generic import DetailView, CreateView
 from django.db.models import Avg
 from .models import Review, ReviewReport, University
 from django.contrib import messages
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 
 def university_list(request):
     name = request.GET.get('name', '')
@@ -76,3 +79,25 @@ class ReviewReportCreateView(CreateView):
     def form_invalid(self, form):
         messages.error(self.request, 'Wystąpił błąd podczas zgłaszania opinii. Sprawdź podane dane. Opis nie może być zbyt długi.')
         return super().form_invalid(form)
+    
+@login_required
+@require_POST
+def review_like(request):
+    review_id = request.POST.get('id')
+    action = request.POST.get('action')
+    print(review_id)
+    if review_id and action:
+        try:
+            review = Review.objects.get(id=review_id)
+            if action == 'like':
+                review.users_like.add(request.user)
+            else:
+                review.users_like.remove(request.user)
+            return JsonResponse({
+                'status':'ok'
+            })
+        except:
+            pass
+    return JsonResponse({
+                'status':'ok'
+            })

@@ -28,6 +28,22 @@
                     <h5 class="card-title">Ocena: {{ review.rating }}/5</h5>
                     <p class="card-text">{{ review.description }}</p>
                     <p class="card-text">Autor: {{ review.user.username }}</p>
+                    {% with total_likes=review.users_like.count %}
+                        <span class="count-{{ review.id }}">
+                            <span class="total">{{ total_likes }}</span>
+                            polubień
+                        </span>
+                    {% endwith %}
+                    <a href="#"
+                       class="like button"
+                       data-id="{{ review.id }}"
+                       data-action="{% if request.user in review.users_like.all %}un{% endif %}like">
+                        {% if request.user not in review.users_like.all %}
+                            Lubię
+                        {% else %}
+                            Nie lubię
+                        {% endif %}
+                    </a>
                     <a href="{% url 'review_report_create' review.pk %}"
                        class="btn btn-danger">Zgłoś opinię</a>
                 </div>
@@ -37,3 +53,28 @@
         {% endfor %}
     </div>
 {% endblock content %}
+{% block domready %}
+    $('a.like').click(function(e){
+    e.preventDefault();
+    var button = $(this); // Store the clicked button
+    var reviewId = button.data('id'); // Get the review ID
+    var action = button.data('action'); // Get the action (like/unlike)
+    $.post('{% url "like" %}', {id: reviewId, action: action}, function(data){
+    if (data['status'] == 'ok') {
+    var previousAction = button.data('action');
+    var countSpan = $('.count-' + reviewId + ' .total');
+    console.log(previousAction);
+    console.log(countSpan);
+    var previousLikes = parseInt(countSpan.text());
+    console.log(previousLikes);
+    // Toggle data-action
+    button.data('action', previousAction == 'like' ? 'unlike' : 'like');
+    // Toggle link text
+    button.text(previousAction == 'like' ? 'Nie lubię' : 'Lubię');
+    // Update total likes
+    countSpan.text(previousAction == 'like' ? previousLikes + 1 : previousLikes - 1);
+    console.log(countSpan.text);
+    }
+    });
+    });
+{% endblock domready %}

@@ -24,6 +24,7 @@ class Review(models.Model):
     add_date = models.DateTimeField(default=timezone.now, blank=True)
     university = models.ForeignKey(University, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    users_like = models.ManyToManyField(User, related_name='images_liked', blank=True)
     class Meta:
         verbose_name = 'Review'
         verbose_name_plural = 'Reviews'
