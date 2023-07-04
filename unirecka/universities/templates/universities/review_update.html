@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Dodaj opinię
+{% endblock title %}
+{% block css %}
+    <link rel="stylesheet" href="{% static "universities/review_create.css" %}">
+{% endblock css %}
+{% block content %}
+    <div class="container mt-5">
+        {% for message in messages %}
+            <div class="row p-0">
+                <div class="alert {{ message.tags }} alert-dismissible" role="alert">{{ message }}</div>
+            </div>
+        {% endfor %}
+        <div class="row">
+            <h1 class="p-0">Edytuj opinię</h1>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="row mt-2">
+                <label for="id_title" class="form-label p-0">Tytuł</label>
+                <input type="text"
+                       id="id_title"
+                       name="title"
+                       value="{{ review.title }}"
+                       class="form-control text-bg-dark"
+                       placeholder="Tytuł"
+                       required />
+            </div>
+            <div class="row mt-2">
+                <label for="id_description" class="form-label p-0">Opis</label>
+                <textarea type="text"
+                          id="id_description"
+                          name="description"
+                          class="form-control text-bg-dark text-area"
+                          placeholder="Opis"
+                          required>{{ review.description }}</textarea>
+            </div>
+            <div class="row mt-2">
+                <label for="id_rating" class="form-label p-0">Ocena</label>
+                <select class="form-select text-bg-dark"
+                        id="id_rating"
+                        aria-label="Wybierz ocenę"
+                        name="rating"
+                        required>
+                    <option {% if review.rating == 1 %}selected{% endif %} value="1">1</option>
+                    <option {% if review.rating == 2 %}selected{% endif %} value="2">2</option>
+                    <option {% if review.rating == 3 %}selected{% endif %} value="3">3</option>
+                    <option {% if review.rating == 4 %}selected{% endif %} value="4">4</option>
+                    <option {% if review.rating == 5 %}selected{% endif %} value="5">5</option>
+                </select>
+            </div>
+            <div class="row mt-4 d-flex justify-content-center align-items-center">
+                <input class="btn btn-primary" type="submit" value="Dodaj opinię">
+            </div>
+        </form>
+    </div>
+{% endblock content %}
