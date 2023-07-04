@@ -29,13 +29,13 @@
                     <p class="card-text">{{ review.description }}</p>
                     <p class="card-text">Autor: {{ review.user.username }}</p>
                     {% with total_likes=review.users_like.count %}
-                        <span class="count-{{ review.id }}">
+                        <span class="count-{{ review.id }} btn btn-light me-2">
                             <span class="total">{{ total_likes }}</span>
                             polubień
                         </span>
                     {% endwith %}
                     <a href="#"
-                       class="like button"
+                       class="like btn btn-primary me-2"
                        data-id="{{ review.id }}"
                        data-action="{% if request.user in review.users_like.all %}un{% endif %}like">
                         {% if request.user not in review.users_like.all %}
