@@ -1,12 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, CreateView
+from django.views.generic import DetailView, CreateView, DeleteView
 from django.db.models import Avg
 from .models import Review, ReviewReport, University
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def university_list(request):
     name = request.GET.get('name', '')
@@ -63,6 +64,19 @@ class ReviewCreateView(CreateView):
         messages.error(self.request, 'Wystąpił błąd podczas dodawania opinii. Sprawdź podane dane. Tytuł nie może być zbyt długi.')
         return super().form_invalid(form)
     
+class ReviewDeleteView(LoginRequiredMixin, DeleteView):
+    model = Review
+    template_name = 'universities/review_delete.html'
+    def get_success_url(self):
+        return reverse_lazy('profile', kwargs={'user_id': self.request.user.id})
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(user=self.request.user)
+    
+    def form_valid(self, form):
+        messages.success(self.request, 'Pomyślnie usunięto opinię.')
+        return super().form_valid(form)
 
 class ReviewReportCreateView(CreateView):
     model = ReviewReport
