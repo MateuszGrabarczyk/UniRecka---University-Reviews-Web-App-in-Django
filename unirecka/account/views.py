@@ -19,6 +19,7 @@ def register(request):
             new_user = user_form.save(commit=False)
             new_user.set_password(user_form.cleaned_data['password'])
             new_user.save()
+            messages.success(request, 'Pomyślnie zajerestrowano konto. Możesz już się zalogować.')
             return redirect('index')
         else:
             messages.error(request, "Podane dane są nieprawidłowe, spróbuj ponownie.")
@@ -41,6 +42,7 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
+                    messages.success(request, 'Pomyślnie zalogowano.')
                     return redirect('index')
             else:
                 messages.error(request, "Podane dane są nieprawidłowe, spróbuj ponownie.")
