@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 urlpatterns = [
     path('', views.university_list, name='university_list'),
     path('<int:pk>/', views.UniversityDetailView.as_view(), name='university_detail'),
+    path('review/<int:pk>/', views.ReviewDetailView.as_view(), name='review_detail'),
     path('review/create/<int:university_id>/', login_required(views.ReviewCreateView.as_view()), name='review_create'),
     path('review/delete/<int:pk>/', views.ReviewDeleteView.as_view(), name='review_delete'),
     path('review/edit/<int:pk>/', views.ReviewUpdateView.as_view(), name='review_update'),
