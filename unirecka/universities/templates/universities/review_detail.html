@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static "universities/review_detail.css" %}">
+{% endblock css %}
+{% block title %}
+    Uczelnia
+{% endblock title %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="row">
+            <h1 class="mb-3">{{ review.title }}</h1>
+            <h3 class="mb-3">{{ review.description }}</h3>
+        </div>
+    </div>
+{% endblock content %}

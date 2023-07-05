@@ -36,7 +36,7 @@ def university_list(request):
 
 class UniversityDetailView(DetailView):
     model = University
-    template_name = 'universities/university_detail.html'  # Replace with your desired template name
+    template_name = 'universities/university_detail.html'
     context_object_name = 'university'
 
     def get_context_data(self, **kwargs):
@@ -99,7 +99,17 @@ class ReviewDeleteView(LoginRequiredMixin, DeleteView):
         messages.success(self.request, 'Pomyślnie usunięto opinię.')
         return super().form_valid(form)
     
+class ReviewDetailView(DetailView):
+    model = Review
+    template_name = 'universities/review_detail.html'
+    context_object_name = 'review'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        review = self.get_object()
+        comments = review.comment_set.all().order_by('-add_date')
+        context['comments'] = comments
+        return context
 
 class ReviewReportCreateView(CreateView):
     model = ReviewReport
