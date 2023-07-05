@@ -53,4 +53,14 @@ class ReviewReport(models.Model):
         verbose_name_plural = 'ReviewReports'
 
     def __str__(self):
-        return self.description    
+        return f"{self.description}"
+
+class CommentReport(models.Model):
+    description = models.CharField( max_length=3000)  
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    class Meta:
+        verbose_name = 'CommentReport'
+        verbose_name_plural = 'CommentReports'
+
+    def __str__(self):
+        return f"{self.description}"     
