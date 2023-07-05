@@ -15,3 +15,9 @@
 hr {
     color: white;
 }
+
+@media (max-width: 412px) {
+    .btn-danger {
+        margin-top: 10px;
+    }
+}
