@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, DeleteView, UpdateView
 from django.db.models import Avg
-from .models import Review, ReviewReport, University
+from .models import Comment, Review, ReviewReport, University
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
@@ -110,6 +110,25 @@ class ReviewDetailView(DetailView):
         comments = review.comment_set.all().order_by('-add_date')
         context['comments'] = comments
         return context
+
+class CommentCreateView(CreateView):
+    model = Comment
+    template_name = 'universities/comment_create.html'
+    fields = ['description']
+
+    def get_success_url(self):
+        return reverse_lazy('review_detail', kwargs={'pk': self.kwargs['review_id']})
+
+    def form_valid(self, form):
+        review = get_object_or_404(Review, id=self.kwargs['review_id'])
+        form.instance.review = review
+        form.instance.user = self.request.user
+        messages.success(self.request, 'Pomyślnie dodano komentarz')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Wystąpił błąd podczas dodawania komentarza. Opis może być za długi.')
+        return super().form_invalid(form)
 
 class ReviewReportCreateView(CreateView):
     model = ReviewReport
