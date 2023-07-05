@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, DeleteView, UpdateView
 from django.db.models import Avg
-from .models import Comment, Review, ReviewReport, University
+from .models import Comment, CommentReport, Review, ReviewReport, University
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
@@ -140,6 +140,24 @@ class ReviewReportCreateView(CreateView):
         review = get_object_or_404(Review, id=self.kwargs['review_id'])
         form.instance.review = review
         messages.success(self.request, 'Pomyślnie zgłoszono opinię. Zgłoszenie zostanie sprawdzone jak najszybciej')
+        return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        messages.error(self.request, 'Wystąpił błąd podczas zgłaszania formularza. Sprawdź podane dane. Opis nie może być zbyt długi.')
+        return super().form_invalid(form)
+    
+class CommentReportCreateView(CreateView):
+    model = CommentReport
+    template_name = 'universities/commentreport_create.html'
+    fields = ['description']
+    
+    def get_success_url(self):
+        return reverse_lazy('review_detail', kwargs={'pk': self.kwargs['review_id']})
+
+    def form_valid(self, form):
+        comment = get_object_or_404(Comment, id=self.kwargs['comment_id'])
+        form.instance.comment = comment
+        messages.success(self.request, 'Pomyślnie zgłoszono komentarz. Zgłoszenie zostanie sprawdzone jak najszybciej')
         return super().form_valid(form)
     
     def form_invalid(self, form):
