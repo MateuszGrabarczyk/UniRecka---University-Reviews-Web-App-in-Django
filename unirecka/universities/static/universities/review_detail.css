@@ -1,0 +1,17 @@
+.card {
+    color: white;
+    border: 1px solid white;
+    margin-bottom: 10px;
+}
+
+.button {
+    background-color: transparent;
+}
+
+.border-bottom {
+    border-bottom: 1px solid white;
+}
+
+hr {
+    color: white;
+}
