@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Comment, ReviewReport, University, Review
+from .models import Comment, CommentReport, ReviewReport, University, Review
 
 class UniversityAdmin(admin.ModelAdmin):
     list_display = ('name', 'city', 'voivodeship')
@@ -26,8 +26,16 @@ class CommentAdmin(admin.ModelAdmin):
 
     def __str__(self):
         return self.description
+    
+class CommentReportAdmin(admin.ModelAdmin):
+    list_display = ('description',)
+    list_filter = ('comment',)
+
+    def __str__(self):
+        return self.description
 
 admin.site.register(University, UniversityAdmin)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(ReviewReport, ReviewReportAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(CommentReport, CommentReportAdmin)
