@@ -31,6 +31,19 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+    
+class Comment(models.Model):
+    description = models.CharField( max_length=3000)
+    add_date = models.DateTimeField(default=timezone.now, blank=True)
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+        
+    def __str__(self):
+        return f"{self.description}"
 
 class ReviewReport(models.Model):
     description = models.CharField( max_length=3000)  
