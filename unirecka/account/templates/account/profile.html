@@ -141,7 +141,9 @@
                             </a>
                         </div>
                         <div class="col-2 d-flex justify-content-end">
-                            <a href="" class="btn btn-danger" title="Usuń komentarz">
+                            <a href="{% url 'comment_delete' comment.pk %}"
+                               class="btn btn-danger"
+                               title="Usuń komentarz">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                      width="24"
                                      height="24"
