@@ -18,6 +18,12 @@ hr {
 
 @media (max-width: 412px) {
     .btn-danger {
-        margin-top: 10px;
+        padding: 0px;
+        width: 30px;
+        height: 30px;
+    }
+
+    a.like.btn.btn-primary {
+        margin-top: 16px;
     }
 }
