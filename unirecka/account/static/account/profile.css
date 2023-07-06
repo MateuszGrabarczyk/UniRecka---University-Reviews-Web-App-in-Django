@@ -2,7 +2,7 @@
     width: 90%;
 }
 
-@media only screen and (min-width: 720px) {
+@media only screen and (min-width: 1280px) {
     .container {
         width: 50%;
     }
@@ -15,4 +15,16 @@
 
 .border-bottom {
     border-bottom: 1px solid white;
+}
+
+@media (max-width: 412px) {
+    .btn-danger {
+        padding: 0px;
+        width: 30px;
+        height: 30px;
+    }
+
+    a.btn.btn-light {
+        margin-top: 16px;
+    }
 }
