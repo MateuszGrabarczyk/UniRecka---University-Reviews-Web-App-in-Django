@@ -44,15 +44,15 @@
                         aria-label="Wybierz ocenę"
                         name="rating"
                         required>
-                    <option {% if review.rating == 1 %}selected{% endif %} value="1">1</option>
-                    <option {% if review.rating == 2 %}selected{% endif %} value="2">2</option>
-                    <option {% if review.rating == 3 %}selected{% endif %} value="3">3</option>
-                    <option {% if review.rating == 4 %}selected{% endif %} value="4">4</option>
-                    <option {% if review.rating == 5 %}selected{% endif %} value="5">5</option>
+                    <option {% if review.rating == 1 %}selected{% endif %} value="1">⭐☆☆☆☆</option>
+                    <option {% if review.rating == 2 %}selected{% endif %} value="2">⭐⭐☆☆☆</option>
+                    <option {% if review.rating == 3 %}selected{% endif %} value="3">⭐⭐⭐☆☆</option>
+                    <option {% if review.rating == 4 %}selected{% endif %} value="4">⭐⭐⭐⭐☆</option>
+                    <option {% if review.rating == 5 %}selected{% endif %} value="5">⭐⭐⭐⭐⭐</option>
                 </select>
             </div>
             <div class="row mt-4 d-flex justify-content-center align-items-center">
-                <input class="btn btn-primary" type="submit" value="Dodaj opinię">
+                <input class="btn btn-primary" type="submit" value="Edytuj opinię">
             </div>
         </form>
     </div>

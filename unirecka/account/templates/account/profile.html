@@ -41,7 +41,20 @@
             <div class="card bg-dark text-light mt-4">
                 <h5 class="card-header border-bottom">{{ review.title }}</h5>
                 <div class="card-body">
-                    <h5 class="card-title">Ocena: {{ review.rating }}/5</h5>
+                    <h5 class="card-title">
+                        Ocena:
+                        {% if review.rating == 5 %}
+                            ⭐⭐⭐⭐⭐
+                        {% elif review.rating == 4 %}
+                            ⭐⭐⭐⭐☆
+                        {% elif review.rating == 3 %}
+                            ⭐⭐⭐☆☆
+                        {% elif review.rating == 2 %}
+                            ⭐⭐☆☆☆
+                        {% elif review.rating == 1 %}
+                            ⭐☆☆☆☆
+                        {% endif %}
+                    </h5>
                     <h5 class="card-title">{{ review.university.name }}</h5>
                     <p class="card-text">{{ review.description }}</p>
                     <a href="{% url 'university_detail' review.university.id %}"
