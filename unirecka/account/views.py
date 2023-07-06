@@ -1,8 +1,6 @@
 from django.shortcuts import redirect, render
-from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
-
-from universities.models import Review
+from universities.models import Review, Comment
 from .forms import LoginForm, UserRegistrationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
@@ -69,10 +67,12 @@ def profile(request, user_id):
         user.save()
         return redirect('profile', user_id=user_id)
     reviews = Review.objects.filter(user=user)
+    comments = Comment.objects.filter(user=user)
 
     return render(request, 'account/profile.html', {
         'user': user,
-        'reviews': reviews
+        'reviews': reviews,
+        'comments': comments
         })
 
 @login_required
