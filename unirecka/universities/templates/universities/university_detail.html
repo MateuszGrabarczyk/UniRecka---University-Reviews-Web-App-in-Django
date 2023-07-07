@@ -23,18 +23,20 @@
             </h4>
         </div>
         <hr class="mt-3">
-        <a href="{% url 'review_create' university.pk %}"
-           class="btn btn-primary my-3">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 width="24"
-                 height="24"
-                 fill="currentColor"
-                 class="bi bi-plus-circle me-1"
-                 viewBox="0 0 16 16">
-                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-            </svg>
-        Dodaj opinię o uczelni</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'review_create' university.pk %}"
+               class="btn btn-primary my-3">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     width="24"
+                     height="24"
+                     fill="currentColor"
+                     class="bi bi-plus-circle me-1"
+                     viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                </svg>
+            Dodaj opinię o uczelni</a>
+        {% endif %}
         <h3 class="mb-3">Jesteś ciekawy, jaką opinię mają studenci i absolwenci na temat tej uczelni? Zerknij niżej!</h3>
         {% for review in reviews %}
             <div class="card bg-dark mt-3">
@@ -87,16 +89,18 @@
                                     polubień
                                 </span>
                             {% endwith %}
-                            <a href="#"
-                               class="like btn btn-primary me-2"
-                               data-id="{{ review.id }}"
-                               data-action="{% if request.user in review.users_like.all %}un{% endif %}like">
-                                {% if request.user not in review.users_like.all %}
-                                    👍 Lubię
-                                {% else %}
-                                    👎 Nie lubię
-                                {% endif %}
-                            </a>
+                            {% if user.is_authenticated %}
+                                <a href="#"
+                                   class="like btn btn-primary me-2"
+                                   data-id="{{ review.id }}"
+                                   data-action="{% if request.user in review.users_like.all %}un{% endif %}like">
+                                    {% if request.user not in review.users_like.all %}
+                                        👍 Lubię
+                                    {% else %}
+                                        👎 Nie lubię
+                                    {% endif %}
+                                </a>
+                            {% endif %}
                         </div>
                         <div class="col-6 d-flex justify-content-end align-items-end">
                             <a href="{% url 'review_report_create' review.pk %}"
