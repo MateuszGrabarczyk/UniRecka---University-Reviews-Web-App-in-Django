@@ -8,6 +8,11 @@
 {% endblock title %}
 {% block content %}
     <div class="container mt-5">
+        {% for message in messages %}
+            <div class="row p-0">
+                <div class="alert {{ message.tags }} alert-dismissible" role="alert">{{ message }}</div>
+            </div>
+        {% endfor %}
         <div class="row">
             <h1 class="mb-3">{{ university.name }}</h1>
             <h3 class="mb-3">Lokalizacja: {{ university.city }}, {{ university.voivodeship | capfirst }}</h3>
