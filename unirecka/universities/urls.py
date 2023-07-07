@@ -12,6 +12,7 @@ urlpatterns = [
     path('review/report/<int:review_id>/', login_required(views.ReviewReportCreateView.as_view()), name='review_report_create'),
     path('review/like', views.review_like, name='like'),
     path('review/create/comment/<int:review_id>/', login_required(views.CommentCreateView.as_view()), name='comment_create'),
+    path('review/edit/comment/<int:pk>/', views.CommentUpdateView.as_view(), name='comment_update'),
     path('review/delete/comment/<int:pk>/', views.CommentDeleteView.as_view(), name='comment_delete'),
     path('review/report/<int:review_id>/comment/<int:comment_id>/', login_required(views.CommentReportCreateView.as_view()), name='comment_report_create'),
 ]

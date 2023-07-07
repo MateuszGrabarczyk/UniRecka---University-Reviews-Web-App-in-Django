@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Edytuj komentarz
+{% endblock title %}
+{% block css %}
+    <link rel="stylesheet" href="{% static "universities/review_create.css" %}">
+{% endblock css %}
+{% block content %}
+    <div class="container mt-5">
+        {% for message in messages %}
+            <div class="row p-0">
+                <div class="alert {{ message.tags }} alert-dismissible" role="alert">{{ message }}</div>
+            </div>
+        {% endfor %}
+        <div class="row">
+            <h1 class="p-0">Edytuj komentarz</h1>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="row mt-2">
+                <label for="id_description" class="form-label p-0">Opis</label>
+                <textarea type="text"
+                          id="id_description"
+                          name="description"
+                          class="form-control text-bg-dark text-area"
+                          placeholder="Opis"
+                          required>{{ comment.description }}</textarea>
+            </div>
+            <div class="row mt-4 d-flex justify-content-center align-items-center">
+                <input class="btn btn-primary" type="submit" value="Edytuj komentarz">
+            </div>
+        </form>
+    </div>
+{% endblock content %}
