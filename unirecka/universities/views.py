@@ -51,7 +51,9 @@ class ReviewCreateView(CreateView):
     model = Review
     template_name = 'universities/review_create.html'
     fields = ['title', 'description', 'rating']
-    success_url = reverse_lazy('university_list')
+    
+    def get_success_url(self):
+        return reverse_lazy('university_detail', kwargs={'pk': self.kwargs['university_id']})
 
     def form_valid(self, form):
         university = get_object_or_404(University, id=self.kwargs['university_id'])
