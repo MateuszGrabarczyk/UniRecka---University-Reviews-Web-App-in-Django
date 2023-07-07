@@ -130,6 +130,26 @@ class CommentCreateView(CreateView):
         messages.error(self.request, 'Wystąpił błąd podczas dodawania komentarza. Opis może być za długi.')
         return super().form_invalid(form)
     
+class CommentUpdateView(UpdateView):
+    model = Comment
+    template_name = 'universities/comment_update.html'
+    fields = ['description']
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Pomyślnie edytowano komentarz.')
+        return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        messages.error(self.request, 'Wystąpił błąd podczas edytowania komentarza. Sprawdź podane dane. Opis nie może być zbyt długi.')
+        return super().form_invalid(form)
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(user=self.request.user)
+
+    def get_success_url(self):
+        return reverse_lazy('profile', kwargs={'user_id': self.request.user.id})
+    
 class CommentDeleteView(LoginRequiredMixin, DeleteView):
     model = Comment
     template_name = 'universities/comment_delete.html'
