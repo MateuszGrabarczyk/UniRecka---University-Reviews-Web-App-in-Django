@@ -27,3 +27,9 @@ hr {
         margin-top: 16px;
     }
 }
+
+@media (max-width: 506px) and (min-width: 413px) {
+    .review-like {
+        margin-top: 16px;
+    }
+}

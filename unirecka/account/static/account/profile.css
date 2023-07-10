@@ -28,3 +28,15 @@
         margin-top: 16px;
     }
 }
+
+@media (max-width: 544px) and (min-width: 413px) {
+    .review-edit {
+        margin-top: 16px;
+    }
+}
+
+@media (max-width: 592px) and (min-width: 413px) {
+    .comment-edit {
+        margin-top: 16px;
+    }
+}
