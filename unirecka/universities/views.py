@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, DeleteView, UpdateView
 from django.db.models import Avg
+from unidecode import unidecode
 from .models import Comment, CommentReport, Review, ReviewReport, University
 from django.contrib import messages
 from django.http import JsonResponse
@@ -17,7 +18,7 @@ def university_list(request):
     cities = universities.values_list('city', flat=True).distinct()
     voivodeships = universities.values_list('voivodeship', flat=True).distinct()
     if name != '':
-        universities = universities.filter(name__icontains=name)
+        universities = universities.filter(search_name__icontains=unidecode(name))
     if city != '':
         universities = universities.filter(city=city)
     if voivodeship != '':
