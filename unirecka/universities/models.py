@@ -2,11 +2,15 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
 from django.contrib.auth.models import User
+from unidecode import unidecode
+
 class University(models.Model):
     name = models.CharField(max_length=150)
+    search_name = models.CharField(max_length=150, blank=True)
     voivodeship = models.CharField(max_length=150)
     city = models.CharField(max_length=150)
     link = models.CharField(max_length=150)
+
     class Meta:
         verbose_name = 'University'
         verbose_name_plural = 'Universities'

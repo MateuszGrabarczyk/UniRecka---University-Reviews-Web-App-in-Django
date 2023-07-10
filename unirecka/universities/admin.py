@@ -1,13 +1,12 @@
 from django.contrib import admin
 
 from .models import Comment, CommentReport, ReviewReport, University, Review
+from unidecode import unidecode
 
 class UniversityAdmin(admin.ModelAdmin):
     list_display = ('name', 'city', 'voivodeship')
     list_filter = ('name', 'city', 'voivodeship')
-
-    def __str__(self):
-        return self.name
+    actions = ['save_all_universities']
 
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ('title', 'description', 'rating', 'university', 'user')
