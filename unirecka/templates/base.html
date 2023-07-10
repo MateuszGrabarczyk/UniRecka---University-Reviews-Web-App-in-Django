@@ -22,7 +22,7 @@
     </title>
   </head>
   <body class="bg-dark">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark p-2">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-2">
       <div class="container-fluid">
         <a class="navbar-brand p-0 fw-ligth bigger-font"
            href="{% url 'index' %}"><strong>Uni</strong>Recki</a>
@@ -77,7 +77,7 @@
             </li>
             {% if not user.is_authenticated %}
               <li class="nav-item">
-                <a class="btn btn-primary mx-2 my-2 my-sm-2 my-md-0 my-lg-0 my-xl-0 my-xxl-0"
+                <a class="btn btn-primary mx-2 my-2 my-sm-2 my-md-2 my-lg-0 my-xl-0 my-xxl-0"
                    href="{% url 'login' %}">
                   <svg xmlns="http://www.w3.org/2000/svg"
                        width="24"
@@ -91,7 +91,7 @@
                 Zaloguj się</a>
               </li>
               <li class="nav-item">
-                <a class="btn btn-primary my-2 mx-2 my-sm-2 my-md-0 my-lg-0 my-xl-0 my-xxl-0"
+                <a class="btn btn-primary my-2 mx-2 my-sm-2 my-md-2 my-lg-0 my-xl-0 my-xxl-0"
                    href="{% url 'register' %}">
                   <svg xmlns="http://www.w3.org/2000/svg"
                        width="24"
@@ -107,7 +107,7 @@
             {% endif %}
             {% if user.is_authenticated %}
               <li class="nav-item">
-                <a class="btn btn-light mx-2 my-2 my-sm-2 my-md-0 my-lg-0 my-xl-0 my-xxl-0"
+                <a class="btn btn-light mx-2 my-2 my-sm-2 my-md-2 my-lg-0 my-xl-0 my-xxl-0"
                    href="{% url 'profile' user.pk %}">
                   <svg xmlns="http://www.w3.org/2000/svg"
                        width="24"
@@ -121,7 +121,7 @@
                 Mój profil</a>
               </li>
               <li class="nav-item">
-                <a class="btn btn-primary mx-2 my-2 my-sm-2 my-md-0 my-lg-0 my-xl-0 my-xxl-0"
+                <a class="btn btn-primary mx-2 my-2 my-sm-2 my-md-2 my-lg-0 my-xl-0 my-xxl-0"
                    href="{% url 'logout' %}">
                   <svg xmlns="http://www.w3.org/2000/svg"
                        width="24"
