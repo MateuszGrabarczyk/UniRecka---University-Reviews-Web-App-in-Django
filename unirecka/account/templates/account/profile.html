@@ -23,11 +23,11 @@
             {% csrf_token %}
             <div class="row mt-2">
                 <label for="username" class="form-label p-0">Nazwa użytkownika</label>
-                <input type="text" id="username" name="username" class="form-control text-bg-dark" placeholder="Nazwa użytkownika" value={{ user.username }} required />
+                <input type="text" id="username" name="username" class="form-control text-bg-dark" placeholder="Nazwa użytkownika" value="{{ user.username }}" required />
             </div>
             <div class="row mt-2">
                 <label for="email" class="form-label p-0">Adres email</label>
-                <input type="email" id="email" name="email" class="form-control text-bg-dark" placeholder="Adres email" value={{ user.email }} required />
+                <input type="email" id="email" name="email" class="form-control text-bg-dark" placeholder="Adres email" value="{{ user.email }}" required />
             </div>
             <div class="row mt-4 d-flex justify-content-center align-items-center">
                 <input class="btn btn-primary" type="submit" value="Edytuj dane profilu">
