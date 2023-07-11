@@ -15,16 +15,20 @@ def register(request):
     if request.method == "POST":
         user_form = UserRegistrationForm(request.POST)
         if User.objects.filter(email=request.POST['email']).exists():
-                messages.error(request, "Podany adres email już istnieje.")   
-                return render(request, 'account/register.html', {
-                    'user_form': user_form
-        }) 
-
+            messages.error(request, "Podany adres email już istnieje.")   
+            return render(request, 'account/register.html', {
+                'user_form': user_form
+            }) 
         if User.objects.filter(username=request.POST['username']).exists():
-                messages.error(request, "Podana nazwa użytkownika już istnieje.")   
-                return render(request, 'account/register.html', {
-                    'user_form': user_form
-                }) 
+            messages.error(request, "Podana nazwa użytkownika już istnieje.")   
+            return render(request, 'account/register.html', {
+                'user_form': user_form
+            }) 
+        if request.POST['password'] != request.POST['password2']:
+            messages.error(request, "Podane hasła nie są identyczne.")   
+            return render(request, 'account/register.html', {
+                'user_form': user_form
+            })
 
         if user_form.is_valid():      
             new_user = user_form.save(commit=False)
