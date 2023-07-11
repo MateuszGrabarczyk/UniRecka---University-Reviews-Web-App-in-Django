@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.mail import send_mail
 
 def register(request):
     if request.user.is_authenticated:
@@ -18,6 +19,13 @@ def register(request):
             new_user.set_password(user_form.cleaned_data['password'])
             new_user.save()
             messages.success(request, 'Pomyślnie zajerestrowano konto. Możesz już się zalogować.')
+            send_mail(
+                "Założono konto w aplikacji UniRecka",
+                "Pomyślnie założono konto, teraz możesz się już zalogować",
+                "stepowa28@gmail.com",
+                [new_user.email],
+                fail_silently=False,
+            )
             return redirect('index')
         else:
             messages.error(request, "Podane dane są nieprawidłowe, spróbuj ponownie.")
