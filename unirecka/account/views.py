@@ -73,6 +73,13 @@ def profile(request, user_id):
         user.username = username
         user.email = email
         user.save()
+        send_mail(
+            "Zmiana danych konta w aplikacji UniRecka",
+            "Pomyślnie zmieniono dane konta. Twoja nazwa użytkownika lub mail zostały zmienione.",
+            "stepowa28@gmail.com",
+            [user.email],
+            fail_silently=False,
+        )
         return redirect('profile', user_id=user_id)
     reviews = Review.objects.filter(user=user)
     comments = Comment.objects.filter(user=user)
@@ -89,6 +96,13 @@ def change_password(request):
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
+            send_mail(
+                "Zmiana hasła w aplikacji UniRecka",
+                "Pomyślnie zmieniono hasło do konta. Zostałeś wylogowany, zaloguj się ponownie, tym razem z nowym hasłem.",
+                "stepowa28@gmail.com",
+                [user.email],
+                fail_silently=False,
+            )
             return redirect('profile', user_id=request.user.id)
     else:
         form = PasswordChangeForm(request.user)
