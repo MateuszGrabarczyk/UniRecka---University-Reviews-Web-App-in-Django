@@ -15,14 +15,27 @@ def university_list(request):
     city = request.GET.get('city', '')
     voivodeship = request.GET.get('voivodeship', '')
     universities = University.objects.all()
+    city_and_voivodeship = {}
+
+    for uni in universities:
+        city_and_voivodeship[uni.city] = uni.voivodeship
+
     cities = universities.values_list('city', flat=True).distinct()
     voivodeships = universities.values_list('voivodeship', flat=True).distinct()
     if name != '':
         universities = universities.filter(search_name__icontains=unidecode(name))
     if city != '':
-        universities = universities.filter(city=city)
+        if voivodeship == "":
+            universities = universities.filter(city=city)
+        elif voivodeship != city_and_voivodeship[city]:
+            messages.warning(request, f'Wybrano województwo, w którym nie znajduje się miasto {city}. Domyślnie wybrano województwo {city_and_voivodeship[city].capitalize()}.')
+            universities = universities.filter(voivodeship=city_and_voivodeship[city])
+            voivodeship = city_and_voivodeship[city]
+
+
     if voivodeship != '':
-        universities = universities.filter(voivodeship=voivodeship)
+        if city == '':
+            universities = universities.filter(voivodeship=voivodeship)
     
     universities = universities.annotate(avg_rating=Avg('review__rating')).order_by('-avg_rating')
 
