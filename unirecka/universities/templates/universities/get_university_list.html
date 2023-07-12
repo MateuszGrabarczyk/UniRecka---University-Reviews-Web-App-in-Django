@@ -1,0 +1,33 @@
+{% if universities %}
+    {% for university in universities %}
+        <div class="card bg-dark">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ university.name }}</h5>
+                <p class="card-text">Lokalizacja:</p>
+                <p>{{ university.city }}, {{ university.voivodeship | capfirst }}</p>
+                {% if university.avg_rating %}
+                    {% with avg_rating=university.avg_rating %}
+                        {% if avg_rating >= 4.5 %}
+                            <p class="mt-auto">⭐⭐⭐⭐⭐</p>
+                        {% elif avg_rating >= 3.5 %}
+                            <p class="mt-auto">⭐⭐⭐⭐☆</p>
+                        {% elif avg_rating >= 2.5 %}
+                            <p class="mt-auto">⭐⭐⭐☆☆</p>
+                        {% elif avg_rating >= 1.5 %}
+                            <p class="mt-auto">⭐⭐☆☆☆</p>
+                        {% else %}
+                            <p class="mt-auto">⭐☆☆☆☆</p>
+                        {% endif %}
+                    {% endwith %}
+                {% else %}
+                    <p class="mt-auto">Brak ocen</p>
+                {% endif %}
+                <a href="{{ university.link }}" class="btn btn-primary button mt-auto">Przejdź do strony uczelni</a>
+                <a href="{% url 'university_detail' university.pk %}"
+                   class="btn btn-primary mt-2">Zobacz opinie</a>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <h1>Nie znaleziono uczelni o takich kryteriach</h1>
+{% endif %}

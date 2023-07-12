@@ -35,6 +35,32 @@ def university_list(request):
         'voivodeships': voivodeships
     })
 
+def get_university_list(request):
+    name = request.GET.get('name', '')
+    city = request.GET.get('city', '')
+    voivodeship = request.GET.get('voivodeship', '')
+    universities = University.objects.all()
+    cities = universities.values_list('city', flat=True).distinct()
+    voivodeships = universities.values_list('voivodeship', flat=True).distinct()
+    if name != '':
+        universities = universities.filter(search_name__icontains=unidecode(name))
+    if city != '':
+        universities = universities.filter(city=city)
+    if voivodeship != '':
+        universities = universities.filter(voivodeship=voivodeship)
+    
+    universities = universities.annotate(avg_rating=Avg('review__rating')).order_by('-avg_rating')
+
+    return render(request, 'universities/get_university_list.html', {
+        'universities': universities,
+        'name_value': name,
+        'city_value': city,
+        'voivodeship_value': voivodeship,
+        'cities': cities,
+        'voivodeships': voivodeships
+    })
+
+
 class UniversityDetailView(DetailView):
     model = University
     template_name = 'universities/university_detail.html'

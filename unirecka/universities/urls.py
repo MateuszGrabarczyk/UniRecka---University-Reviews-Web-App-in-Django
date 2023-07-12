@@ -16,3 +16,9 @@ urlpatterns = [
     path('review/delete/comment/<int:pk>/', login_required(views.CommentDeleteView.as_view()), name='comment_delete'),
     path('review/report/<int:review_id>/comment/<int:comment_id>/', views.CommentReportCreateView.as_view(), name='comment_report_create'),
 ]
+
+htmxpatterns = [
+    path('get_university_list/', views.get_university_list, name='get_university_list'),
+]
+
+urlpatterns += htmxpatterns
