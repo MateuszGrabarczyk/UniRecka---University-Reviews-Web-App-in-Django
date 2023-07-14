@@ -186,6 +186,11 @@ class CommentUpdateView(UpdateView):
     fields = ['description']
 
     def form_valid(self, form):
+        description = form.cleaned_data.get('description', '')
+
+        if check_if_has_cursed_words(description.split()):
+            messages.error(self.request, 'Twój komentarz zawiera niedozwolone słowo, spróbuj ponownie.')
+            return HttpResponseRedirect(reverse('comment_update', kwargs={'pk': self.object.id}))
         messages.success(self.request, 'Pomyślnie edytowano komentarz.')
         return super().form_valid(form)
     
