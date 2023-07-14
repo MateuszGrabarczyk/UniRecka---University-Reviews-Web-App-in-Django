@@ -35,6 +35,12 @@ def register(request):
             return render(request, 'account/register.html', {
                 'user_form': user_form
             })
+        
+        if check_if_has_cursed_words(request.POST['username'].split()):
+            messages.error(request, 'Twoja nazwa użytkownika zawiera niedozwolone słowo, spróbuj ponownie.')
+            return render(request, 'account/register.html', {
+                'user_form': user_form
+            })
 
         if user_form.is_valid():      
             new_user = user_form.save(commit=False)
