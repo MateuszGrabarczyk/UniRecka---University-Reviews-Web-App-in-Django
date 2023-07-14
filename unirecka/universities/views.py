@@ -9,23 +9,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from json import load
-from os import path
-from unirecka.settings import BASE_DIR
-
-def check_if_has_cursed_words(words):
-    try:
-        with open(path.join(BASE_DIR, 'universities\\static\\universities\\curseWords.json')) as file:
-            data = load(file)
-            if "pl" in data and isinstance(data["pl"], list):
-                pl_elements = data["pl"]
-                for word in words:
-                    if any(isinstance(element, str) and (word.lower() == element or element in word.lower()) for element in pl_elements):
-                        return True
-        return False
-    except (FileNotFoundError):
-        return False
-
+from .utils import check_if_has_cursed_words
 
 def university_list(request):
     name = request.GET.get('name', '')
@@ -90,6 +74,18 @@ class ReviewCreateView(CreateView):
         university = get_object_or_404(University, id=self.kwargs['university_id'])
         form.instance.university = university
         form.instance.user = self.request.user
+
+        description = form.cleaned_data.get('description', '')
+        title = form.cleaned_data.get('title', '')
+
+        if check_if_has_cursed_words(title.split()):
+            messages.error(self.request, 'Twój tytuł zawiera niedozwolone słowo, spróbuj ponownie.')
+            return HttpResponseRedirect(reverse_lazy('review_create', kwargs={'university_id': self.kwargs['university_id']}))
+
+        if check_if_has_cursed_words(description.split()):
+            messages.error(self.request, 'Twój opis zawiera niedozwolone słowo, spróbuj ponownie.')
+            return HttpResponseRedirect(reverse_lazy('review_create', kwargs={'university_id': self.kwargs['university_id']}))
+
         messages.success(self.request, 'Pomyślnie dodano opinię.')
         return super().form_valid(form)
     
