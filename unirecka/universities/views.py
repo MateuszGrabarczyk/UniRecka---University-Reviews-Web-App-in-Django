@@ -1,14 +1,31 @@
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, CreateView, DeleteView, UpdateView
 from django.db.models import Avg
 from unidecode import unidecode
 from .models import Comment, CommentReport, Review, ReviewReport, University
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from json import load
+from os import path
+from unirecka.settings import BASE_DIR
+
+def check_if_has_cursed_words(words):
+    try:
+        with open(path.join(BASE_DIR, 'universities\\static\\universities\\curseWords.json')) as file:
+            data = load(file)
+            if "pl" in data and isinstance(data["pl"], list):
+                pl_elements = data["pl"]
+                for word in words:
+                    if any(isinstance(element, str) and (word.lower() == element or element in word.lower()) for element in pl_elements):
+                        return True
+        return False
+    except (FileNotFoundError):
+        return False
+
 
 def university_list(request):
     name = request.GET.get('name', '')
@@ -139,6 +156,13 @@ class CommentCreateView(CreateView):
         review = get_object_or_404(Review, id=self.kwargs['review_id'])
         form.instance.review = review
         form.instance.user = self.request.user
+
+        description = form.cleaned_data.get('description', '')
+
+        if check_if_has_cursed_words(description.split()):
+            messages.error(self.request, 'Twój komentarz zawiera niedozwolone słowo, spróbuj ponownie.')
+            return HttpResponseRedirect(reverse('comment_create', kwargs={'review_id': review.id}))
+
         messages.success(self.request, 'Pomyślnie dodano komentarz')
         return super().form_valid(form)
 
@@ -219,7 +243,6 @@ class CommentReportCreateView(CreateView):
 def review_like(request):
     review_id = request.POST.get('id')
     action = request.POST.get('action')
-    print(review_id)
     if review_id and action:
         try:
             review = Review.objects.get(id=review_id)
