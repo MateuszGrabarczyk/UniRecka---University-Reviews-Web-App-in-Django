@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
+from universities.utils import check_if_has_cursed_words
 from universities.models import Review, Comment
 from .forms import LoginForm, UserRegistrationForm
 from django.contrib.auth.models import User
@@ -90,6 +91,10 @@ def profile(request, user_id):
     if request.method == 'POST':
         username = request.POST['username']
         email = request.POST['email']
+
+        if check_if_has_cursed_words(username.split()):
+            messages.error(request, 'Twoja nazwa użytkownika zawiera niedozwolone słowo, spróbuj ponownie.')
+            return redirect('profile', user_id=user_id)
 
         user.username = username
         user.email = email
