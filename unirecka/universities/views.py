@@ -1,9 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
-from django.views.generic import DetailView, CreateView, DeleteView, UpdateView
+from django.views.generic import (
+    DetailView, CreateView, DeleteView, UpdateView
+)
 from django.db.models import Avg
 from unidecode import unidecode
-from .models import Comment, CommentReport, Review, ReviewReport, University
+from .models import (
+    Comment, CommentReport, Review, ReviewReport, University
+)
 from django.contrib import messages
 from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.http import require_POST
@@ -99,6 +103,16 @@ class ReviewUpdateView(UpdateView):
     fields = ['title', 'description', 'rating']
 
     def form_valid(self, form):
+        description = form.cleaned_data.get('description', '')
+        title = form.cleaned_data.get('title', '')
+
+        if check_if_has_cursed_words(title.split()):
+            messages.error(self.request, 'Twój tytuł zawiera niedozwolone słowo, spróbuj ponownie.')
+            return HttpResponseRedirect(reverse_lazy('review_update', kwargs={'pk': self.object.id}))
+
+        if check_if_has_cursed_words(description.split()):
+            messages.error(self.request, 'Twój opis zawiera niedozwolone słowo, spróbuj ponownie.')
+            return HttpResponseRedirect(reverse_lazy('review_update', kwargs={'pk': self.object.id}))
         messages.success(self.request, 'Pomyślnie edytowano opinię.')
         return super().form_valid(form)
     
