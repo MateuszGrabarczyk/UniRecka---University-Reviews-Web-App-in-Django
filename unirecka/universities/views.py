@@ -46,7 +46,6 @@ def university_list(request):
             })
         
         universities = universities.filter(voivodeship=city_and_voivodeship[city], city=city)
-        voivodeship = city_and_voivodeship[city]
         return render(request, 'universities/university_list.html', {
             'universities': universities,
             'name_value': name,
