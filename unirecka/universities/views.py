@@ -34,9 +34,18 @@ def university_list(request):
             universities = universities.filter(city=city)
         elif voivodeship != city_and_voivodeship[city]:
             messages.warning(request, f'Wybrano województwo, w którym nie znajduje się miasto {city}. Domyślnie wybrano województwo {city_and_voivodeship[city].capitalize()}.')
-            universities = universities.filter(voivodeship=city_and_voivodeship[city])
+            universities = universities.filter(voivodeship=city_and_voivodeship[city], city=city)
             voivodeship = city_and_voivodeship[city]
-
+            return render(request, 'universities/university_list.html', {
+                'universities': universities,
+                'name_value': name,
+                'city_value': city,
+                'voivodeship_value': voivodeship,
+                'cities': cities,
+                'voivodeships': voivodeships
+            })
+            
+            
 
     if voivodeship != '':
         if city == '':
