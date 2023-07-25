@@ -41,8 +41,8 @@ def university_list(request):
                 'name_value': name,
                 'city_value': city,
                 'voivodeship_value': voivodeship,
-                'cities': cities,
-                'voivodeships': voivodeships
+                'cities': sorted(cities),
+                'voivodeships': sorted(voivodeships)
             })
             
             
