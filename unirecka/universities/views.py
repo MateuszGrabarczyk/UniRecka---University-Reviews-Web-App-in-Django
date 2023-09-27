@@ -3,7 +3,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import (
     DetailView, CreateView, DeleteView, UpdateView
 )
-from django.db.models import Avg, Count
+from django.db.models import Avg, Count, Min, Max
 from unidecode import unidecode
 from .models import (
     Comment, CommentReport, Review, ReviewReport, University
@@ -83,6 +83,8 @@ class UniversityDetailView(DetailView):
         university = self.get_object()
 
         sort_method = self.request.GET.get('sort_method', 'newest')
+        start_date = self.request.GET.get('start_date', '')
+        end_date = self.request.GET.get('end_date', '')
 
         allowed_sort_methods = ['newest', 'oldest', 'most_comments', 'most_likes', 'best_ratings', 'worst_ratings']
         if sort_method not in allowed_sort_methods:
@@ -100,8 +102,22 @@ class UniversityDetailView(DetailView):
             reviews = university.review_set.all().order_by('-rating')
         elif sort_method == 'worst_ratings':
             reviews = university.review_set.all().order_by('rating')
-        context['reviews'] = reviews
+        
+        context['has_reviews'] = bool(reviews)
+
+        if start_date and end_date:
+            reviews = reviews.filter(
+                add_date__gte=start_date,
+                add_date__lte=end_date
+            )
+
+        
         context['sort_method'] = sort_method
+        context['reviews'] = reviews
+
+        context['oldest_review_date'] = start_date if start_date else ''
+        context['newest_review_date'] = end_date if end_date else ''
+
         return context
 
 
