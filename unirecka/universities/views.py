@@ -3,17 +3,18 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import (
     DetailView, CreateView, DeleteView, UpdateView
 )
-from django.db.models import Avg
+from django.db.models import Avg, Count
 from unidecode import unidecode
 from .models import (
     Comment, CommentReport, Review, ReviewReport, University
 )
 from django.contrib import messages
-from django.http import HttpResponseRedirect, JsonResponse
+from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .utils import check_if_has_cursed_words
+from django.db.models import Count, F, ExpressionWrapper, IntegerField
 
 def university_list(request):
     name = request.GET.get('name', '')
@@ -80,8 +81,27 @@ class UniversityDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         university = self.get_object()
-        reviews = university.review_set.all().order_by('-add_date')
+
+        sort_method = self.request.GET.get('sort_method', 'newest')
+
+        allowed_sort_methods = ['newest', 'oldest', 'most_comments', 'most_likes', 'best_ratings', 'worst_ratings']
+        if sort_method not in allowed_sort_methods:
+            raise Http404("Invalid sort method")
+
+        if sort_method == 'newest':
+            reviews = university.review_set.all().order_by('-add_date')
+        elif sort_method == 'oldest':
+            reviews = university.review_set.all().order_by('add_date')
+        elif sort_method == 'most_comments':
+            reviews = university.review_set.annotate(num_comments=Count('comment')).order_by('-num_comments', '-add_date')
+        elif sort_method == 'most_likes':
+            reviews = university.review_set.annotate(num_likes=Count('users_like')).order_by('-num_likes', '-add_date')
+        elif sort_method == 'best_ratings':
+            reviews = university.review_set.all().order_by('-rating')
+        elif sort_method == 'worst_ratings':
+            reviews = university.review_set.all().order_by('rating')
         context['reviews'] = reviews
+        context['sort_method'] = sort_method
         return context
 
 

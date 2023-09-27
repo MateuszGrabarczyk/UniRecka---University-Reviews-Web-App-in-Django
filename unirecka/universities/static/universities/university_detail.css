@@ -16,6 +16,10 @@ hr {
     color: white;
 }
 
+.sort {
+    width: 300px;
+}
+
 @media (max-width: 412px) {
     .btn-danger {
         padding: 0px;
