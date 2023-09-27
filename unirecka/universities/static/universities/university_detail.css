@@ -20,6 +20,13 @@ hr {
     width: 300px;
 }
 
+.picker {
+    background-color: #212529;
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
 @media (max-width: 412px) {
     .btn-danger {
         padding: 0px;
