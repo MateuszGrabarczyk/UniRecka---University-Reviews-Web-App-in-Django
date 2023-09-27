@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic import (
@@ -106,11 +107,17 @@ class UniversityDetailView(DetailView):
         context['has_reviews'] = bool(reviews)
 
         if start_date and end_date:
-            reviews = reviews.filter(
-                add_date__gte=start_date,
-                add_date__lte=end_date
-            )
+            if datetime.strptime(start_date, "%Y-%m-%d") > datetime.strptime(end_date, "%Y-%m-%d"):
+                temp = start_date
+                start_date = end_date
+                end_date = temp
+                messages.info(self.request, "Pierwsza data jest większa od drugiej, dlatego poprawiono kolejność.")
 
+        if start_date:
+            reviews = reviews.filter(add_date__gte=start_date)
+
+        if end_date:
+            reviews = reviews.filter(add_date__lte=end_date)
         
         context['sort_method'] = sort_method
         context['reviews'] = reviews
