@@ -29,6 +29,7 @@ class Review(models.Model):
     university = models.ForeignKey(University, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     users_like = models.ManyToManyField(User, related_name='images_liked', blank=True)
+    active = models.BooleanField(default=True)
     class Meta:
         verbose_name = 'Review'
         verbose_name_plural = 'Reviews'
@@ -36,11 +37,26 @@ class Review(models.Model):
     def __str__(self):
         return f"{self.title}"
     
+    def save(self, *args, **kwargs):
+        if self.pk:  # Check if the review is an existing instance (not a new one)
+            previous_review = Review.objects.get(pk=self.pk)
+            if self.title != previous_review.title or self.description != previous_review.description:
+                # Create a new ReviewHistory entry
+                ReviewHistory.objects.create(
+                    review=previous_review,
+                    title=previous_review.title,
+                    description=previous_review.description,
+                    rating=previous_review.rating,
+                    modified_by=self.user,  # Assuming you have a User reference in the Review model
+                )
+        super(Review, self).save(*args, **kwargs)
+    
 class Comment(models.Model):
     description = models.CharField( max_length=3000)
     add_date = models.DateTimeField(default=timezone.now, blank=True)
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = 'Comment'
@@ -48,10 +64,23 @@ class Comment(models.Model):
         
     def __str__(self):
         return f"{self.description}"
+    
+    def save(self, *args, **kwargs):
+        if self.pk:  # Check if the comment is an existing instance (not a new one)
+            previous_comment = Comment.objects.get(pk=self.pk)
+            if self.description != previous_comment.description:
+                # Create a new CommentHistory entry
+                CommentHistory.objects.create(
+                    comment=previous_comment,
+                    description=previous_comment.description,
+                    modified_by=self.user,  # Assuming you have a User reference in the Comment model
+                )
+        super(Comment, self).save(*args, **kwargs)
 
 class ReviewReport(models.Model):
     description = models.CharField( max_length=3000)  
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
+    active = models.BooleanField(default=True)
     class Meta:
         verbose_name = 'ReviewReport'
         verbose_name_plural = 'ReviewReports'
@@ -62,9 +91,30 @@ class ReviewReport(models.Model):
 class CommentReport(models.Model):
     description = models.CharField( max_length=3000)  
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    active = models.BooleanField(default=True)
     class Meta:
         verbose_name = 'CommentReport'
         verbose_name_plural = 'CommentReports'
 
     def __str__(self):
         return f"{self.description}"     
+    
+class ReviewHistory(models.Model):
+    review = models.ForeignKey(Review, on_delete=models.DO_NOTHING)
+    title = models.CharField(max_length=150)
+    description = models.CharField(max_length=3000)
+    rating = models.IntegerField()
+    modified_date = models.DateTimeField(default=timezone.now)
+    modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f"History for Review: {self.review.title} ({self.modified_date})"
+    
+class CommentHistory(models.Model):
+    comment = models.ForeignKey(Comment, on_delete=models.DO_NOTHING)
+    description = models.CharField(max_length=3000)
+    modified_date = models.DateTimeField(default=timezone.now)
+    modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f"History for Comment: {self.comment.description} ({self.modified_date})"
