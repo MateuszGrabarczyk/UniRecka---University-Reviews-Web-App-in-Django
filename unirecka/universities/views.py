@@ -4,7 +4,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import (
     DetailView, CreateView, DeleteView, UpdateView
 )
-from django.db.models import Avg, Count, Min, Max
+from django.db.models import Avg, Count, Q
 from unidecode import unidecode
 from .models import (
     Comment, CommentReport, Review, ReviewReport, University
@@ -15,7 +15,7 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .utils import check_if_has_cursed_words
-from django.db.models import Count, F, ExpressionWrapper, IntegerField
+from django.db.models import Count
 
 def university_list(request):
     name = request.GET.get('name', '')
@@ -119,6 +119,8 @@ class UniversityDetailView(DetailView):
         if end_date:
             reviews = reviews.filter(add_date__lte=end_date)
         
+        reviews = reviews.annotate(num_active_comments=Count('comment', filter=Q(comment__active=True)))
+
         context['sort_method'] = sort_method
         context['reviews'] = reviews.filter(active=True)
 
