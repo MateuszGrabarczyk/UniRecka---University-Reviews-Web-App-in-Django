@@ -110,7 +110,7 @@ class UniversityDetailView(DetailView):
         elif sort_method == 'worst_ratings':
             reviews = university.review_set.all().order_by('rating')
         
-        context['has_reviews'] = bool(reviews)
+        context['has_reviews'] = bool(reviews.filter(active=True))
 
         if start_date and end_date:
             if datetime.strptime(start_date, "%Y-%m-%d") > datetime.strptime(end_date, "%Y-%m-%d"):
