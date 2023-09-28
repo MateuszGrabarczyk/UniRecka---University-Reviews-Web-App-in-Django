@@ -30,7 +30,7 @@ def register(request):
             return render(request, 'account/register.html', {
                 'user_form': user_form
             })
-        if len(request.POST['password']) < 7:
+        if len(request.POST['password']) < 8:
             messages.error(request, "Podane hasło musi mieć co najmniej 8 znaków.")   
             return render(request, 'account/register.html', {
                 'user_form': user_form
