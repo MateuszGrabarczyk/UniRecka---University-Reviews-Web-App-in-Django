@@ -75,19 +75,17 @@
                         <p class="card-text">Lokalizacja:</p>
                         <p>{{ university.city }}, {{ university.voivodeship | capfirst }}</p>
                         {% if university.avg_rating %}
-                            {% with avg_rating=university.avg_rating %}
-                                {% if avg_rating >= 4.5 %}
-                                    <p class="mt-auto">⭐⭐⭐⭐⭐</p>
-                                {% elif avg_rating >= 3.5 %}
-                                    <p class="mt-auto">⭐⭐⭐⭐☆</p>
-                                {% elif avg_rating >= 2.5 %}
-                                    <p class="mt-auto">⭐⭐⭐☆☆</p>
-                                {% elif avg_rating >= 1.5 %}
-                                    <p class="mt-auto">⭐⭐☆☆☆</p>
-                                {% else %}
-                                    <p class="mt-auto">⭐☆☆☆☆</p>
-                                {% endif %}
-                            {% endwith %}
+                            {% if university.avg_rating >= 4.5 %}
+                                <p class="mt-auto">⭐⭐⭐⭐⭐</p>
+                            {% elif university.avg_rating >= 3.5 %}
+                                <p class="mt-auto">⭐⭐⭐⭐☆</p>
+                            {% elif university.avg_rating >= 2.5 %}
+                                <p class="mt-auto">⭐⭐⭐☆☆</p>
+                            {% elif university.avg_rating >= 1.5 %}
+                                <p class="mt-auto">⭐⭐☆☆☆</p>
+                            {% else %}
+                                <p class="mt-auto">⭐☆☆☆☆</p>
+                            {% endif %}
                         {% else %}
                             <p class="mt-auto">Brak ocen</p>
                         {% endif %}

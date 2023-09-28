@@ -38,6 +38,10 @@ def university_list(request):
             messages.warning(request, f'Wybrano województwo, w którym nie znajduje się miasto {city}. Domyślnie wybrano województwo {city_and_voivodeship[city].capitalize()}.')
             universities = universities.filter(voivodeship=city_and_voivodeship[city], city=city)
             voivodeship = city_and_voivodeship[city]
+            universities = universities.annotate(avg_rating=Avg('review__rating', filter=Q(review__active=True)))
+            for university in universities:
+                print(f"University: {university.name}, Average Rating: {university.avg_rating}")
+
             return render(request, 'universities/university_list.html', {
                 'universities': universities,
                 'name_value': name,
@@ -48,6 +52,8 @@ def university_list(request):
             })
         
         universities = universities.filter(voivodeship=city_and_voivodeship[city], city=city)
+        universities = universities.annotate(avg_rating=Avg('review__rating', filter=Q(review__active=True)))
+
         return render(request, 'universities/university_list.html', {
             'universities': universities,
             'name_value': name,
@@ -63,7 +69,7 @@ def university_list(request):
         if city == '':
             universities = universities.filter(voivodeship=voivodeship)
     
-    universities = universities.annotate(avg_rating=Avg('review__rating')).order_by('-avg_rating')
+    universities = universities.annotate(avg_rating=Avg('review__rating', filter=Q(review__active=True)))
 
     return render(request, 'universities/university_list.html', {
         'universities': universities,
