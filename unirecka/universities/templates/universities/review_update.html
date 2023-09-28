@@ -26,7 +26,8 @@
                        value="{{ review.title }}"
                        class="form-control text-bg-dark"
                        placeholder="Tytuł"
-                       required />
+                       required
+                       maxlength="150" />
             </div>
             <div class="row mt-2">
                 <label for="id_description" class="form-label p-0">Opis</label>
@@ -35,7 +36,8 @@
                           name="description"
                           class="form-control text-bg-dark text-area"
                           placeholder="Opis"
-                          required>{{ review.description }}</textarea>
+                          required
+                          maxlength="3000">{{ review.description }}</textarea>
             </div>
             <div class="row mt-2">
                 <label for="id_rating" class="form-label p-0">Ocena</label>
