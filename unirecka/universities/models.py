@@ -51,6 +51,29 @@ class Review(models.Model):
                 )
         super(Review, self).save(*args, **kwargs)
     
+    def delete(self, *args, **kwargs):
+        # Create a ReviewHistory entry before deleting the review
+        ReviewHistory.objects.create(
+            review=self,
+            title=self.title,
+            description=self.description,
+            rating=self.rating,
+            modified_by=self.user,  # Assuming you have a User reference in the Review model
+        )
+        self.active = False
+        self.save()
+
+class ReviewHistory(models.Model):
+    review = models.ForeignKey(Review, on_delete=models.SET_NULL, blank=True, null=True)
+    title = models.CharField(max_length=150)
+    description = models.CharField(max_length=3000)
+    rating = models.IntegerField()
+    modified_date = models.DateTimeField(default=timezone.now)
+    modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f"History for Review: {self.review.title} ({self.modified_date})"
+
 class Comment(models.Model):
     description = models.CharField( max_length=3000)
     add_date = models.DateTimeField(default=timezone.now, blank=True)
@@ -76,6 +99,25 @@ class Comment(models.Model):
                     modified_by=self.user,  # Assuming you have a User reference in the Comment model
                 )
         super(Comment, self).save(*args, **kwargs)
+    
+    def delete(self, *args, **kwargs):
+        # Create a CommentHistory entry before deleting the comment
+        CommentHistory.objects.create(
+            comment=self,
+            description=self.description,
+            modified_by=self.user,  # Assuming you have a User reference in the Comment model
+        )
+        self.active = False
+        self.save()
+
+class CommentHistory(models.Model):
+    comment = models.ForeignKey(Comment, on_delete=models.SET_NULL, blank=True, null=True)
+    description = models.CharField(max_length=3000)
+    modified_date = models.DateTimeField(default=timezone.now)
+    modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f"History for Comment: {self.comment.description} ({self.modified_date})"
 
 class ReviewReport(models.Model):
     description = models.CharField( max_length=3000)  
@@ -99,22 +141,3 @@ class CommentReport(models.Model):
     def __str__(self):
         return f"{self.description}"     
     
-class ReviewHistory(models.Model):
-    review = models.ForeignKey(Review, on_delete=models.DO_NOTHING)
-    title = models.CharField(max_length=150)
-    description = models.CharField(max_length=3000)
-    rating = models.IntegerField()
-    modified_date = models.DateTimeField(default=timezone.now)
-    modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-
-    def __str__(self):
-        return f"History for Review: {self.review.title} ({self.modified_date})"
-    
-class CommentHistory(models.Model):
-    comment = models.ForeignKey(Comment, on_delete=models.DO_NOTHING)
-    description = models.CharField(max_length=3000)
-    modified_date = models.DateTimeField(default=timezone.now)
-    modified_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-
-    def __str__(self):
-        return f"History for Comment: {self.comment.description} ({self.modified_date})"

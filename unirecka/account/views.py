@@ -113,8 +113,8 @@ def profile(request, user_id):
             fail_silently=False,
         )
         return redirect('profile', user_id=user_id)
-    reviews = Review.objects.filter(user=user)
-    comments = Comment.objects.filter(user=user)
+    reviews = Review.objects.filter(user=user, active=True)
+    comments = Comment.objects.filter(user=user, active=True)
 
     return render(request, 'account/profile.html', {
         'user': user,
