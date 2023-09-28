@@ -120,7 +120,7 @@ class UniversityDetailView(DetailView):
             reviews = reviews.filter(add_date__lte=end_date)
         
         context['sort_method'] = sort_method
-        context['reviews'] = reviews
+        context['reviews'] = reviews.filter(active=True)
 
         context['oldest_review_date'] = start_date if start_date else ''
         context['newest_review_date'] = end_date if end_date else ''
@@ -212,7 +212,7 @@ class ReviewDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         review = self.get_object()
-        comments = review.comment_set.all().order_by('-add_date')
+        comments = review.comment_set.filter(active=True).order_by('-add_date')
         context['comments'] = comments
         return context
 
