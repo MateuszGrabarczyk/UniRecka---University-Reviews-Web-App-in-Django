@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    Usuń opinię
+{% endblock title %}
+{% block css %}
+{% endblock css %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="d-flex justify-content-center">
+            <p class="text-center">Czy na pewno chcesz dezaktywować swoje konto?</p>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            <a href="{% url 'deactivate_account' user.id %}" class="btn btn-danger">Potwierdź dezaktywację swojego konta</a>
+        </div>
+    </div>
+{% endblock content %}

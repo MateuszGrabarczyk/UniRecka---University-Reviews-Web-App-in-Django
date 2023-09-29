@@ -1,5 +1,5 @@
-from django.shortcuts import redirect, render
-from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from universities.utils import check_if_has_cursed_words
 from universities.models import Review, Comment
 from .forms import LoginForm, UserRegistrationForm
@@ -93,6 +93,7 @@ def profile(request, user_id):
     if request.user.id != user_id:
         return redirect('index')
     user = User.objects.get(id=user_id)
+    
 
     if request.method == 'POST':
         username = request.POST['username']
@@ -139,3 +140,18 @@ def change_password(request):
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'account/change_password.html', {'form': form})
+
+@login_required
+def deactivate_confirm(request, user_id):
+    return render(request, 'account/deactivate_confirm.html')
+
+def deactivate_account(request, user_id):
+    if request.user.id != user_id:
+        return redirect('index')
+    user = get_object_or_404(get_user_model(), pk=user_id)
+    
+    user.is_active = False
+    user.save()
+    logout(request)
+    
+    return render(request, 'account/deactivate_account.html')

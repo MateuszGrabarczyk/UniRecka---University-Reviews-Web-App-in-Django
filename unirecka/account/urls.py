@@ -8,6 +8,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('profile/<int:user_id>/', views.profile, name='profile'),
     path('profile/change_password/', views.change_password, name='change_password'),
+    path('deactivate/<int:user_id>/', views.deactivate_account, name='deactivate_account'),
+    path('deactivate_confirm/<int:user_id>/', views.deactivate_confirm, name='deactivate_confirm'),
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='account/password_reset.html', html_email_template_name='account/password_reset_email.html'), name='password_reset'),
     path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(template_name='account/password_reset_done.html'), name='password_reset_done'),
     path('password_reset_confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='account/password_reset_confirm.html'), name='password_reset_confirm'),
