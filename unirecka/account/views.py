@@ -149,10 +149,21 @@ def change_password(request):
 def deactivate_confirm(request, user_id):
     return render(request, 'account/deactivate_confirm.html')
 
+@login_required
 def deactivate_account(request, user_id):
     if request.user.id != user_id:
         return redirect('index')
     user = get_object_or_404(get_user_model(), pk=user_id)
+
+    user_reviews = Review.objects.filter(user=user)
+    for review in user_reviews:
+        review.active = False
+        review.save()
+
+    user_comments = Comment.objects.filter(user=user)
+    for comment in user_comments:
+        comment.active = False
+        comment.save()
     
     user.is_active = False
     user.save()
