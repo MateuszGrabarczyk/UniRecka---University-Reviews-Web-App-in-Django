@@ -73,6 +73,10 @@ def user_login(request):
         if form.is_valid():
             cd = form.cleaned_data
             user = authenticate(username=cd['username'], password=cd['password'])
+            if user is None:
+                if User.objects.get(username=cd['username']):
+                    messages.error(request, "Twoje konto jest nieaktywne. Jeśli chcesz je ponownie aktywować, skontaktuj się z administratorem pod adresem email: stepowa28@gmail.com")
+                    return render(request, 'account/login.html', {'form': form})
             if user is not None:
                 if user.is_active:
                     login(request, user)
