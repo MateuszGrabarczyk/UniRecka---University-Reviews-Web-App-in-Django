@@ -24,7 +24,7 @@ class ReviewHistoryAdmin(admin.ModelAdmin):
     list_filter = ('review__university', 'modified_date', 'modified_by')
     
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('description', 'active')
+    list_display = ('description', 'user', 'active', )
     list_filter = ('review','user', 'active')
 
     def __str__(self):
