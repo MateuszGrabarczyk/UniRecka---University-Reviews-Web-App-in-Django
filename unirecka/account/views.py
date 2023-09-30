@@ -97,11 +97,20 @@ def profile(request, user_id):
     if request.user.id != user_id:
         return redirect('index')
     user = User.objects.get(id=user_id)
-    
+    reviews = Review.objects.filter(user=user, active=True)
+    comments = Comment.objects.filter(user=user, active=True)
 
     if request.method == 'POST':
         username = request.POST['username']
         email = request.POST['email']
+
+        if User.objects.exclude(pk=user.id).filter(username=username).exists():
+            messages.error(request, "Podana nazwa użytkownika już istnieje.")   
+            return redirect('profile', user_id=user_id)
+        
+        if User.objects.exclude(pk=user.id).filter(email=email).exists():
+            messages.error(request, "Podany adres email już istnieje.")   
+            return redirect('profile', user_id=user_id)
 
         if check_if_has_cursed_words(username.split()):
             messages.error(request, 'Twoja nazwa użytkownika zawiera niedozwolone słowo, spróbuj ponownie.')
@@ -117,9 +126,10 @@ def profile(request, user_id):
             [user.email],
             fail_silently=False,
         )
+        messages.success(request, 'Twoje dane konta zostały zmienione.')
+        
         return redirect('profile', user_id=user_id)
-    reviews = Review.objects.filter(user=user, active=True)
-    comments = Comment.objects.filter(user=user, active=True)
+    
 
     return render(request, 'account/profile.html', {
         'user': user,
