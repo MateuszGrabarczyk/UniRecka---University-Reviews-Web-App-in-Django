@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, time
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic import (
@@ -120,10 +120,10 @@ class UniversityDetailView(DetailView):
                 messages.info(self.request, "Pierwsza data jest większa od drugiej, dlatego poprawiono kolejność.")
 
         if start_date:
-            reviews = reviews.filter(add_date__gte=start_date)
+            reviews = reviews.filter(add_date__gte=datetime.combine(datetime.strptime(start_date, '%Y-%m-%d').date(), time.min))
 
         if end_date:
-            reviews = reviews.filter(add_date__lte=end_date)
+            reviews = reviews.filter(add_date__lte=datetime.combine(datetime.strptime(end_date, '%Y-%m-%d').date(), time.max))
         
         reviews = reviews.annotate(num_active_comments=Count('comment', filter=Q(comment__active=True)))
 
