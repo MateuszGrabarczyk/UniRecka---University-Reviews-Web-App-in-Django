@@ -130,67 +130,40 @@
         </button>
     </div>
     <hr class="m-0" />
-    <div class="container mt-5">
+    {% comment %} <div class="container mt-5">
         <h1 class="mb-5">
             Trzy najlepsze uczelnie w Polsce według <a href="https://www.shanghairanking.com/rankings/arwu/2022">Academic Ranking of World Universities</a>
         </h1>
         <div class="row">
             <div class="col-lg-4 d-flex flex-column align-items-center">
-                <img src="{% static 'main/jag.jpg' %}"
-                     alt=""
-                     class="bd-placeholder-img rounded-circle"
-                     width="140"
-                     height="140"
-                     role="img"
-                     aria-label="Placeholder"
-                     preserveAspectRatio="xMidYMid slice"
-                     focusable="false">
+                <img src="{% static 'main/jag.jpg' %}" alt="" class="bd-placeholder-img rounded-circle" width="140" height="140" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
                 <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
                 <h2 class="fw-normal">Uniwersytet Jagielloński w Krakowie</h2>
                 <p>
                     Uniwersytet Jagielloński, założony w 1364 roku, jest jednym z najstarszych i najbardziej renomowanych uniwersytetów w Europie. Zlokalizowany w Krakowie, Polska, UJ odznacza się bogatą historią, doskonałą reputacją i silnym akademickim zapleczem.
                 </p>
-                <a class="btn btn-primary mb-4"
-                   href="{% url 'university_detail' jg.pk %}">Zobacz opinie</a>
+                <a class="btn btn-primary mb-4" href="{% url 'university_detail' jg.pk %}">Zobacz opinie</a>
             </div>
             <div class="col-lg-4 d-flex flex-column align-items-center">
-                <img src="{% static 'main/uw.jpg' %}"
-                     alt=""
-                     class="bd-placeholder-img rounded-circle"
-                     width="140"
-                     height="140"
-                     role="img"
-                     aria-label="Placeholder"
-                     preserveAspectRatio="xMidYMid slice"
-                     focusable="false">
+                <img src="{% static 'main/uw.jpg' %}" alt="" class="bd-placeholder-img rounded-circle" width="140" height="140" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
                 <title>Placeholder</title>
                 <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
                 <h2 class="fw-normal">Uniwersytet Warszawski</h2>
                 <p>
                     UW oferuje szeroki wybór kierunków i programów studiów na różnych dziedzinach w ramach swoich 20 wydziałów. Uczelnia jest znana z wysokiej jakości nauczania, zaangażowania w badania naukowe i promowania intelektualnego rozwoju studentów.
                 </p>
-                <a class="btn btn-primary mb-4"
-                   href="{% url 'university_detail' uw.pk %}">Zobacz opinie</a>
+                <a class="btn btn-primary mb-4" href="{% url 'university_detail' uw.pk %}">Zobacz opinie</a>
             </div>
             <div class="col-lg-4 d-flex flex-column align-items-center">
-                <img src="{% static 'main/agh.jpg' %}"
-                     alt=""
-                     class="bd-placeholder-img rounded-circle"
-                     width="140"
-                     height="140"
-                     role="img"
-                     aria-label="Placeholder"
-                     preserveAspectRatio="xMidYMid slice"
-                     focusable="false">
+                <img src="{% static 'main/agh.jpg' %}" alt="" class="bd-placeholder-img rounded-circle" width="140" height="140" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
                 <title>Placeholder</title>
                 <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect>
                 <h2 class="fw-normal">Akademia Górniczo-Hutnicza w Krakowie</h2>
                 <p>
                     AGH oferuje szeroki wybór kierunków studiów związanych z naukami technicznymi, inżynieryjnymi oraz naukami przyrodniczymi. Uczelnia jest znana z wysokiego poziomu nauczania i praktycznego podejścia do kształcenia, które przygotowuje studentów do skutecznego działania w praktyce.
                 </p>
-                <a class="btn btn-primary mb-4"
-                   href="{% url 'university_detail' agh.pk %}">Zobacz opinie</a>
+                <a class="btn btn-primary mb-4" href="{% url 'university_detail' agh.pk %}">Zobacz opinie</a>
             </div>
         </div>
-    </div>
+    </div> {% endcomment %}
 {% endblock content %}
