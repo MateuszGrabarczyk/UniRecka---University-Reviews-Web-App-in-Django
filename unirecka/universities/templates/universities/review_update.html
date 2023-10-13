@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}
-    Edytuj opinię
+    Edytuj recenzję
 {% endblock title %}
 {% block css %}
     <link rel="stylesheet" href="{% static "universities/review_create.css" %}">
@@ -14,7 +14,7 @@
             </div>
         {% endfor %}
         <div class="row">
-            <h1 class="p-0">Edytuj opinię</h1>
+            <h1 class="p-0">Edytuj recenzję</h1>
         </div>
         <form method="post">
             {% csrf_token %}
@@ -54,7 +54,7 @@
                 </select>
             </div>
             <div class="row mt-4 d-flex justify-content-center align-items-center">
-                <input class="btn btn-primary" type="submit" value="Edytuj opinię">
+                <input class="btn btn-primary" type="submit" value="Edytuj recenzję">
             </div>
         </form>
     </div>

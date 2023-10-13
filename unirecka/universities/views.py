@@ -160,7 +160,7 @@ class ReviewCreateView(CreateView):
             messages.error(self.request, 'Twój opis zawiera niedozwolone słowo, spróbuj ponownie.')
             return HttpResponseRedirect(reverse_lazy('review_create', kwargs={'university_id': self.kwargs['university_id']}))
 
-        messages.success(self.request, 'Pomyślnie dodano opinię.')
+        messages.success(self.request, 'Pomyślnie dodano recenzję.')
         return super().form_valid(form)
     
     def form_invalid(self, form):
@@ -183,7 +183,7 @@ class ReviewUpdateView(UpdateView):
         if check_if_has_cursed_words(description.split()):
             messages.error(self.request, 'Twój opis zawiera niedozwolone słowo, spróbuj ponownie.')
             return HttpResponseRedirect(reverse_lazy('review_update', kwargs={'pk': self.object.id}))
-        messages.success(self.request, 'Pomyślnie edytowano opinię.')
+        messages.success(self.request, 'Pomyślnie edytowano recenzję.')
         return super().form_valid(form)
     
     def form_invalid(self, form):
@@ -209,7 +209,7 @@ class ReviewDeleteView(LoginRequiredMixin, DeleteView):
         return queryset.filter(user=self.request.user)
     
     def form_valid(self, form):
-        messages.success(self.request, 'Pomyślnie usunięto opinię.')
+        messages.success(self.request, 'Pomyślnie usunięto recenzję.')
         return super().form_valid(form)
     
 class ReviewDetailView(DetailView):
@@ -298,7 +298,7 @@ class ReviewReportCreateView(CreateView):
     def form_valid(self, form):
         review = get_object_or_404(Review, id=self.kwargs['review_id'])
         form.instance.review = review
-        messages.success(self.request, 'Pomyślnie zgłoszono opinię. Zgłoszenie zostanie sprawdzone jak najszybciej')
+        messages.success(self.request, 'Pomyślnie zgłoszono recenzję. Zgłoszenie zostanie sprawdzone jak najszybciej')
         return super().form_valid(form)
     
     def form_invalid(self, form):
