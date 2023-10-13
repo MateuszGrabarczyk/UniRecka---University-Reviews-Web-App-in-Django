@@ -220,7 +220,7 @@ class ReviewDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         review = self.get_object()
-        comments = review.comment_set.filter(active=True).order_by('-add_date')
+        comments = review.comment_set.filter(active=True).order_by('add_date')
         context['comments'] = comments
         return context
 
