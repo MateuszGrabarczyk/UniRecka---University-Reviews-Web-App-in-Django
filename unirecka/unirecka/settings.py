@@ -143,7 +143,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [
-    "C:/Users/aleks/Desktop/Mateusz/Studia/ProjektInzynierski/UniRecka/unirecka/static"
+    "C:/Users/stepo/Desktop/Studia/UniRecka/unirecka/static"
 ]
 
 LOGIN_REDIRECT_URL = 'index'
