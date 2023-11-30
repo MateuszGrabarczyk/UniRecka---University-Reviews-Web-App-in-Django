@@ -99,9 +99,8 @@ def user_logout(request):
     return redirect('index')
 
 @login_required
-def profile(request, user_id):
-    if request.user.id != user_id:
-        return redirect('index')
+def profile(request):
+    user_id = request.user.id
     user = User.objects.get(id=user_id)
     reviews = Review.objects.filter(user=user, active=True)
     comments = Comment.objects.filter(user=user, active=True)
@@ -162,13 +161,12 @@ def change_password(request):
     return render(request, 'account/change_password.html', {'form': form})
 
 @login_required
-def deactivate_confirm(request, user_id):
+def deactivate_confirm(request):
     return render(request, 'account/deactivate_confirm.html')
 
 @login_required
-def deactivate_account(request, user_id):
-    if request.user.id != user_id:
-        return redirect('index')
+def deactivate_account(request):
+    user_id = request.user.id
     user = get_object_or_404(get_user_model(), pk=user_id)
 
     user_reviews = Review.objects.filter(user=user)
