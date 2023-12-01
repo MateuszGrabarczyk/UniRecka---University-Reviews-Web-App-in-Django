@@ -18,7 +18,7 @@
 }
 
 @media (max-width: 412px) {
-    .btn-danger {
+    .btn-danger:not(#deactivate) {
         padding: 0px;
         width: 30px;
         height: 30px;
