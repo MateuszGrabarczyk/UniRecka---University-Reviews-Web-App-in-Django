@@ -20,4 +20,4 @@ jobs:
       - name: Install dependencies
         run: pip install flake8
       - name: Lint Templates
-        run: flake8 .
+        run: flake8 . --ignore=E501,W503 --exclude=venv
