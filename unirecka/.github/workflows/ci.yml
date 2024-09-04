@@ -1,0 +1,21 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.12.2"
+      - name: Install dependencies
+        run: pip install flake8
+      - name: Lint Templates
+        run: flake8 .

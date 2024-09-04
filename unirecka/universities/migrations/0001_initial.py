@@ -7,22 +7,29 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='University',
+            name="University",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=150)),
-                ('voivodeship', models.CharField(max_length=150)),
-                ('city', models.CharField(max_length=150)),
-                ('link', models.CharField(max_length=150)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=150)),
+                ("voivodeship", models.CharField(max_length=150)),
+                ("city", models.CharField(max_length=150)),
+                ("link", models.CharField(max_length=150)),
             ],
             options={
-                'verbose_name': 'University',
-                'verbose_name_plural': 'Universities',
+                "verbose_name": "University",
+                "verbose_name_plural": "Universities",
             },
         ),
     ]

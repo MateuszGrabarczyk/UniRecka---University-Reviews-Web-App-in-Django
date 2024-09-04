@@ -1,52 +1,50 @@
-from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth import authenticate, login, logout, get_user_model
-from universities.utils import check_if_has_cursed_words
-from universities.models import Review, Comment
-from .forms import LoginForm, UserRegistrationForm
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth import authenticate, get_user_model, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from django.shortcuts import get_object_or_404, redirect, render
+
+from universities.models import Comment, Review
+from universities.utils import check_if_has_cursed_words
+
+from .forms import LoginForm, UserRegistrationForm
+
 
 def register(request):
     if request.user.is_authenticated:
-        return redirect('index')
+        return redirect("index")
 
     if request.method == "POST":
         user_form = UserRegistrationForm(request.POST)
-        if User.objects.filter(email=request.POST['email']).exists():
-            messages.error(request, "Podany adres email już istnieje.")   
-            return render(request, 'account/register.html', {
-                'user_form': user_form
-            }) 
-        if User.objects.filter(username=request.POST['username']).exists():
-            messages.error(request, "Podana nazwa użytkownika już istnieje.")   
-            return render(request, 'account/register.html', {
-                'user_form': user_form
-            }) 
-        if request.POST['password'] != request.POST['password2']:
-            messages.error(request, "Podane hasła nie są identyczne.")   
-            return render(request, 'account/register.html', {
-                'user_form': user_form
-            })
-        if len(request.POST['password']) < 8:
-            messages.error(request, "Podane hasło musi mieć co najmniej 8 znaków.")   
-            return render(request, 'account/register.html', {
-                'user_form': user_form
-            })
-        
-        if check_if_has_cursed_words(request.POST['username'].split()):
-            messages.error(request, 'Twoja nazwa użytkownika zawiera niedozwolone słowo, spróbuj ponownie.')
-            return render(request, 'account/register.html', {
-                'user_form': user_form
-            })
+        if User.objects.filter(email=request.POST["email"]).exists():
+            messages.error(request, "Podany adres email już istnieje.")
+            return render(request, "account/register.html", {"user_form": user_form})
+        if User.objects.filter(username=request.POST["username"]).exists():
+            messages.error(request, "Podana nazwa użytkownika już istnieje.")
+            return render(request, "account/register.html", {"user_form": user_form})
+        if request.POST["password"] != request.POST["password2"]:
+            messages.error(request, "Podane hasła nie są identyczne.")
+            return render(request, "account/register.html", {"user_form": user_form})
+        if len(request.POST["password"]) < 8:
+            messages.error(request, "Podane hasło musi mieć co najmniej 8 znaków.")
+            return render(request, "account/register.html", {"user_form": user_form})
 
-        if user_form.is_valid():      
+        if check_if_has_cursed_words(request.POST["username"].split()):
+            messages.error(
+                request,
+                "Twoja nazwa użytkownika zawiera niedozwolone słowo, spróbuj ponownie.",
+            )
+            return render(request, "account/register.html", {"user_form": user_form})
+
+        if user_form.is_valid():
             new_user = user_form.save(commit=False)
-            new_user.set_password(user_form.cleaned_data['password'])
+            new_user.set_password(user_form.cleaned_data["password"])
             new_user.save()
-            messages.success(request, 'Pomyślnie zajerestrowano konto. Możesz już się zalogować.')
+            messages.success(
+                request, "Pomyślnie zajerestrowano konto. Możesz już się zalogować."
+            )
             send_mail(
                 "Założono konto w aplikacji UniRecka",
                 "Pomyślnie założono konto, teraz możesz się już zalogować",
@@ -54,49 +52,58 @@ def register(request):
                 [new_user.email],
                 fail_silently=False,
             )
-            return redirect('index')
+            return redirect("index")
         else:
             messages.error(request, "Podane dane są nieprawidłowe, spróbuj ponownie.")
     else:
         user_form = UserRegistrationForm()
-    return render(request, 'account/register.html', {
-        'user_form': user_form
-    })
+    return render(request, "account/register.html", {"user_form": user_form})
 
 
 def user_login(request):
     if request.user.is_authenticated:
-        return redirect('index')
-    
-    if request.method == 'POST':
+        return redirect("index")
+
+    if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
-            user = authenticate(username=cd['username'], password=cd['password'])
+            user = authenticate(username=cd["username"], password=cd["password"])
             if user is None:
                 try:
-                    if not User.objects.get(username=cd['username']).is_active:
-                        messages.error(request, "Twoje konto jest nieaktywne. Jeśli chcesz je ponownie aktywować, skontaktuj się z administratorem pod adresem email: stepowa28@gmail.com")
-                        return render(request, 'account/login.html', {'form': form})
+                    if not User.objects.get(username=cd["username"]).is_active:
+                        messages.error(
+                            request,
+                            "Twoje konto jest nieaktywne. Jeśli chcesz je ponownie aktywować, skontaktuj się z administratorem pod adresem email: stepowa28@gmail.com",
+                        )
+                        return render(request, "account/login.html", {"form": form})
                     else:
-                        messages.error(request, "Podane dane są nieprawidłowe, spróbuj ponownie.")
-                except:
-                    messages.error(request, "Podane dane są nieprawidłowe, spróbuj ponownie.")
+                        messages.error(
+                            request, "Podane dane są nieprawidłowe, spróbuj ponownie."
+                        )
+                except User.DoesNotExist:
+                    messages.error(
+                        request, "Podane dane są nieprawidłowe, spróbuj ponownie."
+                    )
 
             elif user is not None:
                 if user.is_active:
                     login(request, user)
-                    messages.success(request, 'Pomyślnie zalogowano.')
-                    return redirect('index')
+                    messages.success(request, "Pomyślnie zalogowano.")
+                    return redirect("index")
             else:
-                messages.error(request, "Podane dane są nieprawidłowe, spróbuj ponownie.")
+                messages.error(
+                    request, "Podane dane są nieprawidłowe, spróbuj ponownie."
+                )
     else:
         form = LoginForm()
-    return render(request, 'account/login.html', {'form': form})
+    return render(request, "account/login.html", {"form": form})
+
 
 def user_logout(request):
     logout(request)
-    return redirect('index')
+    return redirect("index")
+
 
 @login_required
 def profile(request):
@@ -105,21 +112,24 @@ def profile(request):
     reviews = Review.objects.filter(user=user, active=True)
     comments = Comment.objects.filter(user=user, active=True)
 
-    if request.method == 'POST':
-        username = request.POST['username']
-        email = request.POST['email']
+    if request.method == "POST":
+        username = request.POST["username"]
+        email = request.POST["email"]
 
         if User.objects.exclude(pk=user.id).filter(username=username).exists():
-            messages.error(request, "Podana nazwa użytkownika już istnieje.")   
-            return redirect('profile', user_id=user_id)
-        
+            messages.error(request, "Podana nazwa użytkownika już istnieje.")
+            return redirect("profile", user_id=user_id)
+
         if User.objects.exclude(pk=user.id).filter(email=email).exists():
-            messages.error(request, "Podany adres email już istnieje.")   
-            return redirect('profile', user_id=user_id)
+            messages.error(request, "Podany adres email już istnieje.")
+            return redirect("profile", user_id=user_id)
 
         if check_if_has_cursed_words(username.split()):
-            messages.error(request, 'Twoja nazwa użytkownika zawiera niedozwolone słowo, spróbuj ponownie.')
-            return redirect('profile', user_id=user_id)
+            messages.error(
+                request,
+                "Twoja nazwa użytkownika zawiera niedozwolone słowo, spróbuj ponownie.",
+            )
+            return redirect("profile", user_id=user_id)
 
         user.username = username
         user.email = email
@@ -131,20 +141,20 @@ def profile(request):
             [user.email],
             fail_silently=False,
         )
-        messages.success(request, 'Twoje dane konta zostały zmienione.')
-        
-        return redirect('profile', user_id=user_id)
-    
+        messages.success(request, "Twoje dane konta zostały zmienione.")
 
-    return render(request, 'account/profile.html', {
-        'user': user,
-        'reviews': reviews,
-        'comments': comments
-        })
+        return redirect("profile", user_id=user_id)
+
+    return render(
+        request,
+        "account/profile.html",
+        {"user": user, "reviews": reviews, "comments": comments},
+    )
+
 
 @login_required
 def change_password(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
@@ -155,14 +165,16 @@ def change_password(request):
                 [user.email],
                 fail_silently=False,
             )
-            return redirect('profile', user_id=request.user.id)
+            return redirect("profile", user_id=request.user.id)
     else:
         form = PasswordChangeForm(request.user)
-    return render(request, 'account/change_password.html', {'form': form})
+    return render(request, "account/change_password.html", {"form": form})
+
 
 @login_required
 def deactivate_confirm(request):
-    return render(request, 'account/deactivate_confirm.html')
+    return render(request, "account/deactivate_confirm.html")
+
 
 @login_required
 def deactivate_account(request):
@@ -178,9 +190,9 @@ def deactivate_account(request):
     for comment in user_comments:
         comment.active = False
         comment.save()
-    
+
     user.is_active = False
     user.save()
     logout(request)
-    
-    return render(request, 'account/deactivate_account.html')
+
+    return render(request, "account/deactivate_account.html")

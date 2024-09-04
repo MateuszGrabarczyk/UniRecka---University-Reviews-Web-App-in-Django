@@ -6,13 +6,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('universities', '0011_comment_active_commentreport_active_review_active_and_more'),
+        (
+            "universities",
+            "0011_comment_active_commentreport_active_review_active_and_more",
+        ),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='reviewhistory',
-            name='title',
+            model_name="reviewhistory",
+            name="title",
             field=models.CharField(blank=True, max_length=150),
         ),
     ]
