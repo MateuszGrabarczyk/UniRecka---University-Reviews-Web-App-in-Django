@@ -1,7 +1,14 @@
 from django.contrib import admin
 
-from .models import (Comment, CommentHistory, CommentReport, Review,
-                     ReviewHistory, ReviewReport, University)
+from .models import (
+    Comment,
+    CommentHistory,
+    CommentReport,
+    Review,
+    ReviewHistory,
+    ReviewReport,
+    University,
+)
 
 
 class UniversityAdmin(admin.ModelAdmin):
