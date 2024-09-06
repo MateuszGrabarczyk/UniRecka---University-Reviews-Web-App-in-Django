@@ -1,10 +1,10 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, get_user_model, login, logout
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 
 from universities.models import Comment, Review
 from universities.utils import check_if_has_cursed_words
@@ -107,8 +107,7 @@ def user_logout(request):
 
 @login_required
 def profile(request):
-    user_id = request.user.id
-    user = User.objects.get(id=user_id)
+    user = request.user
     reviews = Review.objects.filter(user=user, active=True)
     comments = Comment.objects.filter(user=user, active=True)
 
@@ -118,18 +117,18 @@ def profile(request):
 
         if User.objects.exclude(pk=user.id).filter(username=username).exists():
             messages.error(request, "Podana nazwa użytkownika już istnieje.")
-            return redirect("profile", user_id=user_id)
+            return redirect("profile")
 
         if User.objects.exclude(pk=user.id).filter(email=email).exists():
             messages.error(request, "Podany adres email już istnieje.")
-            return redirect("profile", user_id=user_id)
+            return redirect("profile")
 
         if check_if_has_cursed_words(username.split()):
             messages.error(
                 request,
                 "Twoja nazwa użytkownika zawiera niedozwolone słowo, spróbuj ponownie.",
             )
-            return redirect("profile", user_id=user_id)
+            return redirect("profile")
 
         user.username = username
         user.email = email
@@ -143,7 +142,7 @@ def profile(request):
         )
         messages.success(request, "Twoje dane konta zostały zmienione.")
 
-        return redirect("profile", user_id=user_id)
+        return redirect("profile")
 
     return render(
         request,
@@ -165,7 +164,7 @@ def change_password(request):
                 [user.email],
                 fail_silently=False,
             )
-            return redirect("profile", user_id=request.user.id)
+            return redirect("profile")
     else:
         form = PasswordChangeForm(request.user)
     return render(request, "account/change_password.html", {"form": form})
@@ -178,8 +177,7 @@ def deactivate_confirm(request):
 
 @login_required
 def deactivate_account(request):
-    user_id = request.user.id
-    user = get_object_or_404(get_user_model(), pk=user_id)
+    user = request.user
 
     user_reviews = Review.objects.filter(user=user)
     for review in user_reviews:

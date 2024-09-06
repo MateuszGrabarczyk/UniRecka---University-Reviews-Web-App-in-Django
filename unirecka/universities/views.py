@@ -276,7 +276,7 @@ class ReviewUpdateView(UpdateView):
         return queryset.filter(user=self.request.user)
 
     def get_success_url(self):
-        return reverse_lazy("profile", kwargs={"user_id": self.request.user.id})
+        return reverse_lazy("profile")
 
 
 class ReviewDeleteView(LoginRequiredMixin, DeleteView):
@@ -284,7 +284,7 @@ class ReviewDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "universities/review_delete.html"
 
     def get_success_url(self):
-        return reverse_lazy("profile", kwargs={"user_id": self.request.user.id})
+        return reverse_lazy("profile")
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -374,7 +374,7 @@ class CommentUpdateView(UpdateView):
         return queryset.filter(user=self.request.user)
 
     def get_success_url(self):
-        return reverse_lazy("profile", kwargs={"user_id": self.request.user.id})
+        return reverse_lazy("profile")
 
 
 class CommentDeleteView(LoginRequiredMixin, DeleteView):
@@ -382,7 +382,7 @@ class CommentDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "universities/comment_delete.html"
 
     def get_success_url(self):
-        return reverse_lazy("profile", kwargs={"user_id": self.request.user.id})
+        return reverse_lazy("profile")
 
     def get_queryset(self):
         queryset = super().get_queryset()
