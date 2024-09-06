@@ -30,25 +30,27 @@ The university page:
    cd unirecka
    ```
 
-3. **Build the Docker Image:**
+3. **Create .env file according to .env.example**
+
+4. **Build the Docker Image:**
 
    ```bash
    docker-compose build
    ```
 
-4. **Run the Docker Container:**
+5. **Run the Docker Container:**
 
    ```bash
    docker-compose up
    ```
 
-5. **Open your browser and visit:**
+6. **Open your browser and visit:**
 
    ```bash
    http://localhost:8000
    ```
 
-6. **Check whether superuser was created correctly:**
+7. **Check whether superuser was created correctly:**
 
    ```bash
    http://localhost:8000/admin
