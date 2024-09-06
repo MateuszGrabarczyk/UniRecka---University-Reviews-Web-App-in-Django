@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block css %}
     <link rel="stylesheet" href="{% static 'main/about.css' %}" />
 {% endblock css %}
+
 {% block title %}
     O nas
 {% endblock title %}
+
 {% block content %}
     <div class="container mt-5">
         <h1>O nas</h1>
@@ -19,20 +22,12 @@
                 </h4>
             </div>
             <div class="div_image">
-                <img src="{% static 'main/about1.svg' %}"
-                     alt=""
-                     class="img-fluid"
-                     height="auto"
-                     width="auto" />
+                <img src="{% static 'main/about1.svg' %}" alt="UniRecka" class="img-fluid" />
             </div>
         </div>
         <div class="container_flex">
             <div class="div_image">
-                <img src="{% static 'main/about2.svg' %}"
-                     alt=""
-                     class="img-fluid"
-                     height="auto"
-                     width="auto" />
+                <img src="{% static 'main/about2.svg' %}" alt="Recenzje" class="img-fluid" />
             </div>
             <div class="div_text">
                 <h4>
@@ -53,11 +48,7 @@
                 </h4>
             </div>
             <div class="div_image">
-                <img src="{% static 'main/about3.svg' %}"
-                     alt=""
-                     class="img-fluid"
-                     height="auto"
-                     width="auto" />
+                <img src="{% static 'main/about3.svg' %}" alt="Transparentność" class="img-fluid" />
             </div>
         </div>
     </div>
