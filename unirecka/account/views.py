@@ -3,13 +3,18 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
 from django.shortcuts import redirect, render
 
 from universities.models import Comment, Review
-from universities.utils import check_if_has_cursed_words
 
 from .forms import LoginForm, UserRegistrationForm
+from .utils import (
+    validate_registration_data,
+    send_registration_email,
+    send_profile_change_email,
+    send_password_change_email,
+    handle_username_and_email_update,
+)
 
 
 def register(request):
@@ -18,45 +23,27 @@ def register(request):
 
     if request.method == "POST":
         user_form = UserRegistrationForm(request.POST)
-        if User.objects.filter(email=request.POST["email"]).exists():
-            messages.error(request, "Podany adres email już istnieje.")
-            return render(request, "account/register.html", {"user_form": user_form})
-        if User.objects.filter(username=request.POST["username"]).exists():
-            messages.error(request, "Podana nazwa użytkownika już istnieje.")
-            return render(request, "account/register.html", {"user_form": user_form})
-        if request.POST["password"] != request.POST["password2"]:
-            messages.error(request, "Podane hasła nie są identyczne.")
-            return render(request, "account/register.html", {"user_form": user_form})
-        if len(request.POST["password"]) < 8:
-            messages.error(request, "Podane hasło musi mieć co najmniej 8 znaków.")
-            return render(request, "account/register.html", {"user_form": user_form})
 
-        if check_if_has_cursed_words(request.POST["username"].split()):
-            messages.error(
-                request,
-                "Twoja nazwa użytkownika zawiera niedozwolone słowo, spróbuj ponownie.",
-            )
+        if not validate_registration_data(request, user_form):
             return render(request, "account/register.html", {"user_form": user_form})
 
         if user_form.is_valid():
             new_user = user_form.save(commit=False)
             new_user.set_password(user_form.cleaned_data["password"])
             new_user.save()
+
             messages.success(
                 request, "Pomyślnie zajerestrowano konto. Możesz już się zalogować."
             )
-            send_mail(
-                "Założono konto w aplikacji UniRecka",
-                "Pomyślnie założono konto, teraz możesz się już zalogować",
-                "stepowa28@gmail.com",
-                [new_user.email],
-                fail_silently=False,
-            )
+
+            send_registration_email(new_user)
+
             return redirect("index")
         else:
             messages.error(request, "Podane dane są nieprawidłowe, spróbuj ponownie.")
     else:
         user_form = UserRegistrationForm()
+
     return render(request, "account/register.html", {"user_form": user_form})
 
 
@@ -69,6 +56,7 @@ def user_login(request):
         if form.is_valid():
             cd = form.cleaned_data
             user = authenticate(username=cd["username"], password=cd["password"])
+
             if user is None:
                 try:
                     if not User.objects.get(username=cd["username"]).is_active:
@@ -85,18 +73,14 @@ def user_login(request):
                     messages.error(
                         request, "Podane dane są nieprawidłowe, spróbuj ponownie."
                     )
-
-            elif user is not None:
+            else:
                 if user.is_active:
                     login(request, user)
                     messages.success(request, "Pomyślnie zalogowano.")
                     return redirect("index")
-            else:
-                messages.error(
-                    request, "Podane dane są nieprawidłowe, spróbuj ponownie."
-                )
     else:
         form = LoginForm()
+
     return render(request, "account/login.html", {"form": form})
 
 
@@ -112,36 +96,9 @@ def profile(request):
     comments = Comment.objects.filter(user=user, active=True)
 
     if request.method == "POST":
-        username = request.POST["username"]
-        email = request.POST["email"]
-
-        if User.objects.exclude(pk=user.id).filter(username=username).exists():
-            messages.error(request, "Podana nazwa użytkownika już istnieje.")
-            return redirect("profile")
-
-        if User.objects.exclude(pk=user.id).filter(email=email).exists():
-            messages.error(request, "Podany adres email już istnieje.")
-            return redirect("profile")
-
-        if check_if_has_cursed_words(username.split()):
-            messages.error(
-                request,
-                "Twoja nazwa użytkownika zawiera niedozwolone słowo, spróbuj ponownie.",
-            )
-            return redirect("profile")
-
-        user.username = username
-        user.email = email
-        user.save()
-        send_mail(
-            "Zmiana danych konta w aplikacji UniRecka",
-            "Pomyślnie zmieniono dane konta. Twoja nazwa użytkownika lub mail zostały zmienione.",
-            "stepowa28@gmail.com",
-            [user.email],
-            fail_silently=False,
-        )
-        messages.success(request, "Twoje dane konta zostały zmienione.")
-
+        if handle_username_and_email_update(request, user):
+            send_profile_change_email(user)
+            messages.success(request, "Twoje dane konta zostały zmienione.")
         return redirect("profile")
 
     return render(
@@ -157,16 +114,11 @@ def change_password(request):
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
-            send_mail(
-                "Zmiana hasła w aplikacji UniRecka",
-                "Pomyślnie zmieniono hasło do konta. Zostałeś wylogowany, zaloguj się ponownie, tym razem z nowym hasłem.",
-                "stepowa28@gmail.com",
-                [user.email],
-                fail_silently=False,
-            )
+            send_password_change_email(user)
             return redirect("profile")
     else:
         form = PasswordChangeForm(request.user)
+
     return render(request, "account/change_password.html", {"form": form})
 
 
@@ -179,15 +131,8 @@ def deactivate_confirm(request):
 def deactivate_account(request):
     user = request.user
 
-    user_reviews = Review.objects.filter(user=user)
-    for review in user_reviews:
-        review.active = False
-        review.save()
-
-    user_comments = Comment.objects.filter(user=user)
-    for comment in user_comments:
-        comment.active = False
-        comment.save()
+    Review.objects.filter(user=user).update(active=False)
+    Comment.objects.filter(user=user).update(active=False)
 
     user.is_active = False
     user.save()
