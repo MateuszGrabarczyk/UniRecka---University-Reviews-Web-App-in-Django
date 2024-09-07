@@ -39,30 +39,28 @@ class Review(models.Model):
         return f"{self.title}"
 
     def save(self, *args, **kwargs):
-        if self.pk:  # Check if the review is an existing instance (not a new one)
+        if self.pk:
             previous_review = Review.objects.get(pk=self.pk)
             if (
                 self.title != previous_review.title
                 or self.description != previous_review.description
             ):
-                # Create a new ReviewHistory entry
                 ReviewHistory.objects.create(
                     review=previous_review,
                     title=previous_review.title,
                     description=previous_review.description,
                     rating=previous_review.rating,
-                    modified_by=self.user,  # Assuming you have a User reference in the Review model
+                    modified_by=self.user,
                 )
         super(Review, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
-        # Create a ReviewHistory entry before deleting the review
         ReviewHistory.objects.create(
             review=self,
             title=self.title,
             description=self.description,
             rating=self.rating,
-            modified_by=self.user,  # Assuming you have a User reference in the Review model
+            modified_by=self.user,
         )
         self.active = False
         self.save()
@@ -95,23 +93,21 @@ class Comment(models.Model):
         return f"{self.description}"
 
     def save(self, *args, **kwargs):
-        if self.pk:  # Check if the comment is an existing instance (not a new one)
+        if self.pk:
             previous_comment = Comment.objects.get(pk=self.pk)
             if self.description != previous_comment.description:
-                # Create a new CommentHistory entry
                 CommentHistory.objects.create(
                     comment=previous_comment,
                     description=previous_comment.description,
-                    modified_by=self.user,  # Assuming you have a User reference in the Comment model
+                    modified_by=self.user,
                 )
         super(Comment, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
-        # Create a CommentHistory entry before deleting the comment
         CommentHistory.objects.create(
             comment=self,
             description=self.description,
-            modified_by=self.user,  # Assuming you have a User reference in the Comment model
+            modified_by=self.user,
         )
         self.active = False
         self.save()

@@ -4,16 +4,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
-
 from universities.models import Comment, Review
 
 from .forms import LoginForm, UserRegistrationForm
 from .utils import (
-    validate_registration_data,
-    send_registration_email,
-    send_profile_change_email,
-    send_password_change_email,
     handle_username_and_email_update,
+    send_password_change_email,
+    send_profile_change_email,
+    send_registration_email,
+    validate_registration_data,
 )
 
 

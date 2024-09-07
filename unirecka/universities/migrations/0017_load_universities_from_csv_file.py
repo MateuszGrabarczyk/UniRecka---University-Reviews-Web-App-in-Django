@@ -1,7 +1,8 @@
 # Import necessary libraries
-from django.db import migrations
 import csv
 import os
+
+from django.db import migrations
 from unidecode import unidecode
 
 CSV_FILE_PATH = os.path.join(os.path.dirname(__file__), "zestawienie.csv")
