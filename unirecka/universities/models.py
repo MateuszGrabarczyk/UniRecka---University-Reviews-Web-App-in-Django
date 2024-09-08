@@ -16,7 +16,7 @@ class University(models.Model):
         verbose_name_plural = "Universities"
 
     def __str__(self):
-        return f"{self.name}"
+        return self.name
 
 
 class Review(models.Model):
@@ -36,7 +36,7 @@ class Review(models.Model):
         verbose_name_plural = "Reviews"
 
     def __str__(self):
-        return f"{self.title}"
+        return self.title
 
     def save(self, *args, **kwargs):
         if self.pk:
@@ -90,7 +90,7 @@ class Comment(models.Model):
         verbose_name_plural = "Comments"
 
     def __str__(self):
-        return f"{self.description}"
+        return self.description
 
     def save(self, *args, **kwargs):
         if self.pk:
@@ -135,7 +135,7 @@ class ReviewReport(models.Model):
         verbose_name_plural = "ReviewReports"
 
     def __str__(self):
-        return f"{self.description}"
+        return self.description
 
 
 class CommentReport(models.Model):
@@ -148,4 +148,4 @@ class CommentReport(models.Model):
         verbose_name_plural = "CommentReports"
 
     def __str__(self):
-        return f"{self.description}"
+        return self.description
