@@ -19,6 +19,7 @@ from unidecode import unidecode
 
 from .models import (
     Comment,
+    CommentHistory,
     CommentReport,
     Review,
     ReviewHistory,
@@ -486,4 +487,21 @@ class ReviewHistoryListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["review"] = get_object_or_404(Review, id=self.kwargs["pk"])
+        return context
+
+
+class CommentHistoryListView(ListView):
+    model = CommentHistory
+    template_name = "universities/comment_history_list.html"
+    context_object_name = "comment_history_list"
+
+    def get_queryset(self):
+        comment_id = self.kwargs["pk"]
+        comment = get_object_or_404(Comment, id=comment_id)
+
+        return CommentHistory.objects.filter(comment=comment).order_by("-modified_date")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["comment"] = get_object_or_404(Comment, id=self.kwargs["pk"])
         return context

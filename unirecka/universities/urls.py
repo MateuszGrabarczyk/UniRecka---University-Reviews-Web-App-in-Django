@@ -44,6 +44,11 @@ urlpatterns = [
         name="comment_update",
     ),
     path(
+        "review/comment/history/<int:pk>/",
+        login_required(views.CommentHistoryListView.as_view()),
+        name="comment_history",
+    ),
+    path(
         "review/delete/comment/<int:pk>/",
         login_required(views.CommentDeleteView.as_view()),
         name="comment_delete",

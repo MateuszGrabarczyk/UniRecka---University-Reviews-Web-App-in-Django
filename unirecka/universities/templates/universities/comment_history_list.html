@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Historia edycji recenzji
+{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'universities/review_history.css' %}">
+{% endblock css %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="p-0">Historia komentarza: {{ comment.description|truncatechars:30 }}</h1>
+
+        {% if comment_history_list %}
+                {% for history in comment_history_list %}
+                    <div class="card bg-dark text-light mt-4">
+                        <h5 class="card-header border-bottom">Data: {{ history.modified_date|date:"d.m.Y H:i" }}</h5>
+                        <div class="card-body">
+                            <p class="card-text">Opis: {{ history.description }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+        {% else %}
+            <p class="p-0 mt-4">Brak historii dla tego komentarza.</p>
+        {% endif %}
+    </div>
+{% endblock content %}
