@@ -8,10 +8,23 @@ from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
 from django.views.decorators.http import require_POST
-from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    UpdateView,
+    ListView,
+)
 from unidecode import unidecode
 
-from .models import Comment, CommentReport, Review, ReviewReport, University
+from .models import (
+    Comment,
+    CommentReport,
+    Review,
+    ReviewHistory,
+    ReviewReport,
+    University,
+)
 from .utils import check_if_has_cursed_words
 
 
@@ -457,3 +470,20 @@ def review_like(request):
         except Review.DoesNotExist:
             pass
     return JsonResponse({"status": "ok"})
+
+
+class ReviewHistoryListView(ListView):
+    model = ReviewHistory
+    template_name = "universities/review_history_list.html"
+    context_object_name = "review_history_list"
+
+    def get_queryset(self):
+        review_id = self.kwargs["pk"]
+        review = get_object_or_404(Review, id=review_id)
+
+        return ReviewHistory.objects.filter(review=review).order_by("-modified_date")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["review"] = get_object_or_404(Review, id=self.kwargs["pk"])
+        return context

@@ -8,6 +8,11 @@ urlpatterns = [
     path("<int:pk>/", views.UniversityDetailView.as_view(), name="university_detail"),
     path("review/<int:pk>/", views.ReviewDetailView.as_view(), name="review_detail"),
     path(
+        "review/history/<int:pk>/",
+        login_required(views.ReviewHistoryListView.as_view()),
+        name="review_history",
+    ),
+    path(
         "review/create/<int:university_id>/",
         login_required(views.ReviewCreateView.as_view()),
         name="review_create",

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Historia edycji recenzji
+{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'universities/review_history.css' %}">
+{% endblock css %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="p-0">Historia recenzji: {{ review.title }}</h1>
+
+        {% if review_history_list %}
+                {% for history in review_history_list %}
+                    <div class="card bg-dark text-light mt-4">
+                        <h5 class="card-header border-bottom">Data: {{ history.modified_date|date:"d.m.Y H:i" }}</h5>
+                        <div class="card-body">
+                            <h5 class="card-title mb-2">Tytuł: {{ history.title }}</h5>
+                            <h6 class="card-subtitle mb-1">Ocena:
+                                {% if history.rating == 5 %}
+                                    ⭐⭐⭐⭐⭐
+                                {% elif history.rating == 4 %}
+                                    ⭐⭐⭐⭐☆
+                                {% elif history.rating == 3 %}
+                                    ⭐⭐⭐☆☆
+                                {% elif history.rating == 2 %}
+                                    ⭐⭐☆☆☆
+                                {% elif history.rating == 1 %}
+                                    ⭐☆☆☆☆
+                                {% endif %}
+                            </h6>
+                            <p class="card-text">Opis: {{ history.description }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+        {% else %}
+            <div class="row mt-4">
+                <p class="p-0 mt-4">Brak historii dla tej recenzji.</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock content %}

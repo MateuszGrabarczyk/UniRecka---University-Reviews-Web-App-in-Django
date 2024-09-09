@@ -1,0 +1,42 @@
+.container {
+    width: 90%;
+}
+
+@media only screen and (min-width: 1280px) {
+    .container {
+        width: 50%;
+    }
+}
+
+.card {
+    color: white;
+    border: 1px solid white;
+}
+
+.border-bottom {
+    border-bottom: 1px solid white;
+}
+
+@media (max-width: 412px) {
+    .btn-danger:not(#deactivate) {
+        padding: 0px;
+        width: 30px;
+        height: 30px;
+    }
+
+    a.btn.btn-light {
+        margin-top: 16px;
+    }
+}
+
+@media (max-width: 544px) and (min-width: 413px) {
+    .review-edit {
+        margin-top: 16px;
+    }
+}
+
+@media (max-width: 592px) and (min-width: 413px) {
+    .comment-edit {
+        margin-top: 16px;
+    }
+}
