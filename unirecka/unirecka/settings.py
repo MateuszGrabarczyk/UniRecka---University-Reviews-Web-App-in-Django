@@ -61,6 +61,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
 ]
 
 ROOT_URLCONF = "unirecka.urls"
@@ -118,18 +119,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
-
-LANGUAGE_CODE = "en-us"
-
-TIME_ZONE = "UTC"
-
-USE_I18N = True
-
-USE_TZ = True
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -160,3 +149,18 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
 if not EMAIL_HOST_USER or not EMAIL_HOST_PASSWORD:
     raise ValueError("Missing email environment variables!")
+
+LANGUAGE_CODE = "pl"  # Default language
+LANGUAGES = [  # Supported languages
+    ("en", "English"),
+    ("pl", "Polish"),
+]
+
+TIME_ZONE = "UTC"
+
+USE_I18N = True  # Enable Django’s translation system
+USE_L10N = True  # Format data (dates, numbers) according to locale
+
+LOCALE_PATHS = [  # Path where translations will be stored
+    os.path.join(BASE_DIR, "locale"),
+]

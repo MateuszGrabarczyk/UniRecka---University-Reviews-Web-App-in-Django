@@ -15,7 +15,7 @@ RUN pip install -r requirements.txt
 
 # Install PostgreSQL client dependencies (required for psycopg2)
 RUN apt-get update \
-    && apt-get install -y postgresql-client gcc python3-dev libpq-dev \
+    && apt-get install -y postgresql-client gcc python3-dev libpq-dev gettext \
     && apt-get clean
 
 # Copy project
@@ -25,4 +25,4 @@ COPY . /code/
 EXPOSE 8000
 
 # Apply migrations and run the server
-CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py migrate && django-admin compilemessages && python manage.py runserver 0.0.0.0:8000"]
