@@ -52,3 +52,59 @@ msgstr ""
 
 msgid "Transparentność"
 msgstr "Transparency"
+
+#: Translations for homepage.html
+
+msgid "Recenzje innych."
+msgstr "Other reviews."
+
+msgid "Szukasz opinii studentów lub absolwentów na temat Twojej wymarzonej uczelni? Zapoznaj się z opiniami na temat wielu uczelni w Polsce."
+msgstr "Looking for student or alumni reviews about your dream university? Check out reviews for many universities in Poland."
+
+msgid "Przeglądaj recenzje"
+msgstr "Browse reviews"
+
+msgid "Dlaczego warto?"
+msgstr "Why it's worth it?"
+
+msgid "Nasza aplikacja pomaga uczniom podjąć decyzję odnośnie wyboru uczelni. Dzięki opiniom naszych użytkowników portal UniRecka daje możliwość poznania uczelni 'od kuchni'."
+msgstr "Our app helps students make informed decisions about choosing a university. Thanks to our users' reviews, UniRecka allows you to get an insider’s view of universities."
+
+msgid "Dołącz do naszej społeczności"
+msgstr "Join our community"
+
+msgid "Jesteś studentem lub absolwentem uczelni wyższej w Polsce?"
+msgstr "Are you a student or graduate of a university in Poland?"
+
+msgid "Dodaj recenzję o uczelni, na której studiowałeś."
+msgstr "Add a review about the university where you studied."
+
+msgid "Załóż konto już dziś i dodaj recenzję o uczelni, na której studiowałeś."
+msgstr "Create an account today and add a review about the university where you studied."
+
+msgid "Załóż konto"
+msgstr "Create account"
+
+msgid "Trzy najlepsze uczelnie w Polsce według"
+msgstr "The three best universities in Poland according to the"
+
+msgid "Zobacz recenzje"
+msgstr "See reviews"
+
+msgid "Uniwersytet Jagielloński w Krakowie"
+msgstr "Jagiellonian University"
+
+msgid "Uniwersytet Jagielloński, założony w 1364 roku, jest jednym z najstarszych i najbardziej renomowanych uniwersytetów w Europie. Zlokalizowany w Krakowie, Polska, UJ odznacza się bogatą historią, doskonałą reputacją i silnym akademickim zapleczem."
+msgstr "Jagiellonian University, founded in 1364, is one of the oldest and most renowned universities in Europe. Located in Krakow, Poland, JU boasts a rich history, excellent reputation, and strong academic background."
+
+msgid "Uniwersytet Warszawski"
+msgstr "University of Warsaw"
+
+msgid "UW oferuje szeroki wybór kierunków i programów studiów na różnych dziedzinach w ramach swoich 20 wydziałów. Uczelnia jest znana z wysokiej jakości nauczania, zaangażowania w badania naukowe i promowania intelektualnego rozwoju studentów."
+msgstr "UW offers a wide range of courses and study programs in various fields within its 20 faculties. The university is known for its high-quality teaching, commitment to research, and promotion of students' intellectual development."
+
+msgid "Akademia Górniczo-Hutnicza w Krakowie"
+msgstr "AGH University of Science and Technology in Krakow"
+
+msgid "AGH oferuje szeroki wybór kierunków studiów związanych z naukami technicznymi, inżynieryjnymi oraz naukami przyrodniczymi. Uczelnia jest znana z wysokiego poziomu nauczania i praktycznego podejścia do kształcenia, które przygotowuje studentów do skutecznego działania w praktyce."
+msgstr "AGH offers a wide range of study programs related to technical sciences, engineering, and natural sciences. The university is known for its high level of teaching and practical approach to education, preparing students for effective action in practice."
