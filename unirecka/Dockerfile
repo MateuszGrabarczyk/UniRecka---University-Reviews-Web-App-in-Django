@@ -25,4 +25,4 @@ COPY . /code/
 EXPOSE 8000
 
 # Apply migrations and run the server
-CMD ["sh", "-c", "python manage.py migrate && django-admin compilemessages && python manage.py runserver 0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py migrate && django-admin compilemessages --locale=en && python manage.py runserver 0.0.0.0:8000"]

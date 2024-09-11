@@ -12,8 +12,8 @@ from django.views.generic import (
     CreateView,
     DeleteView,
     DetailView,
-    UpdateView,
     ListView,
+    UpdateView,
 )
 from unidecode import unidecode
 

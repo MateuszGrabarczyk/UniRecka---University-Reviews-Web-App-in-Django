@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
 {% block css %}
     <link rel="stylesheet" href={% static "account/login.css" %}>
 {% endblock css %}
 
 {% block title %}
-    Zaloguj się
+    {% trans "Zaloguj się" %}
 {% endblock title %}
 
 {% block content %}
@@ -17,25 +17,25 @@
             </div>
         {% endfor %}
         <div class="row">
-            <h1 class="p-0">Zaloguj się</h1>
+            <h1 class="p-0">{% trans "Zaloguj się" %}</h1>
         </div>
         <form action="." method="post" name="LoginForm">
             {% csrf_token %}
             <div class="row mt-2">
-                <label class="p-0 mb-1" for="id_username">Nazwa użytkownika</label>
+                <label class="p-0 mb-1" for="id_username">{% trans "Nazwa użytkownika" %}</label>
                 <input type="text" id="id_username" name="username" class="form-control text-bg-dark" placeholder="Nazwa użytkownika" required maxlength="150" />
             </div>
             <div class="row mt-2">
-                <label class="p-0 mb-1" for="id_password">Hasło</label>
+                <label class="p-0 mb-1" for="id_password">{% trans "Hasło" %}</label>
                 <input type="password" class="form-control text-bg-dark" placeholder="Hasło" name="password" id="id_password" required />
             </div>
             <div class="row mt-4 d-flex justify-content-center align-items-center">
-                <input class="btn btn-primary" type="submit" value="Zaloguj się">
+                <input class="btn btn-primary" type="submit" value="{% trans "Zaloguj się" %}">
             </div>
         </form>
         <div class="row mt-4 d-flex justify-content-center align-items-center text-center">
             <p>
-                Zapomniałeś hasła? Zresetuj je <a href="{% url 'password_reset' %}">tutaj.</a>
+                {% trans "Zapomniałeś hasła? Zresetuj je" %} <a href="{% url 'password_reset' %}">{% trans "tutaj" %}.</a>
             </p>
         </div>
     </div>

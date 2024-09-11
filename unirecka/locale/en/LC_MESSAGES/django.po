@@ -108,3 +108,255 @@ msgstr "AGH University of Science and Technology in Krakow"
 
 msgid "AGH oferuje szeroki wybór kierunków studiów związanych z naukami technicznymi, inżynieryjnymi oraz naukami przyrodniczymi. Uczelnia jest znana z wysokiego poziomu nauczania i praktycznego podejścia do kształcenia, które przygotowuje studentów do skutecznego działania w praktyce."
 msgstr "AGH offers a wide range of study programs related to technical sciences, engineering, and natural sciences. The university is known for its high level of teaching and practical approach to education, preparing students for effective action in practice."
+
+#: Translations for navbar (base.html)
+
+msgid "Strona główna"
+msgstr "Home"
+
+msgid "Uczelnie"
+msgstr "Universities"
+
+msgid "Zaloguj się"
+msgstr "Log in"
+
+msgid "Zarejestruj się"
+msgstr "Register"
+
+msgid "Mój profil"
+msgstr "My profile"
+
+msgid "Wyloguj się"
+msgstr "Log out"
+
+#: Translations for login.html
+
+msgid "Nazwa użytkownika"
+msgstr "Username"
+
+msgid "Hasło"
+msgstr "Password"
+
+msgid "Zapomniałeś hasła? Zresetuj je"
+msgstr "Forgot your password? Reset it"
+
+msgid "tutaj"
+msgstr "here"
+
+msgid "Twoje konto jest nieaktywne. Jeśli chcesz je ponownie aktywować, skontaktuj się z administratorem pod adresem email: stepowa28@gmail.com."
+msgstr "Your account is inactive. If you want to reactivate it, please contact the administrator at: stepowa28@gmail.com."
+
+msgid "Podane dane są nieprawidłowe, spróbuj ponownie."
+msgstr "The provided credentials are incorrect, please try again."
+
+msgid "Pomyślnie zalogowano."
+msgstr "Successfully logged in."
+
+#: Translations for register.html
+
+msgid "Adres email"
+msgstr "Email address"
+
+msgid "Powtórz hasło"
+msgstr "Repeat password"
+
+msgid "Masz już konto? Zaloguj się"
+msgstr "Already have an account? Log in"
+
+msgid "Pomyślnie zajerestrowano konto. Możesz już się zalogować."
+msgstr "Account successfully registered. You can now log in."
+
+msgid "Podany adres email już istnieje."
+msgstr "The provided email address already exists."
+
+msgid "Podana nazwa użytkownika już istnieje."
+msgstr "The provided username already exists."
+
+msgid "Podane hasła nie są identyczne."
+msgstr "The passwords do not match."
+
+msgid "Podane hasło musi mieć co najmniej 8 znaków."
+msgstr "The password must be at least 8 characters long."
+
+msgid "Twoja nazwa użytkownika zawiera niedozwolone słowo, spróbuj ponownie."
+msgstr "Your username contains an invalid word, please try again."
+
+msgid "Założono konto w aplikacji UniRecka"
+msgstr "Account created in the UniRecka app"
+
+msgid "Pomyślnie założono konto, teraz możesz się już zalogować"
+msgstr "The account was successfully created, you can now log in"
+
+msgid "Zmiana danych konta w aplikacji UniRecka"
+msgstr "Account details changed in the UniRecka app"
+
+msgid "Pomyślnie zmieniono dane konta. Twoja nazwa użytkownika lub mail zostały zmienione."
+msgstr "Account details successfully changed. Your username or email has been updated."
+
+msgid "Zmiana hasła w aplikacji UniRecka"
+msgstr "Password change in the UniRecka app"
+
+msgid "Pomyślnie zmieniono hasło do konta. Zostałeś wylogowany, zaloguj się ponownie, tym razem z nowym hasłem."
+msgstr "The password has been successfully changed. You have been logged out, please log in again with the new password."
+
+#: Translations for change_password.html
+
+msgid "Hasła nie są identyczne."
+msgstr "The passwords do not match."
+
+msgid "Hasło musi zawierać przynajmniej 8 znaków."
+msgstr "The password must contain at least 8 characters."
+
+msgid "Hasło jest zbyt podobne do nazwy użytkownika."
+msgstr "The password is too similar to the username."
+
+msgid "Hasło jest zbyt popularne."
+msgstr "The password is too common."
+
+msgid "Hasło składa się tylko z cyfr."
+msgstr "The password is entirely numeric."
+
+msgid "Twoje stare hasło jest nieprawidłowe, spróbuj ponownie."
+msgstr "Your old password was entered incorrectly, please try again."
+
+msgid "Stare hasło"
+msgstr "Old Password"
+
+msgid "Nowe hasło"
+msgstr "New Password"
+
+msgid "Powtórz nowe hasło"
+msgstr "Confirm New Password"
+
+#: Translations for deactivate_account.html
+
+msgid "Dezaktywuj swój profil"
+msgstr "Deactivate your profile"
+
+msgid "Konto zdezaktywowane"
+msgstr "Account deactivated"
+
+msgid "Twoje konto zostało zdezaktywowane."
+msgstr "Your account has been deactivated."
+
+msgid "Aby ponownie aktywować swoje konto, skontaktuj się z administratorem strony pod adresem email: stepowa28@gmail.com"
+msgstr "To reactivate your account, please contact the site administrator at the email address: stepowa28@gmail.com"
+
+#: Translations for deactivate_confirm.html
+
+msgid "Dezaktywuj konto"
+msgstr "Deactivate account"
+
+msgid "Czy na pewno chcesz dezaktywować swoje konto?"
+msgstr "Are you sure you want to deactivate your account?"
+
+msgid "Potwierdź dezaktywację swojego konta"
+msgstr "Confirm account deactivation"
+
+#: Translations for password_reset_complete.html
+
+msgid "Pomyślnie zmieniono hasło"
+msgstr "Password successfully changed"
+
+#: Translations for password_reset_confirm.html
+
+msgid "Zmień hasło"
+msgstr "Change password"
+
+msgid "Podaj hasło dwukrotnie, aby zmienić hasło."
+msgstr "Enter the password twice to change it."
+
+msgid "Link jest nieprawidłowy, spróbuj ponownie."
+msgstr "The link is invalid, please try again."
+
+#: Translations for password_reset_done.html
+
+msgid "Sprawdź skrzynkę mailową"
+msgstr "Check your inbox"
+
+msgid "Email ze zresetowaniem hasła został wysłany."
+msgstr "A password reset email has been sent."
+
+msgid "Sprawdź swoją skrzynkę mailową oraz spam."
+msgstr "Check your inbox and spam folder."
+
+#: Translations for password_reset.html
+
+msgid "Zresetuj hasło"
+msgstr "Reset password"
+
+msgid "Zapomniałeś hasła?"
+msgstr "Forgot your password?"
+
+msgid "Podaj adres email, aby zresetować hasło."
+msgstr "Enter your email address to reset your password."
+
+msgid "Wyślij email"
+msgstr "Send email"
+
+#: Translations for password_reset_email.html
+
+msgid "Otrzymaliśmy żądanie wyzerowania hasła dla użytkownika używającego adresu email"
+msgstr "We received a request to reset the password for the user using the email address"
+
+msgid "Kliknij poniższy link, aby zresetować hasło:"
+msgstr "Click the link below to reset your password:"
+
+#: Translations for profile.html
+
+msgid "Witaj,"
+msgstr "Hello,"
+
+msgid "Możesz edytować dane twojego konta lub"
+msgstr "You can edit your account details or"
+
+msgid "zmienić hasło."
+msgstr "change the password."
+
+msgid "Edytuj dane profilu"
+msgstr "Edit profile details"
+
+msgid "Twoje recenzje"
+msgstr "Your reviews"
+
+msgid "Ocena:"
+msgstr "Rating:"
+
+msgid "Przejdź do uczelni"
+msgstr "Go to university"
+
+msgid "Edytuj recenzję"
+msgstr "Edit review"
+
+msgid "Historia zmian"
+msgstr "History of changes"
+
+msgid "Usuń recenzję"
+msgstr "Delete review"
+
+msgid "Nie dodano jeszcze żadnej opinii. Aby to zrobić, przejdź do zakładki"
+msgstr "No reviews added yet. To do so, go to the section"
+
+msgid "uczelnie."
+msgstr "universities."
+
+msgid "Twoje komentarze"
+msgstr "Your comments"
+
+msgid "Przejdź do recenzji"
+msgstr "Go to review"
+
+msgid "Edytuj komentarz"
+msgstr "Edit comment"
+
+msgid "Usuń komentarz"
+msgstr "Delete comment"
+
+msgid "Nie dodano jeszcze żadnego komentarza. Aby to zrobić, przejdź do zakładki"
+msgstr "No comments added yet. To do so, go to the section"
+
+msgid "Dezaktywuj swoje konto"
+msgstr "Deactivate your account"
+
+msgid "Twoje dane konta zostały zmienione."
+msgstr "Your account details have been updated."

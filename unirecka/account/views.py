@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
+from django.utils.translation import gettext as _
+
 from universities.models import Comment, Review
 
 from .forms import LoginForm, UserRegistrationForm
@@ -32,14 +34,16 @@ def register(request):
             new_user.save()
 
             messages.success(
-                request, "Pomyślnie zajerestrowano konto. Możesz już się zalogować."
+                request, _("Pomyślnie zajerestrowano konto. Możesz już się zalogować.")
             )
 
             send_registration_email(new_user)
 
             return redirect("index")
         else:
-            messages.error(request, "Podane dane są nieprawidłowe, spróbuj ponownie.")
+            messages.error(
+                request, _("Podane dane są nieprawidłowe, spróbuj ponownie.")
+            )
     else:
         user_form = UserRegistrationForm()
 
@@ -61,21 +65,24 @@ def user_login(request):
                     if not User.objects.get(username=cd["username"]).is_active:
                         messages.error(
                             request,
-                            "Twoje konto jest nieaktywne. Jeśli chcesz je ponownie aktywować, skontaktuj się z administratorem pod adresem email: stepowa28@gmail.com",
+                            _(
+                                "Twoje konto jest nieaktywne. Jeśli chcesz je ponownie aktywować, skontaktuj się z administratorem pod adresem email: stepowa28@gmail.com."
+                            ),
                         )
                         return render(request, "account/login.html", {"form": form})
                     else:
                         messages.error(
-                            request, "Podane dane są nieprawidłowe, spróbuj ponownie."
+                            request,
+                            _("Podane dane są nieprawidłowe, spróbuj ponownie."),
                         )
                 except User.DoesNotExist:
                     messages.error(
-                        request, "Podane dane są nieprawidłowe, spróbuj ponownie."
+                        request, _("Podane dane są nieprawidłowe, spróbuj ponownie.")
                     )
             else:
                 if user.is_active:
                     login(request, user)
-                    messages.success(request, "Pomyślnie zalogowano.")
+                    messages.success(request, _("Pomyślnie zalogowano."))
                     return redirect("index")
     else:
         form = LoginForm()
@@ -97,7 +104,7 @@ def profile(request):
     if request.method == "POST":
         if handle_username_and_email_update(request, user):
             send_profile_change_email(user)
-            messages.success(request, "Twoje dane konta zostały zmienione.")
+            messages.success(request, _("Twoje dane konta zostały zmienione."))
         return redirect("profile")
 
     return render(
