@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
 {% block css %}
     <link rel="stylesheet" href="{% static 'main/styles.css' %}" />
@@ -20,9 +20,9 @@
 
     <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" aria-label="Slide 1" aria-current="true"></button>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" class="active" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" aria-label="{% trans 'Slide 1' %}" aria-current="true"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" class="active" aria-label="{% trans 'Slide 2' %}"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="{% trans 'Slide 3' %}"></button>
         </div>
         <div class="carousel-inner padding-top">
             <div class="carousel-item">
@@ -31,9 +31,9 @@
                 </svg>
                 <div class="container">
                     <div class="carousel-caption text-start">
-                        <h1>Recenzje innych.</h1>
-                        <p>Szukasz opinii studentów lub absolwentów na temat Twojej wymarzonej uczelni? Zapoznaj się z opiniami na temat wielu uczelni w Polsce.</p>
-                        <p><a class="btn btn-lg btn-primary" href="{% url 'university_list' %}">Przeglądaj recenzje</a></p>
+                        <h1>{% trans "Recenzje innych." %}</h1>
+                        <p>{% trans "Szukasz opinii studentów lub absolwentów na temat Twojej wymarzonej uczelni? Zapoznaj się z opiniami na temat wielu uczelni w Polsce." %}</p>
+                        <p><a class="btn btn-lg btn-primary" href="{% url 'university_list' %}">{% trans "Przeglądaj recenzje" %}</a></p>
                     </div>
                 </div>
             </div>
@@ -43,9 +43,9 @@
                 </svg>
                 <div class="container">
                     <div class="carousel-caption">
-                        <h1>Dlaczego warto?</h1>
-                        <p>Nasza aplikacja pomaga uczniom podjąć decyzję odnośnie wyboru uczelni. Dzięki opiniom naszych użytkowników portal UniRecka daje możliwość poznania uczelni "od kuchni".</p>
-                        <p><a class="btn btn-lg btn-primary" href="{% url 'about' %}">O nas</a></p>
+                        <h1>{% trans "Dlaczego warto?" %}</h1>
+                        <p>{% trans "Nasza aplikacja pomaga uczniom podjąć decyzję odnośnie wyboru uczelni. Dzięki opiniom naszych użytkowników portal UniRecka daje możliwość poznania uczelni 'od kuchni'." %}</p>
+                        <p><a class="btn btn-lg btn-primary" href="{% url 'about' %}">{% trans "O nas" %}</a></p>
                     </div>
                 </div>
             </div>
@@ -55,17 +55,17 @@
                 </svg>
                 <div class="container">
                     <div class="carousel-caption text-end">
-                        <h1>Dołącz do naszej społeczności</h1>
+                        <h1>{% trans "Dołącz do naszej społeczności" %}</h1>
                         <p>
-                            Jesteś studentem lub absolwentem uczelni wyższej w Polsce?
+                            {% trans "Jesteś studentem lub absolwentem uczelni wyższej w Polsce?" %}
                             {% if user.is_authenticated %}
-                                Dodaj recenzję o uczelni, na której studiowałeś.
+                                {% trans "Dodaj recenzję o uczelni, na której studiowałeś." %}
                             {% else %}
-                                Załóż konto już dziś i dodaj recenzję o uczelni, na której studiowałeś.
+                                {% trans "Załóż konto już dziś i dodaj recenzję o uczelni, na której studiowałeś." %}
                             {% endif %}
                         </p>
                         {% if not user.is_authenticated %}
-                            <p><a class="btn btn-lg btn-primary" href="{% url 'register' %}">Załóż konto</a></p>
+                            <p><a class="btn btn-lg btn-primary" href="{% url 'register' %}">{% trans "Załóż konto" %}</a></p>
                         {% endif %}
                     </div>
                 </div>
@@ -73,11 +73,11 @@
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
+            <span class="visually-hidden">{% trans "Previous" %}</span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
+            <span class="visually-hidden">{% trans "Next" %}</span>
         </button>
     </div>
 
@@ -85,26 +85,26 @@
 
     <div class="container mt-5">
         <h1 class="mb-5">
-            Trzy najlepsze uczelnie w Polsce według <a href="https://www.shanghairanking.com/rankings/arwu/2022" target="_blank">Academic Ranking of World Universities</a>
+            {% trans "Trzy najlepsze uczelnie w Polsce według" %} <a href="https://www.shanghairanking.com/rankings/arwu/2022" target="_blank">{% trans "Academic Ranking of World Universities" %}</a>
         </h1>
         <div class="row">
             <div class="col-lg-4 d-flex flex-column align-items-center">
-                <img src="{% static 'main/jag.jpg' %}" alt="Uniwersytet Jagielloński w Krakowie" class="bd-placeholder-img rounded-circle" width="140" height="140" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
-                <h2 class="fw-normal">Uniwersytet Jagielloński w Krakowie</h2>
-                <p>Uniwersytet Jagielloński, założony w 1364 roku, jest jednym z najstarszych i najbardziej renomowanych uniwersytetów w Europie. Zlokalizowany w Krakowie, Polska, UJ odznacza się bogatą historią, doskonałą reputacją i silnym akademickim zapleczem.</p>
-                <a class="btn btn-primary mb-4" href="{% url 'university_detail' jg.pk %}">Zobacz recenzje</a>
+                <img src="{% static 'main/jag.jpg' %}" alt="{% trans 'Uniwersytet Jagielloński w Krakowie' %}" class="bd-placeholder-img rounded-circle" width="140" height="140" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <h2 class="fw-normal">{% trans "Uniwersytet Jagielloński w Krakowie" %}</h2>
+                <p>{% trans "Uniwersytet Jagielloński, założony w 1364 roku, jest jednym z najstarszych i najbardziej renomowanych uniwersytetów w Europie. Zlokalizowany w Krakowie, Polska, UJ odznacza się bogatą historią, doskonałą reputacją i silnym akademickim zapleczem." %}</p>
+                <a class="btn btn-primary mb-4" href="{% url 'university_detail' jg.pk %}">{% trans "Zobacz recenzje" %}</a>
             </div>
             <div class="col-lg-4 d-flex flex-column align-items-center">
-                <img src="{% static 'main/uw.jpg' %}" alt="Uniwersytet Warszawski" class="bd-placeholder-img rounded-circle" width="140" height="140" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
-                <h2 class="fw-normal">Uniwersytet Warszawski</h2>
-                <p>UW oferuje szeroki wybór kierunków i programów studiów na różnych dziedzinach w ramach swoich 20 wydziałów. Uczelnia jest znana z wysokiej jakości nauczania, zaangażowania w badania naukowe i promowania intelektualnego rozwoju studentów.</p>
-                <a class="btn btn-primary mb-4" href="{% url 'university_detail' uw.pk %}">Zobacz recenzje</a>
+                <img src="{% static 'main/uw.jpg' %}" alt="{% trans 'Uniwersytet Warszawski' %}" class="bd-placeholder-img rounded-circle" width="140" height="140" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <h2 class="fw-normal">{% trans "Uniwersytet Warszawski" %}</h2>
+                <p>{% trans "UW oferuje szeroki wybór kierunków i programów studiów na różnych dziedzinach w ramach swoich 20 wydziałów. Uczelnia jest znana z wysokiej jakości nauczania, zaangażowania w badania naukowe i promowania intelektualnego rozwoju studentów." %}</p>
+                <a class="btn btn-primary mb-4" href="{% url 'university_detail' uw.pk %}">{% trans "Zobacz recenzje" %}</a>
             </div>
             <div class="col-lg-4 d-flex flex-column align-items-center">
-                <img src="{% static 'main/agh.jpg' %}" alt="Akademia Górniczo-Hutnicza w Krakowie" class="bd-placeholder-img rounded-circle" width="140" height="140" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
-                <h2 class="fw-normal">Akademia Górniczo-Hutnicza w Krakowie</h2>
-                <p>AGH oferuje szeroki wybór kierunków studiów związanych z naukami technicznymi, inżynieryjnymi oraz naukami przyrodniczymi. Uczelnia jest znana z wysokiego poziomu nauczania i praktycznego podejścia do kształcenia, które przygotowuje studentów do skutecznego działania w praktyce.</p>
-                <a class="btn btn-primary mb-4" href="{% url 'university_detail' agh.pk %}">Zobacz recenzje</a>
+                <img src="{% static 'main/agh.jpg' %}" alt="{% trans 'Akademia Górniczo-Hutnicza w Krakowie' %}" class="bd-placeholder-img rounded-circle" width="140" height="140" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <h2 class="fw-normal">{% trans "Akademia Górniczo-Hutnicza w Krakowie" %}</h2>
+                <p>{% trans "AGH oferuje szeroki wybór kierunków studiów związanych z naukami technicznymi, inżynieryjnymi oraz naukami przyrodniczymi. Uczelnia jest znana z wysokiego poziomu nauczania i praktycznego podejścia do kształcenia, które przygotowuje studentów do skutecznego działania w praktyce." %}</p>
+                <a class="btn btn-primary mb-4" href="{% url 'university_detail' agh.pk %}">{% trans "Zobacz recenzje" %}</a>
             </div>
         </div>
     </div>

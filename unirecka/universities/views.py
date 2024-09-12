@@ -7,13 +7,14 @@ from django.db.models import Avg, Count, Q
 from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
+from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 from django.views.generic import (
     CreateView,
     DeleteView,
     DetailView,
-    UpdateView,
     ListView,
+    UpdateView,
 )
 from unidecode import unidecode
 
@@ -41,15 +42,23 @@ def university_list(request):
 
     cities = universities.values_list("city", flat=True).distinct()
     voivodeships = universities.values_list("voivodeship", flat=True).distinct()
+
     if name != "":
         universities = universities.filter(search_name__icontains=unidecode(name))
+
     if city != "":
         if voivodeship == "":
             universities = universities.filter(city=city)
         elif voivodeship != city_and_voivodeship[city]:
             messages.warning(
                 request,
-                f"Wybrano województwo, w którym nie znajduje się miasto {city}. Domyślnie wybrano województwo {city_and_voivodeship[city].capitalize()}.",
+                _(
+                    "Wybrano województwo, w którym nie znajduje się miasto %(city)s. Domyślnie wybrano województwo %(voivodeship)s."
+                )
+                % {
+                    "city": city,
+                    "voivodeship": city_and_voivodeship[city].capitalize(),
+                },
             )
             universities = universities.filter(
                 voivodeship=city_and_voivodeship[city], city=city
@@ -58,10 +67,6 @@ def university_list(request):
             universities = universities.annotate(
                 avg_rating=Avg("review__rating", filter=Q(review__active=True))
             )
-            for university in universities:
-                print(
-                    f"University: {university.name}, Average Rating: {university.avg_rating}"
-                )
 
             return render(
                 request,
@@ -170,7 +175,9 @@ class UniversityDetailView(DetailView):
                 end_date = temp
                 messages.info(
                     self.request,
-                    "Pierwsza data jest większa od drugiej, dlatego poprawiono kolejność.",
+                    _(
+                        "Pierwsza data jest większa od drugiej, dlatego poprawiono kolejność."
+                    ),
                 )
 
         if start_date:
@@ -220,7 +227,8 @@ class ReviewCreateView(CreateView):
 
         if check_if_has_cursed_words(title.split()):
             messages.error(
-                self.request, "Twój tytuł zawiera niedozwolone słowo, spróbuj ponownie."
+                self.request,
+                _("Twój tytuł zawiera niedozwolone słowo, spróbuj ponownie."),
             )
             return HttpResponseRedirect(
                 reverse_lazy(
@@ -231,7 +239,8 @@ class ReviewCreateView(CreateView):
 
         if check_if_has_cursed_words(description.split()):
             messages.error(
-                self.request, "Twój opis zawiera niedozwolone słowo, spróbuj ponownie."
+                self.request,
+                _("Twój opis zawiera niedozwolone słowo, spróbuj ponownie."),
             )
             return HttpResponseRedirect(
                 reverse_lazy(
@@ -240,13 +249,15 @@ class ReviewCreateView(CreateView):
                 )
             )
 
-        messages.success(self.request, "Pomyślnie dodano recenzję.")
+        messages.success(self.request, _("Pomyślnie dodano recenzję."))
         return super().form_valid(form)
 
     def form_invalid(self, form):
         messages.error(
             self.request,
-            "Wystąpił błąd podczas dodawania opinii. Sprawdź podane dane. Tytuł nie może być zbyt długi.",
+            _(
+                "Wystąpił błąd podczas dodawania opinii. Sprawdź podane dane. Tytuł nie może być zbyt długi."
+            ),
         )
         return super().form_invalid(form)
 
@@ -262,7 +273,8 @@ class ReviewUpdateView(UpdateView):
 
         if check_if_has_cursed_words(title.split()):
             messages.error(
-                self.request, "Twój tytuł zawiera niedozwolone słowo, spróbuj ponownie."
+                self.request,
+                _("Twój tytuł zawiera niedozwolone słowo, spróbuj ponownie."),
             )
             return HttpResponseRedirect(
                 reverse_lazy("review_update", kwargs={"pk": self.object.id})
@@ -270,18 +282,21 @@ class ReviewUpdateView(UpdateView):
 
         if check_if_has_cursed_words(description.split()):
             messages.error(
-                self.request, "Twój opis zawiera niedozwolone słowo, spróbuj ponownie."
+                self.request,
+                _("Twój opis zawiera niedozwolone słowo, spróbuj ponownie."),
             )
             return HttpResponseRedirect(
                 reverse_lazy("review_update", kwargs={"pk": self.object.id})
             )
-        messages.success(self.request, "Pomyślnie edytowano recenzję.")
+        messages.success(self.request, _("Pomyślnie edytowano recenzję."))
         return super().form_valid(form)
 
     def form_invalid(self, form):
         messages.error(
             self.request,
-            "Wystąpił błąd podczas edytowania opinii. Sprawdź podane dane. Tytuł nie może być zbyt długi.",
+            _(
+                "Wystąpił błąd podczas edytowania opinii. Sprawdź podane dane. Tytuł nie może być zbyt długi."
+            ),
         )
         return super().form_invalid(form)
 
@@ -305,7 +320,7 @@ class ReviewDeleteView(LoginRequiredMixin, DeleteView):
         return queryset.filter(user=self.request.user)
 
     def form_valid(self, form):
-        messages.success(self.request, "Pomyślnie usunięto recenzję.")
+        messages.success(self.request, _("Pomyślnie usunięto recenzję."))
         return super().form_valid(form)
 
 
@@ -340,19 +355,19 @@ class CommentCreateView(CreateView):
         if check_if_has_cursed_words(description.split()):
             messages.error(
                 self.request,
-                "Twój komentarz zawiera niedozwolone słowo, spróbuj ponownie.",
+                _("Twój komentarz zawiera niedozwolone słowo, spróbuj ponownie."),
             )
             return HttpResponseRedirect(
                 reverse("comment_create", kwargs={"review_id": review.id})
             )
 
-        messages.success(self.request, "Pomyślnie dodano komentarz")
+        messages.success(self.request, _("Pomyślnie dodano komentarz"))
         return super().form_valid(form)
 
     def form_invalid(self, form):
         messages.error(
             self.request,
-            "Wystąpił błąd podczas dodawania komentarza. Opis może być za długi.",
+            _("Wystąpił błąd podczas dodawania komentarza. Opis może być za długi."),
         )
         return super().form_invalid(form)
 
@@ -368,18 +383,20 @@ class CommentUpdateView(UpdateView):
         if check_if_has_cursed_words(description.split()):
             messages.error(
                 self.request,
-                "Twój komentarz zawiera niedozwolone słowo, spróbuj ponownie.",
+                _("Twój komentarz zawiera niedozwolone słowo, spróbuj ponownie."),
             )
             return HttpResponseRedirect(
                 reverse("comment_update", kwargs={"pk": self.object.id})
             )
-        messages.success(self.request, "Pomyślnie edytowano komentarz.")
+        messages.success(self.request, _("Pomyślnie edytowano komentarz."))
         return super().form_valid(form)
 
     def form_invalid(self, form):
         messages.error(
             self.request,
-            "Wystąpił błąd podczas edytowania komentarza. Sprawdź podane dane. Opis nie może być zbyt długi.",
+            _(
+                "Wystąpił błąd podczas edytowania komentarza. Sprawdź podane dane. Opis nie może być zbyt długi."
+            ),
         )
         return super().form_invalid(form)
 
@@ -403,7 +420,7 @@ class CommentDeleteView(LoginRequiredMixin, DeleteView):
         return queryset.filter(user=self.request.user)
 
     def form_valid(self, form):
-        messages.success(self.request, "Pomyślnie usunięto komentarz.")
+        messages.success(self.request, _("Pomyślnie usunięto komentarz."))
         return super().form_valid(form)
 
 
@@ -418,14 +435,18 @@ class ReviewReportCreateView(CreateView):
         form.instance.review = review
         messages.success(
             self.request,
-            "Pomyślnie zgłoszono recenzję. Zgłoszenie zostanie sprawdzone jak najszybciej",
+            _(
+                "Pomyślnie zgłoszono recenzję. Zgłoszenie zostanie sprawdzone jak najszybciej"
+            ),
         )
         return super().form_valid(form)
 
     def form_invalid(self, form):
         messages.error(
             self.request,
-            "Wystąpił błąd podczas zgłaszania formularza. Sprawdź podane dane. Opis nie może być zbyt długi.",
+            _(
+                "Wystąpił błąd podczas zgłaszania formularza. Sprawdź podane dane. Opis nie może być zbyt długi."
+            ),
         )
         return super().form_invalid(form)
 
@@ -443,14 +464,18 @@ class CommentReportCreateView(CreateView):
         form.instance.comment = comment
         messages.success(
             self.request,
-            "Pomyślnie zgłoszono komentarz. Zgłoszenie zostanie sprawdzone jak najszybciej",
+            _(
+                "Pomyślnie zgłoszono komentarz. Zgłoszenie zostanie sprawdzone jak najszybciej."
+            ),
         )
         return super().form_valid(form)
 
     def form_invalid(self, form):
         messages.error(
             self.request,
-            "Wystąpił błąd podczas zgłaszania formularza. Sprawdź podane dane. Opis nie może być zbyt długi.",
+            _(
+                "Wystąpił błąd podczas zgłaszania formularza. Sprawdź podane dane. Opis nie może być zbyt długi."
+            ),
         )
         return super().form_invalid(form)
 

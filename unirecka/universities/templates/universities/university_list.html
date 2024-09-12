@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
 {% block css %}
     <link rel="stylesheet" href={% static "universities/university_list.css" %}>
 {% endblock css %}
 
 {% block title %}
-    Uczelnie
+    {% trans "Uczelnie" %}
 {% endblock title %}
 
 {% block content %}
@@ -17,37 +17,37 @@
             </div>
         {% endfor %}
         <div class="row mx-2">
-            <h1 class="p-0">Wyszukaj uczelnię</h1>
+            <h1 class="p-0">{% trans "Wyszukaj uczelnię" %}</h1>
         </div>
         <div class="row mx-2">
             <form action="." method="get" name="SearchForm">
                 <div class="row mt-2">
-                    <label class="p-0 mb-1">Nazwa uczelni</label>
+                    <label class="p-0 mb-1">{% trans "Nazwa uczelni" %}</label>
                     <input type="text"
                            id="id_name"
                            name="name"
                            value="{{ name_value }}"
                            class="form-control text-bg-dark"
                            maxlength="150"
-                           placeholder="Nazwa użytkownika" />
+                           placeholder="{% trans 'Nazwa uczelni' %}" />
                 </div>
                 <div class="row mt-2">
-                    <label class="p-0 mb-1">Miasto</label>
+                    <label class="p-0 mb-1">{% trans "Miasto" %}</label>
                     <select class="form-select text-bg-dark"
-                            aria-label="Wybierz miasto"
+                            aria-label="{% trans 'Wybierz miasto' %}"
                             name="city">
-                        <option value="">Wszystkie miasta</option>
+                        <option value="">{% trans "Wszystkie miasta" %}</option>
                         {% for city in cities %}
                             <option {% if city_value == city %}selected{% endif %} value="{{ city }}">{{ city }}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="row mt-2">
-                    <label class="p-0 mb-1">Województwo</label>
+                    <label class="p-0 mb-1">{% trans "Województwo" %}</label>
                     <select class="form-select text-bg-dark"
-                            aria-label="Wybierz województwo"
+                            aria-label="{% trans 'Wybierz województwo' %}"
                             name="voivodeship">
-                        <option value="">Wszystkie województwa</option>
+                        <option value="">{% trans "Wszystkie województwa" %}</option>
                         {% for voivodeship in voivodeships %}
                             <option {% if voivodeship_value == voivodeship %}selected{% endif %}
                                     value="{{ voivodeship }}">{{ voivodeship|capfirst }}</option>
@@ -64,7 +64,7 @@
                              viewBox="0 0 16 16">
                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                         </svg>
-                        Szukaj uczelni
+                        {% trans "Szukaj uczelni" %}
                     </button>
                 </div>
             </form>
@@ -76,7 +76,7 @@
                 <div class="card bg-dark">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ university.name }}</h5>
-                        <p class="card-text">Lokalizacja:</p>
+                        <p class="card-text">{% trans "Lokalizacja" %}:</p>
                         <p>{{ university.city }}, {{ university.voivodeship | capfirst }}</p>
                         {% if university.avg_rating %}
                             {% if university.avg_rating >= 4.5 %}
@@ -91,16 +91,16 @@
                                 <p class="mt-auto">⭐☆☆☆☆</p>
                             {% endif %}
                         {% else %}
-                            <p class="mt-auto">Brak ocen</p>
+                            <p class="mt-auto">{% trans "Brak ocen" %}</p>
                         {% endif %}
-                        <a href="{{ university.link }}" class="btn btn-primary button mt-auto">Przejdź do strony uczelni</a>
+                        <a href="{{ university.link }}" class="btn btn-primary button mt-auto">{% trans "Przejdź do strony uczelni" %}</a>
                         <a href="{% url 'university_detail' university.pk %}"
-                           class="btn btn-primary mt-2">Zobacz recenzje</a>
+                           class="btn btn-primary mt-2">{% trans "Zobacz recenzje" %}</a>
                     </div>
                 </div>
             {% endfor %}
         {% else %}
-            <h1>Nie znaleziono uczelni o takich kryteriach</h1>
+            <h1>{% trans "Nie znaleziono uczelni o takich kryteriach" %}</h1>
         {% endif %}
     </div>
 {% endblock content %}

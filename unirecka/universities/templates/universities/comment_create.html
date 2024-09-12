@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
 {% block css %}
-    <link rel="stylesheet" href={% static "universities/report_review.css" %}>
+    <link rel="stylesheet" href="{% static 'universities/report_review.css' %}">
 {% endblock css %}
 
 {% block title %}
-    Dodaj komentarz
+    {% trans "Dodaj komentarz" %}
 {% endblock title %}
 
 {% block content %}
@@ -17,7 +17,7 @@
             </div>
         {% endfor %}
         <div class="row">
-            <h1 class="p-0 mb-2">Dodaj komentarz</h1>
+            <h1 class="p-0 mb-2">{% trans "Dodaj komentarz" %}</h1>
         </div>
         <form method="post">
             {% csrf_token %}
@@ -26,12 +26,12 @@
                           id="id_description"
                           name="description"
                           class="form-control text-bg-dark text-area"
-                          placeholder="Opis"
+                          placeholder="{% trans "Opis" %}"
                           required
                           maxlength="3000"></textarea>
             </div>
             <div class="row mt-4 d-flex justify-content-center align-items-center">
-                <input class="btn btn-primary" type="submit" value="Dodaj komentarz">
+                <input class="btn btn-primary" type="submit" value="{% trans "Dodaj komentarz" %}">
             </div>
         </form>
     </div>

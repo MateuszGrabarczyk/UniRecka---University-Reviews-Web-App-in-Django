@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
 {% block css %}
     <link rel="stylesheet" href="{% static "universities/university_detail.css" %}">
 {% endblock css %}
 
 {% block title %}
-    Uczelnia
+    {% trans "Uczelnia" %}
 {% endblock title %}
 
 {% block content %}
@@ -18,11 +18,11 @@
         {% endfor %}
         <div class="row">
             <h1 class="mb-3">{{ university.name }}</h1>
-            <h3 class="mb-3">Lokalizacja: {{ university.city }}, {{ university.voivodeship | capfirst }}</h3>
+            <h3 class="mb-3">{% trans "Lokalizacja" %}: {{ university.city }}, {{ university.voivodeship | capfirst }}</h3>
         </div>
         <div class="row">
             <h4 class="mb-3">
-                Chcesz dowiedzieć się więcej na temat tej uczelni? <a href="{{ university.link }}">Przejdź do strony uczelni.</a>
+                {% trans "Chcesz dowiedzieć się więcej na temat tej uczelni?" %} <a href="{{ university.link }}">{% trans "Przejdź do strony uczelni" %}.</a>
             </h4>
         </div>
         <hr class="mt-3">
@@ -38,28 +38,29 @@
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
                 </svg>
-            Dodaj recenzję o uczelni</a>
+                {% trans "Dodaj recenzję o uczelni" %}
+            </a>
         {% endif %}
-        <h3 class="mb-3">Jesteś ciekawy, jaką opinię mają studenci i absolwenci na temat tej uczelni? Zerknij niżej!</h3>
+        <h3 class="mb-3">{% trans "Jesteś ciekawy, jaką opinię mają studenci i absolwenci na temat tej uczelni? Zerknij niżej!" %}</h3>
         {% if has_reviews %}
             <form action="." method="get" name="SortForm">
-                <h3 class="p-0 mb-2">Sortowanie</h3>
+                <h3 class="p-0 mb-2">{% trans "Sortowanie" %}</h3>
                 <div class="d-flex">
                     <select class="form-select text-bg-dark sort" name="sort_method">
-                        <option value="newest" {% if sort_method == "newest" %}selected{% endif %}>Najnowsze</option>
-                        <option value="oldest" {% if sort_method == "oldest" %}selected{% endif %}>Najstarsze</option>
+                        <option value="newest" {% if sort_method == "newest" %}selected{% endif %}>{% trans "Najnowsze" %}</option>
+                        <option value="oldest" {% if sort_method == "oldest" %}selected{% endif %}>{% trans "Najstarsze" %}</option>
                         <option value="most_comments"
                                 {% if sort_method == "most_comments" %}selected{% endif %}>
-                            Z największą ilością komentarzy
+                            {% trans "Z największą ilością komentarzy" %}
                         </option>
                         <option value="most_likes"
                                 {% if sort_method == "most_likes" %}selected{% endif %}>
-                            Z największą ilością polubień
+                            {% trans "Z największą ilością polubień" %}
                         </option>
                         <option value="best_ratings"
-                                {% if sort_method == "best_ratings" %}selected{% endif %}>Od najwyższych ocen</option>
+                                {% if sort_method == "best_ratings" %}selected{% endif %}>{% trans "Od najwyższych ocen" %}</option>
                         <option value="worst_ratings"
-                                {% if sort_method == "worst_ratings" %}selected{% endif %}>Od najniższych ocen</option>
+                                {% if sort_method == "worst_ratings" %}selected{% endif %}>{% trans "Od najniższych ocen" %}</option>
                     </select>
                     <input name="start_date"
                            type="date"
@@ -78,7 +79,7 @@
                              viewBox="0 0 16 16">
                             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                         </svg>
-                        Sortuj recenzje
+                        {% trans "Sortuj recenzje" %}
                     </button>
                 </div>
             </form>
@@ -88,7 +89,7 @@
                 <h5 class="card-header ">{{ review.title }}</h5>
                 <div class="card-body">
                     <h5 class="card-title">
-                        Ocena:
+                        {% trans "Ocena" %}:
                         {% if review.rating == 5 %}
                             ⭐⭐⭐⭐⭐
                         {% elif review.rating == 4 %}
@@ -124,14 +125,15 @@
                                  viewBox="0 0 16 16">
                                 <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
                             </svg>
-                        Zobacz komentarze ({{ review.num_active_comments }})</a>
+                            {% trans "Zobacz komentarze" %} ({{ review.num_active_comments }})
+                        </a>
                     </p>
                     <div class="row">
                         <div class="col-6">
                             {% with total_likes=review.users_like.count %}
                                 <span class="count-{{ review.id }} btn btn-light me-2">
                                     <span class="total">{{ total_likes }}</span>
-                                    polubień
+                                    {% trans "polubień" %}
                                 </span>
                             {% endwith %}
                             {% if user.is_authenticated %}
@@ -140,16 +142,16 @@
                                    data-id="{{ review.id }}"
                                    data-action="{% if request.user in review.users_like.all %}un{% endif %}like">
                                     {% if request.user not in review.users_like.all %}
-                                        👍 Lubię
+                                        👍 {% trans "Lubię" %}
                                     {% else %}
-                                        👎 Nie lubię
+                                        👎 {% trans "Nie lubię" %}
                                     {% endif %}
                                 </a>
                             {% endif %}
                         </div>
                         <div class="col-6 d-flex justify-content-end align-items-end">
                             <a href="{% url 'review_report_create' review.pk %}"
-                               title="Zgłoś recenzję"
+                               title="{% trans 'Zgłoś recenzję' %}"
                                class="btn btn-danger">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                      width="16"
@@ -166,9 +168,9 @@
             </div>
         {% empty %}
             {% if has_reviews %}
-                <p class="mt-2">Nie znaleziono recenzji z tego przedziału czasowego.</p>
+                <p class="mt-2">{% trans "Nie znaleziono recenzji z tego przedziału czasowego." %}</p>
             {% else %}
-                <p class="mt-2">Brak opinii dla tej uczelni.</p>
+                <p class="mt-2">{% trans "Brak opinii dla tej uczelni." %}</p>
             {% endif %}
         {% endfor %}
     </div>
@@ -187,7 +189,7 @@
     // Toggle data-action
     button.data('action', previousAction == 'like' ? 'unlike' : 'like');
     // Toggle link text
-    button.text(previousAction == 'like' ? '👎 Nie lubię' : '👍 Lubię');
+    button.text(previousAction == 'like' ? '👎 {% trans "Nie lubię" %}' : '👍 {% trans "Lubię" %}');
     // Update total likes
     countSpan.text(previousAction == 'like' ? previousLikes + 1 : previousLikes - 1);
     }

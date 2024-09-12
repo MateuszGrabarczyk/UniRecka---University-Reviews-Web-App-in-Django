@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
 {% block title %}
-    Historia edycji recenzji
+    {% trans "Historia edycji komentarza" %}
 {% endblock title %}
 
 {% block css %}
@@ -11,19 +11,19 @@
 
 {% block content %}
     <div class="container mt-5">
-        <h1 class="p-0">Historia komentarza: {{ comment.description|truncatechars:30 }}</h1>
+        <h1 class="p-0">{% trans "Historia komentarza" %}: {{ comment.description|truncatechars:30 }}</h1>
 
         {% if comment_history_list %}
                 {% for history in comment_history_list %}
                     <div class="card bg-dark text-light mt-4">
-                        <h5 class="card-header border-bottom">Data: {{ history.modified_date|date:"d.m.Y H:i" }}</h5>
+                        <h5 class="card-header border-bottom">{% trans "Data" %}: {{ history.modified_date|date:"d.m.Y H:i" }}</h5>
                         <div class="card-body">
-                            <p class="card-text">Opis: {{ history.description }}</p>
+                            <p class="card-text">{% trans "Opis" %}: {{ history.description }}</p>
                         </div>
                     </div>
                 {% endfor %}
         {% else %}
-            <p class="p-0 mt-4">Brak historii dla tego komentarza.</p>
+            <p class="p-0 mt-4">{% trans "Brak historii dla tego komentarza." %}</p>
         {% endif %}
     </div>
 {% endblock content %}
