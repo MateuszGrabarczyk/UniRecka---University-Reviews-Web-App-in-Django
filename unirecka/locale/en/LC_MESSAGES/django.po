@@ -360,3 +360,242 @@ msgstr "Deactivate your account"
 
 msgid "Twoje dane konta zostały zmienione."
 msgstr "Your account details have been updated."
+
+#: Translations for university_list.html
+
+msgid "Wyszukaj uczelnię"
+msgstr "Search for a university"
+
+msgid "Nazwa uczelni"
+msgstr "University name"
+
+msgid "Miasto"
+msgstr "City"
+
+msgid "Wybierz miasto"
+msgstr "Select city"
+
+msgid "Wszystkie miasta"
+msgstr "All cities"
+
+msgid "Województwo"
+msgstr "Voivodeship"
+
+msgid "Wybierz województwo"
+msgstr "Select voivodeship"
+
+msgid "Wszystkie województwa"
+msgstr "All voivodeships"
+
+msgid "Szukaj uczelni"
+msgstr "Search university"
+
+msgid "Lokalizacja"
+msgstr "Location"
+
+msgid "Brak ocen"
+msgstr "No ratings"
+
+msgid "Przejdź do strony uczelni"
+msgstr "Go to university page"
+
+msgid "Nie znaleziono uczelni o takich kryteriach"
+msgstr "No universities found with these criteria"
+
+msgid "Wybrano województwo, w którym nie znajduje się miasto %(city)s. Domyślnie wybrano województwo %(voivodeship)s."
+msgstr "You have selected a voivodeship where the city %(city)s is not located. The default voivodeship is %(voivodeship)s."
+
+#: Translations for university_detail.html
+
+msgid "Chcesz dowiedzieć się więcej na temat tej uczelni?"
+msgstr "Want to know more about this university?"
+
+msgid "Dodaj recenzję o uczelni"
+msgstr "Add a review about the university"
+
+msgid "Jesteś ciekawy, jaką opinię mają studenci i absolwenci na temat tej uczelni? Zerknij niżej!"
+msgstr "Curious about what students and alumni think about this university? Take a look below!"
+
+msgid "Sortowanie"
+msgstr "Sorting"
+
+msgid "Najnowsze"
+msgstr "Newest"
+
+msgid "Najstarsze"
+msgstr "Oldest"
+
+msgid "Z największą ilością komentarzy"
+msgstr "Most commented"
+
+msgid "Z największą ilością polubień"
+msgstr "Most liked"
+
+msgid "Od najwyższych ocen"
+msgstr "Highest ratings"
+
+msgid "Od najniższych ocen"
+msgstr "Lowest ratings"
+
+msgid "Sortuj recenzje"
+msgstr "Sort reviews"
+
+msgid "Ocena"
+msgstr "Rating"
+
+msgid "Zobacz komentarze"
+msgstr "See comments"
+
+msgid "polubień"
+msgstr "likes"
+
+msgid "Lubię"
+msgstr "Like"
+
+msgid "Nie lubię"
+msgstr "Dislike"
+
+msgid "Zgłoś recenzję"
+msgstr "Report review"
+
+msgid "Nie znaleziono recenzji z tego przedziału czasowego."
+msgstr "No reviews found for this time period."
+
+msgid "Brak opinii dla tej uczelni."
+msgstr "No reviews for this university."
+
+msgid "Pierwsza data jest większa od drugiej, dlatego poprawiono kolejność."
+msgstr "The first date is later than the second, so the order has been corrected."
+
+#: Translations for review_create.html
+
+msgid "Dodaj recenzję"
+msgstr "Add a review"
+
+msgid "Tytuł"
+msgstr "Title"
+
+msgid "Opis"
+msgstr "Description"
+
+msgid "Wybierz ocenę"
+msgstr "Select rating"
+
+msgid "Twój tytuł zawiera niedozwolone słowo, spróbuj ponownie."
+msgstr "Your title contains an inappropriate word, please try again."
+
+msgid "Twój opis zawiera niedozwolone słowo, spróbuj ponownie."
+msgstr "Your description contains an inappropriate word, please try again."
+
+msgid "Pomyślnie dodano recenzję."
+msgstr "Review successfully added."
+
+msgid "Wystąpił błąd podczas dodawania opinii. Sprawdź podane dane. Tytuł nie może być zbyt długi."
+msgstr "An error occurred while adding the review. Check the provided data. The title cannot be too long."
+
+#: Translations for review_delete.html
+
+msgid "Czy na pewno chcesz usunąć tę recenzję?"
+msgstr "Are you sure you want to delete this review?"
+
+msgid "Potwierdź usunięcie recenzji"
+msgstr "Confirm review deletion"
+
+msgid "Pomyślnie usunięto recenzję."
+msgstr "Review successfully deleted."
+
+#: Translations for review_detail.html
+
+msgid "Opinia o uczelni"
+msgstr "University review"
+
+msgid "Komentarze"
+msgstr "Comments"
+
+msgid "Dodaj komentarz"
+msgstr "Add a comment"
+
+msgid "Zgłoś komentarz"
+msgstr "Report comment"
+
+msgid "Brak komentarzy dla tej opinii."
+msgstr "No comments for this review."
+
+#: Translations for review_update.html
+
+msgid "Pomyślnie edytowano recenzję."
+msgstr "Review successfully edited."
+
+msgid "Wystąpił błąd podczas edytowania opinii. Sprawdź podane dane. Tytuł nie może być zbyt długi."
+msgstr "An error occurred while editing the review. Check the provided data. The title cannot be too long."
+
+#: Translations for review_history_list.html
+
+msgid "Historia edycji recenzji"
+msgstr "Review edit history"
+
+msgid "Historia recenzji"
+msgstr "Review history"
+
+msgid "Data"
+msgstr "Date"
+
+msgid "Brak historii dla tej recenzji."
+msgstr "No history for this review."
+
+#: Translations for reviewreport_create.html
+
+msgid "Opisz zgłoszenie"
+msgstr "Describe the report"
+
+msgid "Pomyślnie zgłoszono recenzję. Zgłoszenie zostanie sprawdzone jak najszybciej"
+msgstr "The review has been successfully reported. The report will be checked as soon as possible."
+
+msgid "Wystąpił błąd podczas zgłaszania formularza. Sprawdź podane dane. Opis nie może być zbyt długi."
+msgstr "An error occurred while submitting the report. Please check the provided information. The description cannot be too long."
+
+#: Translations for comment_create.html
+
+msgid "Twój komentarz zawiera niedozwolone słowo, spróbuj ponownie."
+msgstr "Your comment contains a prohibited word, please try again."
+
+msgid "Wystąpił błąd podczas dodawania komentarza. Opis może być za długi."
+msgstr "An error occurred while adding the comment. The description might be too long."
+
+msgid "Pomyślnie dodano komentarz"
+msgstr "Comment successfully added"
+
+#: Translations for comment_delete.html
+
+msgid "Czy na pewno chcesz usunąć ten komentarz?"
+msgstr "Are you sure you want to delete this comment?"
+
+msgid "Potwierdź usunięcie komentarza"
+msgstr "Confirm deletion of comment"
+
+msgid "Pomyślnie usunięto komentarz."
+msgstr "Comment successfully deleted."
+
+#: Translations for comment_update.html
+
+msgid "Pomyślnie edytowano komentarz."
+msgstr "Comment successfully edited."
+
+msgid "Wystąpił błąd podczas edytowania komentarza. Sprawdź podane dane. Opis nie może być zbyt długi."
+msgstr "An error occurred while editing the comment. Check the provided data. The description might be too long."
+
+#: Translations for comment_history_list.html
+
+msgid "Historia edycji komentarza"
+msgstr "Review edit history"
+
+msgid "Historia komentarza"
+msgstr "Comment history"
+
+msgid "Brak historii dla tego komentarza."
+msgstr "No history for this comment."
+
+#: Translations for commentreport_create.html
+
+msgid "Pomyślnie zgłoszono komentarz. Zgłoszenie zostanie sprawdzone jak najszybciej."
+msgstr "Comment successfully reported. The report will be reviewed as soon as possible."

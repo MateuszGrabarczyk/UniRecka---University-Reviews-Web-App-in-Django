@@ -1,8 +1,8 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static i18n %}
 
 {% block title %}
-    Dodaj recenzję
+    {% trans "Dodaj recenzję" %}
 {% endblock title %}
 
 {% block css %}
@@ -17,37 +17,37 @@
             </div>
         {% endfor %}
         <div class="row">
-            <h1 class="p-0">Dodaj recenzję</h1>
+            <h1 class="p-0">{% trans "Dodaj recenzję" %}</h1>
         </div>
         <form method="post">
             {% csrf_token %}
             <div class="row mt-2">
-                <label for="id_title" class="form-label p-0">Tytuł</label>
+                <label for="id_title" class="form-label p-0">{% trans "Tytuł" %}</label>
                 <input type="text"
                        id="id_title"
                        name="title"
                        class="form-control text-bg-dark"
-                       placeholder="Tytuł"
+                       placeholder="{% trans 'Tytuł' %}"
                        required
                        maxlength="150" />
             </div>
             <div class="row mt-2">
-                <label for="id_description" class="form-label p-0">Opis</label>
+                <label for="id_description" class="form-label p-0">{% trans "Opis" %}</label>
                 <textarea type="text"
                           id="id_description"
                           name="description"
                           class="form-control text-bg-dark text-area"
-                          placeholder="Tytuł"
+                          placeholder="{% trans 'Opis' %}"
                           required
                           maxlength="3000"></textarea>
             </div>
             <div class="row mt-2">
-                <label for="id_rating" class="form-label p-0">Ocena</label>
+                <label for="id_rating" class="form-label p-0">{% trans "Ocena" %}</label>
                 <select class="form-select text-bg-dark"
-                        aria-label="Wybierz ocenę"
+                        aria-label="{% trans 'Wybierz ocenę' %}"
                         name="rating"
                         required>
-                    <option selected value="">Wybierz ocenę</option>
+                    <option selected value="">{% trans 'Wybierz ocenę' %}</option>
                     <option value="1">⭐☆☆☆☆</option>
                     <option value="2">⭐⭐☆☆☆</option>
                     <option value="3">⭐⭐⭐☆☆</option>
@@ -56,7 +56,7 @@
                 </select>
             </div>
             <div class="row mt-4 d-flex justify-content-center align-items-center">
-                <input class="btn btn-primary" type="submit" value="Dodaj recenzję">
+                <input class="btn btn-primary" type="submit" value="{% trans 'Dodaj recenzję' %}">
             </div>
         </form>
     </div>
