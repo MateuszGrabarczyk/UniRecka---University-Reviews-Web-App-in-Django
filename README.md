@@ -1,5 +1,10 @@
 # UniRecka---University-Reviews-Web-App-in-Django
 
+## This project now supports English and Polish languages!
+You can switch the language in the top right corner:
+
+![image](https://github.com/user-attachments/assets/7897f6a5-69d5-4772-ba66-94d173a04f28)
+
 This project was done for my university thesis, therefore it's made in Polish.
 The goal of this application is to help future students choose university.
 Students can browse and search universities, browse the reviews that current students or people who graduated added.
